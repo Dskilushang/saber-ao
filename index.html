@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SABER AO - O Jogo de Quiz de Angola</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Segoe UI', sans-serif; }
+        body { background: linear-gradient(135deg, #0f1115 0%, #1a1c23 100%); color: white; display: flex; justify-content: center; align-items: center; min-height: 100vh; padding: 20px; }
+        .game-container { background: #222530; border-radius: 20px; width: 100%; max-width: 450px; padding: 30px; box-shadow: 0 10px 30px rgba(0,0,0,0.5); text-align: center; border: 2px solid #ffcc00; }
+        h1 { color: #ffcc00; margin-bottom: 20px; font-size: 2rem; font-weight: 800; text-transform: uppercase; }
+        .score-box { background: #161820; padding: 10px; border-radius: 10px; margin-bottom: 25px; font-weight: bold; color: #ff3366; }
+        .question-text { font-size: 1.3rem; margin-bottom: 30px; font-weight: 600; min-height: 80px; }
+        .options-grid { display: flex; flex-direction: column; gap: 15px; }
+        .option-btn { background: #2d3142; color: white; border: 2px solid #3d435c; padding: 15px 20px; border-radius: 12px; font-size: 1.1rem; cursor: pointer; font-weight: 600; transition: 0.2s ease; width: 100%; text-align: left; }
+        .option-btn:hover { background: #3d435c; border-color: #ffcc00; transform: translateY(-2px); }
+        .next-btn { background: #ffcc00; color: #0f1115; border: none; padding: 15px 30px; border-radius: 30px; font-size: 1.1rem; font-weight: bold; cursor: pointer; margin-top: 30px; display: none; width: 100%; transition: 0.2s; }
+        .next-btn:hover { background: #ffe066; }
+    </style>
+</head>
+<body>
+
+    <div class="game-container">
+        <h1>SABER AO 🇦🇴</h1>
+        <div class="score-box">Pontuação: <span id="score">0</span></div>
+        <div id="quiz">
+            <div class="question-text" id="question">A carregar a pergunta...</div>
+            <div class="options-grid" id="options">
+                <!-- As opções vão aparecer aqui através do JavaScript -->
+            </div>
+            <button class="next-btn" id="next-button">Próxima Pergunta</button>
+        </div>
+    </div>
+
+    <script>
+        const questions = [
+            {
+                question: "Qual é a capital oficial da República de Angola?",
+                answers: ["Benguela", "Huambo", "Luanda", "Lubango"],
+                correct: 2
+            },
+            {
+                question: "Que província angolana é mundialmente famosa pela planta Welwitschia Mirabilis?",
+                answers: ["Namibe", "Cabinda", "Uíge", "Moxico"],
+                correct: 0
+            },
+            {
+                question: "Na gíria angolana, o que significa a palavra 'Kamba'?",
+                answers: ["Dinheiro", "Amigo", "Comida", "Festa"],
+                correct: 1
+            }
+        ];
+
+        let currentQuestionIndex = 0;
+        let score = 0;
+
+        const questionElement = document.getElementById('question');
+        const optionsElement = document.getElementById('options');
+        const nextButton = document.getElementById('next-button');
+        const scoreElement = document.getElementById('score');
+
+        function startQuiz() {
+            currentQuestionIndex = 0;
+            score = 0;
+            scoreElement.innerText = score;
+            nextButton.style.display = 'none';
+            showQuestion();
+        }
+
+        function showQuestion() {
+            resetState();
+            let currentQuestion = questions[currentQuestionIndex];
+            questionElement.innerText = currentQuestion.question;
+
+            currentQuestion.answers.forEach((answer, index) => {
+                const button = document.createElement('button');
+                button.innerText = answer;
+                button.classList.add('option-btn');
+                button.addEventListener('click', () => selectAnswer(index));
+                optionsElement.appendChild(button);
+            });
+        }
+
+        function resetState() {
+            nextButton.style.display = 'none';
+            while (optionsElement.firstChild) {
+                optionsElement.removeChild(optionsElement.firstChild);
+            }
+        }
+
+        function selectAnswer(selectedIndex) {
+            let currentQuestion = questions[currentQuestionIndex];
+            const buttons = optionsElement.querySelectorAll('.option-btn');
+            
+            buttons.forEach((button, idx) => {
+                button.disabled = true;
+                if (idx === currentQuestion.correct) {
+                    button.style.background = '#2e7d32'; // Verde para correto
+                    button.style.borderInterface = '2px solid #4caf50';
+                } else if (idx === selectedIndex) {
+                    button.style.background = '#c62828'; // Vermelho para errado
+                    button.style.borderInterface = '2px solid #ef5350';
+                }
+            });
+
+            if (selectedIndex === currentQuestion.correct) {
+                score += 10;
+                scoreElement.innerText = score;
+            }
+
+            nextButton.style.display = 'block';
+        }
+
+        nextButton.addEventListener('click', () => {
+            currentQuestionIndex++;
+            if (currentQuestionIndex < questions.length) {
+                showQuestion();
+            } else {
+                questionElement.innerText = `Fim do Quiz! Conseguiste ${score} pontos!`;
+                resetState();
+                nextButton.innerText = "Jogar Novamente";
+                nextButton.style.display = 'block';
+                nextButton.onclick = startQuiz;
+            }
+        });
+
+        startQuiz();
+    </script>
+</body>
+</html>
