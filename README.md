@@ -1,0 +1,1 @@
+# SABER AO - Jogo Mobile de Cultura Geral de Angola. Desenvolvido por DSKILUSHANG.
