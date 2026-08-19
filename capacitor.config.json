@@ -1,0 +1,10 @@
+{
+  "appId": "com.dskilushang.quizangola",
+  "appName": "SABER AO",
+  "webDir": "dist",
+  "bundledWebRuntime": false,
+  "server": {
+    "url": "",
+    "cleartext": false
+  }
+}
