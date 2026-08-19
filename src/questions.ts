@@ -64,7 +64,7 @@ const questions: Question[] = [
   {
     id: 9,
     question:
-      "Quel genre de danse/lente romantique est originaire d'Angola et est devenu populaire dans les bals à travers le monde?",
+      "Quel genre de danse lente et romantique est originaire d'Angola et est devenu populaire dans les bals à travers le monde?",
     options: ["Zouk", "Kizomba", "Semba", "Tango"],
     correct: "Kizomba",
   },
@@ -72,7 +72,7 @@ const questions: Question[] = [
     id: 10,
     question:
       "Quel fleuve important traverse l'Angola et donne son nom aux provinces Cuanza Norte et Cuanza Sul?",
-    options: ["Kwanza (Cuanza)", "Congo", "Zambèze", "Nile"],
+    options: ["Kwanza (Cuanza)", "Congo", "Zambèze", "Nil"],
     correct: "Kwanza (Cuanza)",
   },
 ];
