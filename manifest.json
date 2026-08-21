@@ -1,0 +1,193 @@
+{
+  "project": "SABER_AO_Mascotte_3D_Pixar",
+  "version": "1.0",
+  "date": "2026-08-20",
+  "style": "3D Pixar/Disney - Smoking, lunettes transparentes, micro oreillette, iPad SABER AO",
+  "total_expressions": 10,
+  "format": "PNG transparent RGBA 32-bit",
+  "background": "transparent",
+  "expressions": [
+    {
+      "id": 1,
+      "file": "mascotte_bienvenue.png",
+      "label_pt": "BOAS-VINDAS",
+      "label_fr": "Bienvenue",
+      "alias": ["mascotte_bienvenu", "welcome", "boas_vindas"],
+      "description": "Sourire chaleureux, main levée, accueil du public",
+      "usage": "Début d'émission, accueil joueurs",
+      "dimensions": { "width": 596, "height": 824 },
+      "sprite_sheet": {
+        "sheet": "mascotte_planche_sprites_transparent.png",
+        "cell": { "x": 50, "y": 50, "width": 480, "height": 820 },
+        "sheet_size": { "width": 2800, "height": 1950 }
+      }
+    },
+    {
+      "id": 2,
+      "file": "mascotte_pergunta.png",
+      "label_pt": "PERGUNTA",
+      "label_fr": "Question",
+      "alias": ["mascotte_question", "mascotte_pergunta"],
+      "description": "Doigt pointé vers caméra, pose la question",
+      "usage": "Annonce d'une question",
+      "dimensions": { "width": 416, "height": 810 },
+      "sprite_sheet": {
+        "sheet": "mascotte_planche_sprites_transparent.png",
+        "cell": { "x": 580, "y": 50, "width": 480, "height": 820 }
+      }
+    },
+    {
+      "id": 3,
+      "file": "mascotte_convite_resposta.png",
+      "label_pt": "CONVITE À RESPOSTA",
+      "label_fr": "Invitation à répondre",
+      "alias": ["mascotte_convite", "mascotte_invitation"],
+      "description": "Paume ouverte, invite le joueur à répondre",
+      "usage": "Après la question, invite à répondre",
+      "dimensions": { "width": 388, "height": 824 },
+      "sprite_sheet": {
+        "sheet": "mascotte_planche_sprites_transparent.png",
+        "cell": { "x": 1110, "y": 50, "width": 480, "height": 820 }
+      }
+    },
+    {
+      "id": 4,
+      "file": "mascotte_a_penser.png",
+      "label_pt": "A PENSAR",
+      "label_fr": "En réflexion / Réflexion",
+      "alias": ["mascotte_reflexion", "mascotte_penser"],
+      "description": "Main sur menton, regard en coin, en réflexion",
+      "usage": "Joueur réfléchit, moment de suspense léger",
+      "dimensions": { "width": 415, "height": 814 },
+      "sprite_sheet": {
+        "sheet": "mascotte_planche_sprites_transparent.png",
+        "cell": { "x": 1640, "y": 50, "width": 480, "height": 820 }
+      }
+    },
+    {
+      "id": 5,
+      "file": "mascotte_bonne_reponse.png",
+      "label_pt": "RESPOSTA CORRETA",
+      "label_fr": "Bonne réponse",
+      "alias": ["mascotte_reponse_correcte", "mascotte_bonne_reponse"],
+      "description": "Poing levé victorieux, grande joie",
+      "usage": "Bonne réponse, célébration",
+      "dimensions": { "width": 430, "height": 826 },
+      "sprite_sheet": {
+        "sheet": "mascotte_planche_sprites_transparent.png",
+        "cell": { "x": 2170, "y": 50, "width": 480, "height": 820 }
+      }
+    },
+    {
+      "id": 6,
+      "file": "mascotte_mauvaise_reponse.png",
+      "label_pt": "RESPOSTA INCORRETA",
+      "label_fr": "Mauvaise réponse",
+      "alias": ["mascotte_mauvaise_reponse", "mascotte_reponse_incorrecte"],
+      "description": "Geste empathique, rassurant, encourage malgré l'erreur",
+      "usage": "Mauvaise réponse, encouragement",
+      "dimensions": { "width": 519, "height": 971 },
+      "sprite_sheet": {
+        "sheet": "mascotte_planche_sprites_transparent.png",
+        "cell": { "x": 50, "y": 1020, "width": 480, "height": 820 }
+      }
+    },
+    {
+      "id": 7,
+      "file": "mascotte_surpris.png",
+      "label_pt": "SURPRESO",
+      "label_fr": "Surpris",
+      "alias": ["mascotte_surpris", "mascotte_surprise"],
+      "description": "Yeux écarquillés, bouche ouverte, effet de surprise",
+      "usage": "Révélation inattendue, surprise",
+      "dimensions": { "width": 559, "height": 824 },
+      "sprite_sheet": {
+        "sheet": "mascotte_planche_sprites_transparent.png",
+        "cell": { "x": 580, "y": 1020, "width": 480, "height": 820 }
+      }
+    },
+    {
+      "id": 8,
+      "file": "mascotte_suspense.png",
+      "label_pt": "SUSPENSE",
+      "label_fr": "Suspense",
+      "alias": ["mascotte_suspense", "mascotte_tension"],
+      "description": "Doigt sur lèvres, regard intense, moment de suspense",
+      "usage": "Moment de tension avant réponse",
+      "dimensions": { "width": 457, "height": 823 },
+      "sprite_sheet": {
+        "sheet": "mascotte_planche_sprites_transparent.png",
+        "cell": { "x": 1110, "y": 1020, "width": 480, "height": 820 }
+      }
+    },
+    {
+      "id": 9,
+      "file": "mascotte_celebration.png",
+      "label_pt": "COMEMORAÇÃO",
+      "label_fr": "Célébration",
+      "alias": ["mascotte_celebration", "mascotte_fete", "mascotte_comemoracao"],
+      "description": "Bras ouverts, iPad en l'air, confettis, joie extrême",
+      "usage": "Victoire finale, célébration",
+      "dimensions": { "width": 841, "height": 838 },
+      "sprite_sheet": {
+        "sheet": "mascotte_planche_sprites_transparent.png",
+        "cell": { "x": 1640, "y": 1020, "width": 480, "height": 820 }
+      }
+    },
+    {
+      "id": 10,
+      "file": "mascotte_encerramento.png",
+      "label_pt": "ENCERRAMENTO",
+      "label_fr": "Clôture / Au revoir",
+      "alias": ["mascotte_cloture", "mascotte_aurevoir", "mascotte_encerramento"],
+      "description": "Salut chaleureux, sourire sincère, au revoir",
+      "usage": "Fin d'émission, remerciements",
+      "dimensions": { "width": 486, "height": 818 },
+      "sprite_sheet": {
+        "sheet": "mascotte_planche_sprites_transparent.png",
+        "cell": { "x": 2170, "y": 1020, "width": 480, "height": 820 }
+      }
+    }
+  ],
+  "planches": {
+    "avec_etiquettes": {
+      "file": "mascotte_planche_complete_10_expressions.png",
+      "dimensions": { "width": 2800, "height": 2070 },
+      "grid": "5 colonnes × 2 lignes",
+      "cell": { "width": 480, "height": 820, "label_height": 60 },
+      "spacing": 50,
+      "padding": 50,
+      "background": "transparent",
+      "isolation": "Chaque personnage bien séparé, espacement garanti pour découpage"
+    },
+    "sprites_pur": {
+      "file": "mascotte_planche_sprites_transparent.png",
+      "dimensions": { "width": 2800, "height": 1950 },
+      "grid": "5×2",
+      "cell": { "width": 480, "height": 820 },
+      "spacing": 50,
+      "padding": 50,
+      "background": "transparent"
+    }
+  },
+  "logo": {
+    "file": "00_logo_saber_ao.png",
+    "description": "Logo SABER AO détouré fond transparent"
+  },
+  "animation_notes": {
+    "copilot_prompt": "Utilise les 10 PNG dans asset/ pour animer la mascotte selon l'état du jeu. Chaque fichier est transparent, smoking, lunettes, oreillette, iPad. Précharge toutes les images, transition fade 300ms.",
+    "states": ["bienvenue", "pergunta", "convite", "pensar", "correta", "incorreta", "surpreso", "suspense", "celebracao", "encerramento"],
+    "file_mapping": {
+      "bienvenue": "mascotte_bienvenue.png",
+      "pergunta": "mascotte_pergunta.png",
+      "convite": "mascotte_convite_resposta.png",
+      "pensar": "mascotte_a_penser.png",
+      "correta": "mascotte_bonne_reponse.png",
+      "incorreta": "mascotte_mauvaise_reponse.png",
+      "surpreso": "mascotte_surpris.png",
+      "suspense": "mascotte_suspense.png",
+      "celebracao": "mascotte_celebration.png",
+      "encerramento": "mascotte_encerramento.png"
+    }
+  }
+}
