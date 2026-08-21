@@ -7,21 +7,28 @@
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Segoe UI', sans-serif; }
         body { background: linear-gradient(135deg, #0f1115 0%, #1a1c23 100%); color: white; display: flex; justify-content: center; align-items: center; min-height: 100vh; padding: 20px; }
-        .game-container { background: #222530; border-radius: 20px; width: 100%; max-width: 450px; padding: 30px; box-shadow: 0 10px 30px rgba(0,0,0,0.5); text-align: center; border: 2px solid #ffcc00; }
-        h1 { color: #ffcc00; margin-bottom: 20px; font-size: 2rem; font-weight: 800; text-transform: uppercase; }
+        .game-container { background: #222530; border-radius: 20px; width: 100%; max-width: 450px; padding: 30px; box-shadow: 0 10px 30px rgba(0,0,0,0.5); text-align: center; border: 2px solid rgba(255,204,0,0.06); }
+        h1 { color: #ffcc00; margin-bottom: 20px; font-size: 2rem; font-weight: 800; text-transform: uppercase; display:flex; align-items:center; gap:12px; justify-content:center }
         .score-box { background: #161820; padding: 10px; border-radius: 10px; margin-bottom: 25px; font-weight: bold; color: #ff3366; }
         .question-text { font-size: 1.3rem; margin-bottom: 30px; font-weight: 600; min-height: 80px; }
         .options-grid { display: flex; flex-direction: column; gap: 15px; }
-        .option-btn { background: #2d3142; color: white; border: 2px solid #3d435c; padding: 15px 20px; border-radius: 12px; font-size: 1.1rem; cursor: pointer; font-weight: 600; transition: 0.2s ease; width: 100%; text-align: left; }
+        .option-btn { background: #2d3142; color: white; border: 2px solid #3d435c; padding: 15px 20px; border-radius: 12px; font-size: 1.1rem; cursor: pointer; font-weight: 600; transition: 0.2s ease; }
         .option-btn:hover { background: #3d435c; border-color: #ffcc00; transform: translateY(-2px); }
-        .next-btn { background: #ffcc00; color: #0f1115; border: none; padding: 15px 30px; border-radius: 30px; font-size: 1.1rem; font-weight: bold; cursor: pointer; margin-top: 30px; display: none; width: 100%; transition: 0.2s; }
+        .next-btn { background: #ffcc00; color: #0f1115; border: none; padding: 15px 30px; border-radius: 30px; font-size: 1.1rem; font-weight: bold; cursor: pointer; margin-top: 30px; display: none; }
         .next-btn:hover { background: #ffe066; }
+        .logo-img { height: 48px; width: auto; border-radius: 6px; }
     </style>
 </head>
 <body>
 
     <div class="game-container">
-        <h1>SABER AO 🇦🇴</h1>
+        <h1>
+          <picture>
+            <source srcset="/assets/mascottes-optimized/00_logo_saber_ao.webp" type="image/webp">
+            <img class="logo-img" src="/assets/mascottes-optimized/00_logo_saber_ao.png" alt="SABER AO" />
+          </picture>
+          <span>SABER AO 🇦🇴</span>
+        </h1>
         <div class="score-box">Pontuação: <span id="score">0</span></div>
         <div id="quiz">
             <div class="question-text" id="question">A carregar a pergunta...</div>
