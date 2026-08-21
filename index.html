@@ -3,135 +3,80 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>SABER AO - O Jogo de Quiz de Angola</title>
+    <title>SABER AO - Quiz</title>
     <style>
-        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Segoe UI', sans-serif; }
-        body { background: linear-gradient(135deg, #0f1115 0%, #1a1c23 100%); color: white; display: flex; justify-content: center; align-items: center; min-height: 100vh; padding: 20px; }
-        .game-container { background: #222530; border-radius: 20px; width: 100%; max-width: 450px; padding: 30px; box-shadow: 0 10px 30px rgba(0,0,0,0.5); text-align: center; border: 2px solid rgba(255,204,0,0.06); }
-        h1 { color: #ffcc00; margin-bottom: 20px; font-size: 2rem; font-weight: 800; text-transform: uppercase; display:flex; align-items:center; gap:12px; justify-content:center }
-        .score-box { background: #161820; padding: 10px; border-radius: 10px; margin-bottom: 25px; font-weight: bold; color: #ff3366; }
-        .question-text { font-size: 1.3rem; margin-bottom: 30px; font-weight: 600; min-height: 80px; }
-        .options-grid { display: flex; flex-direction: column; gap: 15px; }
-        .option-btn { background: #2d3142; color: white; border: 2px solid #3d435c; padding: 15px 20px; border-radius: 12px; font-size: 1.1rem; cursor: pointer; font-weight: 600; transition: 0.2s ease; }
-        .option-btn:hover { background: #3d435c; border-color: #ffcc00; transform: translateY(-2px); }
-        .next-btn { background: #ffcc00; color: #0f1115; border: none; padding: 15px 30px; border-radius: 30px; font-size: 1.1rem; font-weight: bold; cursor: pointer; margin-top: 30px; display: none; }
-        .next-btn:hover { background: #ffe066; }
-        .logo-img { height: 48px; width: auto; border-radius: 6px; }
+        body { font-family: Arial, sans-serif; background: #1a1a2e; color: #fff; text-align: center; margin: 0; padding: 0; }
+        .quiz-container { max-width: 600px; margin: 50px auto; padding: 20px; background: #161624; border-radius: 10px; box-shadow: 0 4px 10px rgba(0,0,0,0.5); }
+        .topbar { display: flex; justify-content: center; margin-bottom: 20px; }
+        .logo { max-height: 60px; }
+        .btn { display: block; width: 100%; padding: 12px; margin: 10px 0; background: #0f3460; color: white; border: none; border-radius: 5px; cursor: pointer; font-size: 16px; font-weight: bold; }
+        .btn:hover { background: #e94560; }
+        #mascote-container { height: 220px; margin-bottom: 20px; display: flex; justify-content: center; align-items: center; }
+        #mascote { max-height: 100%; transition: opacity 0.3s ease-in-out; }
     </style>
 </head>
 <body>
-
-    <div class="game-container">
-        <h1>
-          <picture>
-            <source srcset="/assets/mascottes-optimized/00_logo_saber_ao.webp" type="image/webp">
-            <img class="logo-img" src="/assets/mascottes-optimized/00_logo_saber_ao.png" alt="SABER AO" />
-          </picture>
-          <span>SABER AO 🇦🇴</span>
-        </h1>
-        <div class="score-box">Pontuação: <span id="score">0</span></div>
-        <div id="quiz">
-            <div class="question-text" id="question">A carregar a pergunta...</div>
-            <div class="options-grid" id="options">
-                <!-- As opções vão aparecer aqui através do JavaScript -->
-            </div>
-            <button class="next-btn" id="next-button">Próxima Pergunta</button>
+    <div class="quiz-container">
+        <!-- En-tête avec votre logo optimisé par Copilot -->
+        <div class="topbar">
+            <img class="logo" src="assets/mascottes-optimized/00_logo_saber_ao.png" alt="SABER AO Logo">
         </div>
+
+        <!-- Zone d'affichage de la Mascotte Dynamique -->
+        <div id="mascote-container">
+            <img id="mascote" src="assets/mascottes-optimized/mascotte_bienvenue.png" alt="Mascotte SABER AO">
+        </div>
+
+        <div id="question">Carregando pergunta...</div>
+        <div id="options"></div>
     </div>
 
     <script>
-        const questions = [
-            {
-                question: "Qual é a capital oficial da República de Angola?",
-                answers: ["Benguela", "Huambo", "Luanda", "Lubango"],
-                correct: 2
-            },
-            {
-                question: "Que província angolana é mundialmente famosa pela planta Welwitschia Mirabilis?",
-                answers: ["Namibe", "Cabinda", "Uíge", "Moxico"],
-                correct: 0
-            },
-            {
-                question: "Na gíria angolana, o que significa a palavra 'Kamba'?",
-                answers: ["Dinheiro", "Amigo", "Comida", "Festa"],
-                correct: 1
-            }
+        const perguntas = [
+            { q: "Qual é a capital de Angola?", o: ["Luanda", "Benguela", "Huambo", "Lubango"], r: 0 },
+            { q: "Qual é a moeda oficial de Angola?", o: ["Real", "Dólar", "Kwanza", "Euro"], r: 2 }
         ];
+        let indexAtual = 0;
+        let pontuacao = 0;
 
-        let currentQuestionIndex = 0;
-        let score = 0;
-
-        const questionElement = document.getElementById('question');
-        const optionsElement = document.getElementById('options');
-        const nextButton = document.getElementById('next-button');
-        const scoreElement = document.getElementById('score');
-
-        function startQuiz() {
-            currentQuestionIndex = 0;
-            score = 0;
-            scoreElement.innerText = score;
-            nextButton.style.display = 'none';
-            showQuestion();
-        }
-
-        function showQuestion() {
-            resetState();
-            let currentQuestion = questions[currentQuestionIndex];
-            questionElement.innerText = currentQuestion.question;
-
-            currentQuestion.answers.forEach((answer, index) => {
-                const button = document.createElement('button');
-                button.innerText = answer;
-                button.classList.add('option-btn');
-                button.addEventListener('click', () => selectAnswer(index));
-                optionsElement.appendChild(button);
-            });
-        }
-
-        function resetState() {
-            nextButton.style.display = 'none';
-            while (optionsElement.firstChild) {
-                optionsElement.removeChild(optionsElement.firstChild);
-            }
-        }
-
-        function selectAnswer(selectedIndex) {
-            let currentQuestion = questions[currentQuestionIndex];
-            const buttons = optionsElement.querySelectorAll('.option-btn');
-            
-            buttons.forEach((button, idx) => {
-                button.disabled = true;
-                if (idx === currentQuestion.correct) {
-                    button.style.background = '#2e7d32'; // Verde para correto
-                    button.style.borderInterface = '2px solid #4caf50';
-                } else if (idx === selectedIndex) {
-                    button.style.background = '#c62828'; // Vermelho para errado
-                    button.style.borderInterface = '2px solid #ef5350';
-                }
-            });
-
-            if (selectedIndex === currentQuestion.correct) {
-                score += 10;
-                scoreElement.innerText = score;
-            }
-
-            nextButton.style.display = 'block';
-        }
-
-        nextButton.addEventListener('click', () => {
-            currentQuestionIndex++;
-            if (currentQuestionIndex < questions.length) {
-                showQuestion();
+        function carregarPergunta() {
+            if(indexAtual < perguntas.length) {
+                changerMascotte('a_penser'); // La mascotte réfléchit pendant la question
+                document.getElementById('question').innerText = perguntas[indexAtual].q;
+                let optionsDiv = document.getElementById('options');
+                optionsDiv.innerHTML = '';
+                perguntas[indexAtual].o.forEach((opcao, i) => {
+                    optionsDiv.innerHTML += `<button class="btn" onclick="verificarResposta(${i})">${opcao}</button>`;
+                });
             } else {
-                questionElement.innerText = `Fim do Quiz! Conseguiste ${score} pontos!`;
-                resetState();
-                nextButton.innerText = "Jogar Novamente";
-                nextButton.style.display = 'block';
-                nextButton.onclick = startQuiz;
+                changerMascotte('celebration'); // Célébration finale !
+                document.getElementById('question').innerText = `Fim do Jogo! Pontuação: ${pontuacao}/${perguntas.length}`;
+                document.getElementById('options').innerHTML = '';
             }
-        });
+        }
 
-        startQuiz();
+        function verificarResposta(i) {
+            if(i === perguntas[indexAtual].r) {
+                pontuacao++;
+                changerMascotte('bonne_reponse'); // Réaction correcte
+            } else {
+                changerMascotte('mauvaise_reponse'); // Réaction incorrecte
+            }
+            indexAtual++;
+            setTimeout(carregarPergunta, 2500); // Transition après 2.5 secondes
+        }
+
+        // Gestion de la transition fluide (Fade 300ms) avec les chemins de Copilot
+        function changerMascotte(estado) {
+            const mascoteImg = document.getElementById('mascote');
+            mascoteImg.style.opacity = 0;
+            setTimeout(() => {
+                mascoteImg.src = `assets/mascottes-optimized/mascotte_${estado}.png`;
+                mascoteImg.style.opacity = 1;
+            }, 300);
+        }
+
+        window.onload = carregarPergunta;
     </script>
 </body>
 </html>
