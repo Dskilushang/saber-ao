@@ -3,7 +3,7 @@ const router = express.Router();
 const axios = require('axios');
 
 // Clé d'API IA Gemini
-const GEMINI_API_KEY = process.env.GEMINI_API_KEY || 'VOTRE_CLE_GEMINI';
+const AIzaSyAp5I9MIH_ihqpNsegcZkkdyXsFryTBwgI = process.env.GEMINI_API_KEY || 'VOTRE_CLE_GEMINI';
 
 // Route principale pour générer des questions infinies via IA
 router.get('/', async (req, res) => {
