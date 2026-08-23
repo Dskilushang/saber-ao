@@ -61,7 +61,8 @@ const App = () => {
   const chargerQuestions = async () => {
     setLoading(true);
     try {
-      const response = await fetch(`http://localhost:3000/api/questions?lang=${langueSelectionnee.code}`);
+      // LIEN DU BACKEND EN LIGNE SUR RENDER :
+      const response = await fetch(`https://saber-ao-backend.onrender.com/api/questions?lang=${langueSelectionnee.code}`);
       const data = await response.json();
       if (Array.isArray(data) && data.length > 0) {
         setQuestions(data);
@@ -178,7 +179,6 @@ const App = () => {
     setGadgets((prev) => ({ ...prev, [type]: false }));
   };
 
-  // Écran 1 : Sélection de la langue
   if (!langueSelectionnee) {
     return (
       <View style={styles.center}>
@@ -210,7 +210,6 @@ const App = () => {
 
   return (
     <View style={styles.container}>
-      {/* Barre supérieure : Score & Chrono */}
       <View style={styles.topBar}>
         <View style={styles.boxInfo}>
           <Text style={styles.labelInfo}>SCORE</Text>
@@ -223,13 +222,11 @@ const App = () => {
         </View>
       </View>
 
-      {/* Carte de la Question */}
       <Animated.View entering={FadeIn.duration(400)} style={styles.cardQuestion}>
         <Text style={styles.numQuestion}>Question {currentQuestionIndex + 1}/{questions.length}</Text>
         <Text style={styles.questionText}>{q.text}</Text>
       </Animated.View>
 
-      {/* Réponses : Soit Mode Images (A/B), soit Mode Texte (1/2/3/4) */}
       <View style={styles.responsesContainer}>
         {q.type === 'image' ? (
           <View style={styles.gridImages}>
@@ -273,7 +270,6 @@ const App = () => {
         )}
       </View>
 
-      {/* Barre des Gadgets / Jokers */}
       <View style={styles.barreGadgets}>
         <TouchableOpacity
           style={[styles.btnGadget, !gadgets.fiftyFifty && styles.gadgetInactif]}
