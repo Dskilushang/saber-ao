@@ -1,0 +1,47 @@
+name: Déploiement Web SABER AO
+
+on:
+  push:
+    branches: [ main, principal ]
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: "pages"
+  cancel-in-progress: true
+
+jobs:
+  deploy:
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    runs-on: ubuntu-latest
+    steps:
+      - name: 📥 Récupérer le code
+        uses: actions/checkout@v3
+
+      - name: 🟢 Configurer Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: 18
+
+      - name: 📦 Installer et compiler l'application Web
+        run: |
+          cd frontend
+          npm install
+          npx expo export --platform web
+
+      - name: ⚙️ Configurer GitHub Pages
+        uses: actions/configure-pages@v3
+
+      - name: 📤 Televerser le jeu Web
+        uses: actions/upload-pages-artifact@v2
+        with:
+          path: 'frontend/dist'
+
+      - name: 🚀 Publier le jeu en ligne
+        id: deployment
+        uses: actions/deploy-pages@v2
