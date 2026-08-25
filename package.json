@@ -1,24 +1,22 @@
 {
-  "name": "saber-ao",
-  "version": "0.1.0",
-  "private": true,
+  "name": "saber-ao-frontend",
+  "version": "1.0.0",
+  "main": "App.js",
   "scripts": {
-    "dev": "vite",
-    "build": "vite build",
-    "preview": "vite preview",
-    "cap:init": "npx cap init \"SABER AO\" com.dskilushang.quizangola --web-dir=dist",
-    "cap:sync": "npm run build && npx cap copy",
-    "cap:add:android": "npx cap add android"
+    "start": "expo start",
+    "android": "expo start --android",
+    "web": "expo start --web"
   },
   "dependencies": {
-    "react": "^18.2.0",
-    "react-dom": "^18.2.0",
-    "@capacitor/core": "^5.0.0"
+    "axios": "^1.6.8",
+    "expo": "~51.0.0",
+    "react": "18.2.0",
+    "react-dom": "18.2.0",
+    "react-native": "0.74.1",
+    "react-native-web": "~0.19.10"
   },
   "devDependencies": {
-    "typescript": "^5.1.6",
-    "vite": "^5.1.0",
-    "@vitejs/plugin-react": "^4.0.0",
-    "@capacitor/cli": "^5.0.0"
-  }
+    "@babel/core": "^7.20.0"
+  },
+  "private": true
 }
