@@ -1,28 +1,14 @@
 import React, { useEffect, useState } from 'react';
-import { View, Text, TouchableOpacity, Image, StyleSheet, ActivityIndicator, Alert, Vibration } from 'react-native';
-import { Audio } from 'expo-av';
+import { View, Text, TouchableOpacity, Image, StyleSheet, ActivityIndicator, Alert, Vibration, ScrollView } from 'react-native';
 
-// 🖼️ URL des Mascottes Officielles SABER AO (sur GitHub)
-const MASCOTTES = {
-  logo: 'https://raw.githubusercontent.com/Dskilushang/saber-ao/feature/optimize-logo/assets/mascottes-optimized/00_logo_saber_ao.png',
-  penser: 'https://raw.githubusercontent.com/Dskilushang/saber-ao/feature/optimize-logo/assets/mascottes-optimized/mascotte_a_penser.png',
-  pergunta: 'https://raw.githubusercontent.com/Dskilushang/saber-ao/feature/optimize-logo/assets/mascottes-optimized/mascotte_pergunta.png'
-};
-
-// 🔊 Effets sonores
-const SOUNDS = {
-  correct: 'https://assets.mixkit.co/sfx/preview/mixkit-winning-chimes-2015.mp3',
-  wrong: 'https://assets.mixkit.co/sfx/preview/mixkit-wrong-answer-fail-notification-946.mp3'
-};
-
-// 🌍 7 Langues avec Questions Hors-Ligne complètes (5 par langue)
+// 🇦🇴 7 Langues avec Questions Hors-Ligne intégrées
 const QUESTIONS_LOCALES = {
   fr: [
     { type: 'text', text: "Quelle est la capitale de l'Angola ?", answers: ["Luanda", "Benguela", "Huambo", "Lubango"], correctAnswerIndex: 0 },
     { type: 'text', text: "Quelle est la monnaie officielle d'Angola ?", answers: ["Kwanza", "Franc", "Real", "Dollar"], correctAnswerIndex: 0 },
     { type: 'image', text: "Quel est le drapeau officiel de l'Angola ?", answers: ["https://upload.wikimedia.org/wikipedia/commons/thumb/f/f6/Flag_of_Angola.svg/320px-Flag_of_Angola.svg.png", "https://upload.wikimedia.org/wikipedia/commons/thumb/a/a5/Flag_of_Zambia.svg/320px-Flag_of_Zambia.svg.png"], correctAnswerIndex: 0 },
     { type: 'text', text: "En quelle année l'Angola est-il devenu indépendant ?", answers: ["1975", "1960", "1990", "2002"], correctAnswerIndex: 0 },
-    { type: 'text', text: "Quel style musical est originaire d'Angola ?", answers: ["Kizomba", "Samba", "Reggae", "Salsa"], correctAnswerIndex: 0 }
+    { type: 'text', text: "Quel style musical moderne est originaire d'Angola ?", answers: ["Kizomba", "Samba", "Reggae", "Salsa"], correctAnswerIndex: 0 }
   ],
   pt: [
     { type: 'text', text: "Qual é a capital de Angola?", answers: ["Luanda", "Benguela", "Huambo", "Lubango"], correctAnswerIndex: 0 },
@@ -87,7 +73,7 @@ const App = () => {
   const [selectedAnswer, setSelectedAnswer] = useState(null);
   const [isPaused, setIsPaused] = useState(false);
   const [loading, setLoading] = useState(false);
-  const [mascotteState, setMascotteState] = useState('penser'); // 'penser', 'pergunta'
+  const [imgError, setImgError] = useState(false);
 
   const [gadgets, setGadgets] = useState({ fiftyFifty: true, expertCall: true, timeFreeze: true });
 
@@ -114,23 +100,13 @@ const App = () => {
     return () => clearInterval(timer);
   }, [langueSelectionnee, loading, questions, currentQuestionIndex, isPaused]);
 
-  const jouerSon = async (type) => {
-    try {
-      const { sound } = await Audio.Sound.createAsync({ uri: SOUNDS[type] });
-      await sound.playAsync();
-    } catch (e) {
-      console.log("Audio non disponible");
-    }
-  };
-
   const chargerQuestions = async () => {
     setLoading(true);
     const code = langueSelectionnee.code;
     
     try {
-      // 5 secondes max pour Render, sinon passe direct aux questions locales de la langue choisie
       const controller = new AbortController();
-      const timeoutId = setTimeout(() => controller.abort(), 4000);
+      const timeoutId = setTimeout(() => controller.abort(), 3500);
 
       const response = await fetch(`https://saber-ao-backend.onrender.com/api/questions?lang=${code}`, { signal: controller.signal });
       const data = await response.json();
@@ -142,21 +118,18 @@ const App = () => {
         setQuestions(QUESTIONS_LOCALES[code] || QUESTIONS_LOCALES['pt']);
       }
     } catch (error) {
-      // Chargement instantané de la langue choisie si le réseau met du temps
       setQuestions(QUESTIONS_LOCALES[code] || QUESTIONS_LOCALES['pt']);
     } finally {
       setLoading(false);
       setTimeLeft(30);
       setCurrentQuestionIndex(0);
       setScore(0);
-      setMascotteState('penser');
       setGadgets({ fiftyFifty: true, expertCall: true, timeFreeze: true });
     }
   };
 
   const tempsEcoule = () => {
-    jouerSon('wrong');
-    Vibration.vibrate([0, 500]);
+    try { Vibration.vibrate([0, 500]); } catch(e){}
     Alert.alert("⏱️ Temps écoulé !", "Les 30 secondes sont terminées.");
     passerQuestionSuivante();
   };
@@ -168,21 +141,16 @@ const App = () => {
     setSelectedAnswer(indexChoisi);
 
     if (indexChoisi === questionActuelle.correctAnswerIndex) {
-      jouerSon('correct');
-      Vibration.vibrate([0, 150, 100, 150]);
+      try { Vibration.vibrate([0, 150, 100, 150]); } catch(e){}
       setScore((prev) => prev + (timeLeft * 10) + 100);
-      setMascotteState('pergunta');
     } else {
-      jouerSon('wrong');
-      Vibration.vibrate([0, 400]);
-      setMascotteState('penser');
+      try { Vibration.vibrate([0, 400]); } catch(e){}
     }
 
     setTimeout(() => {
       setSelectedAnswer(null);
-      setMascotteState('penser');
       passerQuestionSuivante();
-    }, 1800);
+    }, 1500);
   };
 
   const passerQuestionSuivante = () => {
@@ -221,11 +189,13 @@ const App = () => {
     setGadgets((prev) => ({ ...prev, [type]: false }));
   };
 
-  // 1️⃣ ACCUEIL & LANGUES
+  // 1️⃣ ACCUEIL & SÉLECTION DE LA LANGUE
   if (!langueSelectionnee) {
     return (
-      <View style={styles.center}>
-        <Image source={{ uri: MASCOTTES.logo }} style={styles.logoAccueil} />
+      <ScrollView contentContainerStyle={styles.center}>
+        <View style={styles.badgeLogo}>
+          <Text style={{fontSize: 42}}>🇦🇴</Text>
+        </View>
         <Text style={styles.titreApp}>SABER AO</Text>
         <Text style={styles.sousTitre}>Escolha o idioma / Choisissez la langue :</Text>
         {LANGUES.map((lang) => (
@@ -237,7 +207,7 @@ const App = () => {
             <Text style={styles.btnLangueText}>{lang.label}</Text>
           </TouchableOpacity>
         ))}
-      </View>
+      </ScrollView>
     );
   }
 
@@ -245,8 +215,8 @@ const App = () => {
   if (loading || questions.length === 0) {
     return (
       <View style={styles.center}>
-        <Image source={{ uri: MASCOTTES.penser }} style={styles.mascotteAnim} />
-        <ActivityIndicator size="large" color="#ffd24d" style={{marginTop: 15}} />
+        <Text style={{fontSize: 50, marginBottom: 10}}>🦁</Text>
+        <ActivityIndicator size="large" color="#ffd24d" />
         <Text style={styles.textChargement}>Préparation de l'arène SABER AO...</Text>
       </View>
     );
@@ -256,19 +226,18 @@ const App = () => {
 
   // 3️⃣ PLATEAU DE JEU
   return (
-    <View style={styles.container}>
-      {/* Barre supérieure */}
+    <ScrollView contentContainerStyle={styles.container}>
+      {/* En-tête : Score, Mascotte & Chrono */}
       <View style={styles.topBar}>
         <View style={styles.boxInfo}>
           <Text style={styles.labelInfo}>SCORE</Text>
           <Text style={styles.valeurScore}>{score}</Text>
         </View>
 
-        {/* Mascotte Dynamic Reaction */}
-        <Image 
-          source={{ uri: MASCOTTES[mascotteState] }} 
-          style={styles.mascotteJeu} 
-        />
+        <View style={styles.mascotteBox}>
+          <Text style={{fontSize: 32}}>🦁</Text>
+          <Text style={{color: '#ffd24d', fontSize: 10, fontWeight: 'bold'}}>SABER AO</Text>
+        </View>
 
         <View style={[styles.boxInfo, timeLeft <= 10 && styles.boxChronoAlerte]}>
           <Text style={styles.labelInfo}>CHRONO</Text>
@@ -282,7 +251,7 @@ const App = () => {
         <Text style={styles.questionText}>{q.text}</Text>
       </View>
 
-      {/* Réponses */}
+      {/* Zone des Réponses */}
       <View style={styles.responsesContainer}>
         {q.type === 'image' ? (
           <View style={styles.gridImages}>
@@ -325,7 +294,7 @@ const App = () => {
         )}
       </View>
 
-      {/* Gadgets */}
+      {/* Barre des Jokers / Gadgets */}
       <View style={styles.barreGadgets}>
         <TouchableOpacity
           style={[styles.btnGadget, !gadgets.fiftyFifty && styles.gadgetInactif]}
@@ -351,38 +320,37 @@ const App = () => {
           <Text style={styles.textGadget}>⏸️ +10s</Text>
         </TouchableOpacity>
       </View>
-    </View>
+    </ScrollView>
   );
 };
 
 const styles = StyleSheet.create({
-  container: { flex: 1, backgroundColor: '#071026', paddingTop: 40, paddingHorizontal: 15 },
-  center: { flex: 1, backgroundColor: '#071026', justifyContent: 'center', alignItems: 'center', padding: 20 },
+  container: { flexGrow: 1, backgroundColor: '#071026', paddingTop: 30, paddingHorizontal: 15, paddingBottom: 20 },
+  center: { flexGrow: 1, backgroundColor: '#071026', justifyContent: 'center', alignItems: 'center', padding: 20 },
   
-  logoAccueil: { width: 140, height: 140, resizeMode: 'contain', marginBottom: 10 },
+  badgeLogo: { backgroundColor: '#131e36', padding: 15, borderRadius: 50, borderWidth: 2, borderColor: '#ffd24d', marginBottom: 10 },
   titreApp: { fontSize: 32, fontWeight: 'bold', color: '#ffd24d', marginBottom: 5, textAlign: 'center' },
-  sousTitre: { fontSize: 15, color: '#aaa', marginBottom: 20, textAlign: 'center' },
-  btnLangue: { backgroundColor: '#0b1220', padding: 14, borderRadius: 12, marginVertical: 5, width: '100%', borderWidth: 1, borderColor: '#ffd24d' },
-  btnLangueText: { color: '#fff', fontSize: 17, textAlign: 'center', fontWeight: 'bold' },
+  sousTitre: { fontSize: 14, color: '#aaa', marginBottom: 20, textAlign: 'center' },
+  btnLangue: { backgroundColor: '#131e36', padding: 14, borderRadius: 12, marginVertical: 5, width: '100%', borderWidth: 1, borderColor: '#ffd24d' },
+  btnLangueText: { color: '#fff', fontSize: 16, textAlign: 'center', fontWeight: 'bold' },
   
-  mascotteAnim: { width: 100, height: 100, resizeMode: 'contain' },
-  mascotteJeu: { width: 65, height: 65, resizeMode: 'contain' },
   textChargement: { color: '#fff', marginTop: 15, fontSize: 16 },
 
   topBar: { flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', marginBottom: 15 },
-  boxInfo: { backgroundColor: '#0b1220', padding: 10, borderRadius: 12, minWidth: 90, alignItems: 'center', borderWidth: 1, borderColor: '#1f2d4a' },
+  boxInfo: { backgroundColor: '#131e36', padding: 10, borderRadius: 12, minWidth: 85, alignItems: 'center', borderWidth: 1, borderColor: '#1f2d4a' },
   boxChronoAlerte: { borderColor: '#dc3545', backgroundColor: '#3d1217' },
   labelInfo: { color: '#8892b0', fontSize: 10, fontWeight: 'bold' },
-  valeurScore: { color: '#ffd24d', fontSize: 20, fontWeight: 'bold' },
-  valeurChrono: { color: '#00f2fe', fontSize: 20, fontWeight: 'bold' },
+  valeurScore: { color: '#ffd24d', fontSize: 18, fontWeight: 'bold' },
+  valeurChrono: { color: '#00f2fe', fontSize: 18, fontWeight: 'bold' },
+  mascotteBox: { alignItems: 'center' },
 
-  cardQuestion: { backgroundColor: '#0b1220', borderRadius: 15, padding: 18, marginBottom: 15, borderLeftWidth: 5, borderLeftColor: '#ffd24d' },
+  cardQuestion: { backgroundColor: '#131e36', borderRadius: 15, padding: 18, marginBottom: 15, borderLeftWidth: 5, borderLeftColor: '#ffd24d' },
   numQuestion: { color: '#8892b0', fontSize: 11, fontWeight: 'bold', marginBottom: 4 },
-  questionText: { color: '#fff', fontSize: 18, fontWeight: 'bold', textAlign: 'center' },
+  questionText: { color: '#fff', fontSize: 17, fontWeight: 'bold', textAlign: 'center' },
 
-  responsesContainer: { flex: 1, justifyContent: 'center' },
+  responsesContainer: { marginVertical: 10 },
   btnReponse: { backgroundColor: '#131e36', padding: 15, borderRadius: 12, marginVertical: 6, borderWidth: 1, borderColor: '#1f2d4a' },
-  btnReponseText: { color: '#fff', fontSize: 16, textAlign: 'center', fontWeight: '600' },
+  btnReponseText: { color: '#fff', fontSize: 15, textAlign: 'center', fontWeight: '600' },
   btnCorrect: { backgroundColor: '#28a745', borderColor: '#1e7e34' },
   btnFaux: { backgroundColor: '#dc3545', borderColor: '#bd2130' },
   btnDesactive: { opacity: 0.2 },
@@ -393,10 +361,10 @@ const styles = StyleSheet.create({
   badgeImage: { color: '#ffd24d', marginTop: 8, fontWeight: 'bold' },
   textElimine: { fontSize: 40, marginVertical: 30 },
 
-  barreGadgets: { flexDirection: 'row', justifyContent: 'space-around', paddingVertical: 15, borderTopWidth: 1, borderTopColor: '#131e36' },
-  btnGadget: { backgroundColor: '#ffd24d', paddingVertical: 10, paddingHorizontal: 18, borderRadius: 20 },
+  barreGadgets: { flexDirection: 'row', justifyContent: 'space-around', paddingVertical: 15, marginTop: 15, borderTopWidth: 1, borderTopColor: '#131e36' },
+  btnGadget: { backgroundColor: '#ffd24d', paddingVertical: 10, paddingHorizontal: 16, borderRadius: 20 },
   gadgetInactif: { backgroundColor: '#333', opacity: 0.4 },
-  textGadget: { color: '#0b1220', fontWeight: 'bold', fontSize: 13 }
+  textGadget: { color: '#071026', fontWeight: 'bold', fontSize: 13 }
 });
 
 export default App;
