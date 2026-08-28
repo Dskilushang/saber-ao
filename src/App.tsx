@@ -8,20 +8,6 @@ const App: React.FC = () => {
   const [score, setScore] = useState(0);
   const [completed, setCompleted] = useState(false);
 
-  // Fonction pour jouer les bruitages directement depuis internet
-  const playSound = (type: "correct" | "wrong" | "suspense") => {
-    let url = "";
-    if (type === "correct") url = "https://google.com";
-    if (type === "wrong") url = "https://google.com";
-    if (type === "suspense") url = "https://google.com";
-    
-    if (url) {
-      const audio = new Audio(url);
-      audio.volume = 0.4;
-      audio.play().catch(() => console.log("Audio en attente d'interaction"));
-    }
-  };
-
   const initGame = () => {
     const shuffled = [...questions].sort(() => 0.5 - Math.random());
     setGameQuestions(shuffled.slice(0, 7));
@@ -29,7 +15,6 @@ const App: React.FC = () => {
     setSelectedIndex(null);
     setScore(0);
     setCompleted(false);
-    playSound("suspense");
   };
 
   useEffect(() => {
@@ -46,9 +31,6 @@ const App: React.FC = () => {
     const selected = q.options[index];
     if (selected === q.correct) {
       setScore((s) => s + 1000);
-      playSound("correct");
-    } else {
-      playSound("wrong");
     }
   };
 
@@ -60,7 +42,6 @@ const App: React.FC = () => {
     }
     setCurrent(next);
     setSelectedIndex(null);
-    playSound("suspense");
   };
 
   return (
@@ -131,7 +112,7 @@ const App: React.FC = () => {
           margin: 0;
           background-color: var(--bg);
           color: #fff;
-          font-family: 'Segoe UI', Roboto, sans-serif;
+          font-family: sans-serif;
           display: flex;
           align-items: center;
           justify-content: center;
@@ -139,20 +120,19 @@ const App: React.FC = () => {
         }
         .app-root { width: 100%; max-width: 650px; padding: 15px; }
         .topbar { display: flex; justify-content: space-between; margin-bottom: 25px; padding: 10px; border-bottom: 2px solid var(--border); font-weight: bold; font-size: 1.1rem; color: var(--accent); }
-        .card { background: var(--card); padding: 35px; border-radius: 20px; border: 2px solid var(--border); box-shadow: 0 10px 30px rgba(0,0,0,0.5); text-align: center; }
+        .card { background: var(--card); padding: 35px; border-radius: 20px; border: 2px solid var(--border); text-align: center; }
         .meta { color: var(--accent); font-weight: bold; letter-spacing: 2px; margin-bottom: 15px; font-size: 0.9rem; }
         .question { font-size: 1.4rem; line-height: 1.4; margin-bottom: 30px; font-weight: 600; }
         .options-grid { display: grid; grid-template-columns: 1fr; gap: 15px; }
         .option { display: flex; align-items: center; padding: 18px; background: #1c2541; color: #fff; border: 1px solid #3a506b; border-radius: 99px; cursor: pointer; text-align: left; font-size: 1.05rem; transition: all 0.2s ease; }
-        .option:hover { background: #3a506b; transform: scale(1.02); }
         .opt-index { color: var(--accent); font-weight: bold; margin-right: 15px; border: 1px solid var(--accent); padding: 2px 8px; border-radius: 50%; }
-        .option.correct { background: #06d6a0; border-color: #06d6a0; font-weight: bold; animation: pulse 0.5s infinite alternate; }
+        .option.correct { background: #06d6a0; border-color: #06d6a0; font-weight: bold; }
         .option.wrong { background: #ef476f; border-color: #ef476f; }
-        .next-btn, .restart { background: linear-gradient(135deg, #ffd700, #ffa500); color: #000; border: none; padding: 14px 30px; font-weight: 800; border-radius: 99px; cursor: pointer; margin-top: 25px; font-size: 1rem; box-shadow: 0 5px 15px rgba(255,215,0,0.3); }
-        @keyframes pulse { from { opacity: 0.8; } to { opacity: 1; } }
+        .next-btn, .restart { background: linear-gradient(135deg, #ffd700, #ffa500); color: #000; border: none; padding: 14px 30px; font-weight: 800; border-radius: 99px; cursor: pointer; margin-top: 25px; font-size: 1rem; }
       `}</style>
     </div>
   );
 };
 
 export default App;
+      
