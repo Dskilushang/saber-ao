@@ -8,14 +8,28 @@ const App: React.FC = () => {
   const [score, setScore] = useState(0);
   const [completed, setCompleted] = useState(false);
 
-  // Cette fonction mélange les questions pour que chaque partie soit unique
+  // Fonction pour jouer les bruitages directement depuis internet
+  const playSound = (type: "correct" | "wrong" | "suspense") => {
+    let url = "";
+    if (type === "correct") url = "https://google.com";
+    if (type === "wrong") url = "https://google.com";
+    if (type === "suspense") url = "https://google.com";
+    
+    if (url) {
+      const audio = new Audio(url);
+      audio.volume = 0.4;
+      audio.play().catch(() => console.log("Audio en attente d'interaction"));
+    }
+  };
+
   const initGame = () => {
     const shuffled = [...questions].sort(() => 0.5 - Math.random());
-    setGameQuestions(shuffled.slice(0, 7)); // On sélectionne 7 questions au hasard
+    setGameQuestions(shuffled.slice(0, 7));
     setCurrent(0);
     setSelectedIndex(null);
     setScore(0);
     setCompleted(false);
+    playSound("suspense");
   };
 
   useEffect(() => {
@@ -30,7 +44,12 @@ const App: React.FC = () => {
     if (selectedIndex !== null) return; 
     setSelectedIndex(index);
     const selected = q.options[index];
-    if (selected === q.correct) setScore((s) => s + 1000); // Système de points style "Millions"
+    if (selected === q.correct) {
+      setScore((s) => s + 1000);
+      playSound("correct");
+    } else {
+      playSound("wrong");
+    }
   };
 
   const handleNext = () => {
@@ -41,19 +60,20 @@ const App: React.FC = () => {
     }
     setCurrent(next);
     setSelectedIndex(null);
+    playSound("suspense");
   };
 
   return (
     <div className="app-root">
       <header className="topbar">
-        <div className="logo">SABER AO • ARENA</div>
-        <div className="score">SCORE : {score} PTS</div>
+        <div className="logo">🛡️ ARENA SABER AO</div>
+        <div className="score">CAGNOTTE : {score} PTS</div>
       </header>
 
       <main className="container">
         {!completed ? (
           <section className="card">
-            <div className="meta">NIVEAU {current + 1} / {gameQuestions.length}</div>
+            <div className="meta">PALIER {current + 1} / {gameQuestions.length}</div>
             <h2 className="question">{q.question}</h2>
 
             <div className="options-grid">
@@ -84,17 +104,17 @@ const App: React.FC = () => {
             <div className="controls">
               {selectedIndex !== null && (
                 <button className="next-btn" onClick={handleNext}>
-                  QUESTION SUIVANTE ➔
+                  VALIDER ET CONTINUER ➔
                 </button>
               )}
             </div>
           </section>
         ) : (
           <section className="end-screen card">
-            <h2>FIN DE L'ARÈNE</h2>
-            <p className="final-score">Score Final : {score} PTS</p>
+            <h2 style={{ fontSize: "2rem", color: "#ffd700" }}>🏆 VICTOIRE 🏆</h2>
+            <p className="final-score">Vous repartez avec : {score} PTS</p>
             <button className="restart" onClick={initGame}>
-              REJOUER
+              TENTER UN NOUVEAU COMBAT
             </button>
           </section>
         )}
@@ -102,35 +122,37 @@ const App: React.FC = () => {
 
       <style>{`
         :root {
-          --bg: #071226;
-          --card: #0b1220;
+          --bg: #040814;
+          --card: #0b132b;
           --accent: #ffd700;
-          --muted: #94a3b8;
+          --border: #1c2541;
         }
         body {
           margin: 0;
-          background: var(--bg);
+          background-color: var(--bg);
           color: #fff;
-          font-family: sans-serif;
+          font-family: 'Segoe UI', Roboto, sans-serif;
           display: flex;
           align-items: center;
           justify-content: center;
-          height: 100vh;
+          min-height: 100vh;
         }
-        .app-root { width: 100%; max-width: 600px; padding: 20px; }
-        .topbar { display: flex; justify-content: space-between; margin-bottom: 20px; font-weight: bold; color: var(--accent); }
-        .card { background: #0e172a; padding: 30px; borderRadius: 15px; border: 1px solid #1e293b; text-align: center; }
-        .question { font-size: 22px; margin-bottom: 25px; }
+        .app-root { width: 100%; max-width: 650px; padding: 15px; }
+        .topbar { display: flex; justify-content: space-between; margin-bottom: 25px; padding: 10px; border-bottom: 2px solid var(--border); font-weight: bold; font-size: 1.1rem; color: var(--accent); }
+        .card { background: var(--card); padding: 35px; border-radius: 20px; border: 2px solid var(--border); box-shadow: 0 10px 30px rgba(0,0,0,0.5); text-align: center; }
+        .meta { color: var(--accent); font-weight: bold; letter-spacing: 2px; margin-bottom: 15px; font-size: 0.9rem; }
+        .question { font-size: 1.4rem; line-height: 1.4; margin-bottom: 30px; font-weight: 600; }
         .options-grid { display: grid; grid-template-columns: 1fr; gap: 15px; }
-        .option { display: flex; padding: 15px; background: #1e293b; color: #fff; border: 1px solid #334155; border-radius: 10px; cursor: pointer; text-align: left; font-size: 16px; }
-        .opt-index { color: var(--accent); font-weight: bold; margin-right: 15px; }
-        .option.correct { background: #10b981; border-color: #10b981; }
-        .option.wrong { background: #ef4444; border-color: #ef4444; }
-        .next-btn, .restart { background: var(--accent); color: #000; border: none; padding: 12px 25px; font-weight: bold; border-radius: 8px; cursor: pointer; margin-top: 20px; }
+        .option { display: flex; align-items: center; padding: 18px; background: #1c2541; color: #fff; border: 1px solid #3a506b; border-radius: 99px; cursor: pointer; text-align: left; font-size: 1.05rem; transition: all 0.2s ease; }
+        .option:hover { background: #3a506b; transform: scale(1.02); }
+        .opt-index { color: var(--accent); font-weight: bold; margin-right: 15px; border: 1px solid var(--accent); padding: 2px 8px; border-radius: 50%; }
+        .option.correct { background: #06d6a0; border-color: #06d6a0; font-weight: bold; animation: pulse 0.5s infinite alternate; }
+        .option.wrong { background: #ef476f; border-color: #ef476f; }
+        .next-btn, .restart { background: linear-gradient(135deg, #ffd700, #ffa500); color: #000; border: none; padding: 14px 30px; font-weight: 800; border-radius: 99px; cursor: pointer; margin-top: 25px; font-size: 1rem; box-shadow: 0 5px 15px rgba(255,215,0,0.3); }
+        @keyframes pulse { from { opacity: 0.8; } to { opacity: 1; } }
       `}</style>
     </div>
   );
 };
 
 export default App;
-                 
