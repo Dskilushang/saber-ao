@@ -3,68 +3,85 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>SABER AO - Jeu de Culture Générale</title>
+    <title>SABER AO - Quiz Multilingue</title>
     <style>
         * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; }
-        body { background-color: #071026; color: white; min-height: 100vh; display: flex; flex-direction: column; align-items: center; }
+        body { background: linear-gradient(135deg, #071026 0%, #0a1a3a 100%); color: white; min-height: 100vh; display: flex; flex-direction: column; align-items: center; overflow-x: hidden; }
         
-        #accueil { text-align: center; padding: 40px 20px; width: 100%; max-width: 500px; margin-top: 50px; }
-        .logo-emoji { font-size: 80px; margin-bottom: 10px; display: inline-block; background: #131e36; padding: 20px; border-radius: 50%; border: 3px solid #ffd24d; }
-        h1 { color: #ffd24d; font-size: 36px; margin-bottom: 10px; text-transform: uppercase; letter-spacing: 2px; }
+        @keyframes pulse { 0%, 100% { transform: scale(1); } 50% { transform: scale(1.05); } }
+        @keyframes bounce { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-10px); } }
+        @keyframes shake { 0%, 100% { transform: translateX(0); } 25% { transform: translateX(-5px); } 75% { transform: translateX(5px); } }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+        
+        #accueil { text-align: center; padding: 40px 20px; width: 100%; max-width: 500px; margin-top: 30px; animation: fadeIn 0.8s ease-out; }
+        .logo-emoji { font-size: 80px; margin-bottom: 10px; display: inline-block; background: linear-gradient(135deg, #131e36, #1f2d4a); padding: 20px; border-radius: 50%; border: 3px solid #ffd24d; animation: pulse 2s infinite; }
+        h1 { color: #ffd24d; font-size: 36px; margin-bottom: 10px; text-transform: uppercase; letter-spacing: 2px; text-shadow: 2px 2px 4px rgba(0,0,0,0.5); }
         .subtitle { color: #aaa; margin-bottom: 30px; font-size: 16px; }
         
-        .btn-langue { display: block; width: 100%; background: #131e36; color: white; border: 1px solid #ffd24d; padding: 15px; margin: 8px 0; border-radius: 12px; font-size: 18px; font-weight: bold; cursor: pointer; transition: 0.2s; }
-        .btn-langue:hover { background: #ffd24d; color: #071026; }
+        .btn-langue { display: block; width: 100%; background: linear-gradient(135deg, #131e36, #1f2d4a); color: white; border: 2px solid #ffd24d; padding: 15px; margin: 8px 0; border-radius: 12px; font-size: 18px; font-weight: bold; cursor: pointer; transition: all 0.3s; animation: fadeIn 0.5s ease-out; }
+        .btn-langue:hover { background: linear-gradient(135deg, #ffd24d, #ffb700); color: #071026; transform: scale(1.05); box-shadow: 0 5px 15px rgba(255, 210, 77, 0.4); }
 
-        #jeu { display: none; width: 100%; max-width: 600px; padding: 20px; flex-direction: column; flex: 1; }
+        #jeu { display: none; width: 100%; max-width: 600px; padding: 20px; flex-direction: column; flex: 1; animation: fadeIn 0.6s ease-out; }
         
         .top-bar { display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; }
-        .box-info { background: #131e36; padding: 10px 15px; border-radius: 12px; border: 1px solid #1f2d4a; text-align: center; min-width: 80px; }
-        .label { color: #8892b0; font-size: 10px; font-weight: bold; display: block; }
-        .valeur { color: #ffd24d; font-size: 20px; font-weight: bold; }
+        .box-info { background: linear-gradient(135deg, #131e36, #1f2d4a); padding: 12px 18px; border-radius: 12px; border: 2px solid #2a3f5f; text-align: center; min-width: 90px; transition: all 0.3s; }
+        .box-info.chrono-alerte { border-color: #dc3545; background: linear-gradient(135deg, #3d1217, #5a1a20); animation: pulse 0.5s infinite; }
+        .label { color: #8892b0; font-size: 10px; font-weight: bold; display: block; text-transform: uppercase; }
+        .valeur { color: #ffd24d; font-size: 22px; font-weight: bold; text-shadow: 1px 1px 2px rgba(0,0,0,0.5); }
         .chrono-alerte .valeur { color: #dc3545; }
-        .mascotte { font-size: 40px; text-align: center; }
+        
+        .mascotte-container { text-align: center; }
+        .mascotte { font-size: 50px; display: inline-block; animation: bounce 2s infinite; filter: drop-shadow(0 5px 10px rgba(0,0,0,0.3)); }
+        .mascotte.correct { animation: bounce 0.5s 3; }
+        .mascotte.faux { animation: shake 0.5s 2; }
+        
+        .card-question { background: linear-gradient(135deg, #131e36, #1f2d4a); border-radius: 15px; padding: 25px; margin-bottom: 20px; border-left: 5px solid #ffd24d; text-align: center; box-shadow: 0 5px 20px rgba(0,0,0,0.3); }
+        .num-q { color: #8892b0; font-size: 12px; font-weight: bold; margin-bottom: 8px; text-transform: uppercase; }
+        .text-q { font-size: 22px; font-weight: bold; line-height: 1.4; }
 
-        .card-question { background: #131e36; border-radius: 15px; padding: 20px; margin-bottom: 20px; border-left: 5px solid #ffd24d; text-align: center; }
-        .num-q { color: #8892b0; font-size: 12px; font-weight: bold; margin-bottom: 5px; }
-        .text-q { font-size: 20px; font-weight: bold; }
-
-        .reponses { display: flex; flex-direction: column; gap: 10px; flex: 1; }
-        .btn-reponse { background: #131e36; color: white; border: 1px solid #1f2d4a; padding: 18px; border-radius: 12px; font-size: 16px; font-weight: 600; cursor: pointer; transition: 0.2s; }
-        .btn-reponse:hover:not(:disabled) { background: #1f2d4a; }
-        .btn-reponse.correct { background: #28a745; border-color: #1e7e34; }
-        .btn-reponse.faux { background: #dc3545; border-color: #bd2130; }
+        .reponses { display: flex; flex-direction: column; gap: 12px; flex: 1; }
+        .btn-reponse { background: linear-gradient(135deg, #131e36, #1f2d4a); color: white; border: 2px solid #2a3f5f; padding: 18px; border-radius: 12px; font-size: 16px; font-weight: 600; cursor: pointer; transition: all 0.3s; animation: fadeIn 0.4s ease-out; }
+        .btn-reponse:hover:not(:disabled) { background: linear-gradient(135deg, #1f2d4a, #2a3f5f); transform: translateX(5px); }
+        .btn-reponse.correct { background: linear-gradient(135deg, #28a745, #1e7e34); border-color: #1e7e34; animation: pulse 0.5s 2; }
+        .btn-reponse.faux { background: linear-gradient(135deg, #dc3545, #bd2130); border-color: #bd2130; animation: shake 0.5s; }
         .btn-reponse:disabled { opacity: 0.7; cursor: not-allowed; }
 
-        .gadgets { display: flex; justify-content: space-around; margin-top: 20px; padding-top: 15px; border-top: 1px solid #131e36; }
-        .btn-gadget { background: #ffd24d; color: #071026; border: none; padding: 10px 15px; border-radius: 20px; font-weight: bold; cursor: pointer; font-size: 14px; }
-        .btn-gadget:disabled { background: #333; color: #666; opacity: 0.5; cursor: not-allowed; }
+        .gadgets { display: flex; justify-content: space-around; margin-top: 20px; padding-top: 15px; border-top: 2px solid #131e36; }
+        .btn-gadget { background: linear-gradient(135deg, #ffd24d, #ffb700); color: #071026; border: none; padding: 12px 18px; border-radius: 25px; font-weight: bold; cursor: pointer; font-size: 14px; transition: all 0.3s; box-shadow: 0 3px 10px rgba(255, 210, 77, 0.3); }
+        .btn-gadget:hover:not(:disabled) { transform: scale(1.1); }
+        .btn-gadget:disabled { background: linear-gradient(135deg, #333, #555); color: #888; opacity: 0.5; cursor: not-allowed; }
 
         .grid-images { display: flex; gap: 15px; justify-content: center; margin-bottom: 20px; }
-        .img-card { background: #131e36; padding: 10px; border-radius: 12px; width: 45%; text-align: center; cursor: pointer; border: 2px solid #1f2d4a; }
+        .img-card { background: linear-gradient(135deg, #131e36, #1f2d4a); padding: 12px; border-radius: 12px; width: 45%; text-align: center; cursor: pointer; border: 3px solid #2a3f5f; transition: all 0.3s; }
+        .img-card:hover:not(.disabled) { transform: scale(1.05); border-color: #ffd24d; }
         .img-card img { width: 100%; height: 120px; object-fit: cover; border-radius: 8px; }
-        .img-card.correct { border-color: #28a745; background: #1a3a2a; }
-        .img-card.faux { border-color: #dc3545; background: #3a1a1a; }
+        .img-card.correct { border-color: #28a745; background: linear-gradient(135deg, #1a3a2a, #2a5a3a); animation: pulse 0.5s 2; }
+        .img-card.faux { border-color: #dc3545; background: linear-gradient(135deg, #3a1a1a, #5a2a2a); animation: shake 0.5s; }
+
+        .feedback { position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); font-size: 80px; font-weight: bold; pointer-events: none; animation: fadeIn 0.3s ease-out, fadeOut 0.5s ease-out 0.7s forwards; z-index: 1000; }
+        @keyframes fadeOut { to { opacity: 0; transform: translate(-50%, -50%) scale(2); } }
     </style>
 </head>
 <body>
 
     <div id="accueil">
-        <div class="logo-emoji">🇦🇴</div>
+        <div class="logo-emoji">🇴</div>
         <h1>SABER AO</h1>
-        <p class="subtitle">Escolha o idioma / Choisissez la langue :</p>
+        <p class="subtitle" id="subtitle-text">Escolha o idioma / Choisissez la langue :</p>
         <div id="liste-langues"></div>
     </div>
 
     <div id="jeu">
         <div class="top-bar">
             <div class="box-info">
-                <span class="label">SCORE</span>
+                <span class="label" id="lbl-score">SCORE</span>
                 <span class="valeur" id="score">0</span>
             </div>
-            <div class="mascotte">🦁</div>
+            <div class="mascotte-container">
+                <div class="mascotte" id="mascotte">🦁</div>
+            </div>
             <div class="box-info" id="box-chrono">
-                <span class="label">CHRONO</span>
+                <span class="label" id="lbl-chrono">CHRONO</span>
                 <span class="valeur" id="chrono">30s</span>
             </div>
         </div>
@@ -77,48 +94,78 @@
         <div id="zone-reponses" class="reponses"></div>
 
         <div class="gadgets">
-            <button class="btn-gadget" id="btn-5050" onclick="utiliserGadget('5050')">50/50</button>
+            <button class="btn-gadget" id="btn-5050" onclick="utiliserGadget('5050')">️ 50/50</button>
             <button class="btn-gadget" id="btn-genie" onclick="utiliserGadget('genie')">🧞‍♂️ Génie</button>
             <button class="btn-gadget" id="btn-temps" onclick="utiliserGadget('temps')">⏸️ +10s</button>
         </div>
     </div>
 
     <script>
-        const LANGUES = [
-            { code: 'fr', label: 'Français' }, { code: 'pt', label: 'Português' },
-            { code: 'en', label: 'English' }, { code: 'kg', label: 'Kikongo' },
-            { code: 'ln', label: 'Lingála' }, { code: 'kj', label: 'Kimbundu' },
-            { code: 'umb', label: 'Umbundu' }
-        ];
+        // --- TRADUCTIONS DE L'INTERFACE ---
+        const UI_TEXT = {
+            fr: { score: "SCORE", chrono: "CHRONO", genie: "🧞‍♂️ Génie", temps: "⏸️ +10s", endTitle: "PARTIE TERMINÉE !", endScore: "Score final", replay: " Rejouer", excellent: "🌟 Excellent !", good: "👍 Bien joué !", keepGoing: "💪 Continuez !" },
+            pt: { score: "PONTOS", chrono: "TEMPO", genie: "🧞‍♂️ Génio", temps: "⏸️ +10s", endTitle: "FIM DE JOGO!", endScore: "Pontuação final", replay: "🔄 Jogar novamente", excellent: "🌟 Excelente !", good: "👍 Bom trabalho !", keepGoing: "💪 Continue !" },
+            en: { score: "SCORE", chrono: "TIME", genie: "🧞‍♂️ Genie", temps: "⏸️ +10s", endTitle: "GAME OVER!", endScore: "Final Score", replay: "🔄 Play Again", excellent: "🌟 Excellent !", good: " Good job !", keepGoing: "💪 Keep going !" },
+            kg: { score: "NTANGU", chrono: "NTANGU", genie: "🧞‍♂️ Nzimbu", temps: "⏸️ +10s", endTitle: "MASIYA MANA!", endScore: "Ntangu ya nsuka", replay: "🔄 Tubila diaka", excellent: "🌟 Mboti !", good: " Malamu !", keepGoing: "💪 Wila !" },
+            ln: { score: "NTANGO", chrono: "NTANGO", genie: "🧞‍♂️ Génie", temps: "⏸️ +10s", endTitle: "MASANA ESILI!", endScore: "Ntango ya nsuka", replay: "🔄 Béta lisusu", excellent: " Malamu mpenza !", good: "👍 Malamu !", keepGoing: " Koba !" },
+            kj: { score: "NTANGU", chrono: "NTANGU", genie: "🧞‍♂️ Génio", temps: "⏸️ +10s", endTitle: "MASIYA AMANA!", endScore: "Ntangu ya kupwa", replay: "🔄 Tanga kixi", excellent: "🌟 Kiele !", good: "👍 Kiele !", keepGoing: "💪 Kenda !" },
+            umb: { score: "OLUPO", chrono: "OLUPO", genie: "🧞‍♂️ Génio", temps: "⏸️ +10s", endTitle: "OKUPITA!", endScore: "Olupo wokupita", replay: "🔄 Tamba lyi", excellent: "🌟 Walu !", good: "👍 Walu !", keepGoing: "💪 Kala !" }
+        };
 
+        // --- QUESTIONS PAR LANGUE ---
         const QUESTIONS_LOCALES = {
             fr: [
                 { type: 'text', text: "Quelle est la capitale de l'Angola ?", answers: ["Luanda", "Benguela", "Huambo", "Lubango"], correctAnswerIndex: 0 },
                 { type: 'text', text: "Quelle est la monnaie officielle d'Angola ?", answers: ["Kwanza", "Franc", "Real", "Dollar"], correctAnswerIndex: 0 },
+                { type: 'image', text: "Quel est le drapeau officiel de l'Angola ?", answers: ["https://upload.wikimedia.org/wikipedia/commons/thumb/f/f6/Flag_of_Angola.svg/320px-Flag_of_Angola.svg.png", "https://upload.wikimedia.org/wikipedia/commons/thumb/a/a5/Flag_of_Zambia.svg/320px-Flag_of_Zambia.svg.png"], correctAnswerIndex: 0 },
                 { type: 'text', text: "En quelle année l'Angola est-il devenu indépendant ?", answers: ["1975", "1960", "1990", "2002"], correctAnswerIndex: 0 },
-                { type: 'text', text: "Quel style musical moderne est originaire d'Angola ?", answers: ["Kizomba", "Samba", "Reggae", "Salsa"], correctAnswerIndex: 0 },
-                { type: 'text', text: "Quel est le plus long fleuve d'Angola ?", answers: ["Kwanza", "Congo", "Zambèze", "Cunene"], correctAnswerIndex: 0 }
+                { type: 'text', text: "Quel style musical moderne est originaire d'Angola ?", answers: ["Kizomba", "Samba", "Reggae", "Salsa"], correctAnswerIndex: 0 }
             ],
             pt: [
                 { type: 'text', text: "Qual é a capital de Angola?", answers: ["Luanda", "Benguela", "Huambo", "Lubango"], correctAnswerIndex: 0 },
                 { type: 'text', text: "Qual é a moeda oficial de Angola?", answers: ["Kwanza", "Franco", "Real", "Dólar"], correctAnswerIndex: 0 },
+                { type: 'image', text: "Qual é a bandeira oficial de Angola?", answers: ["https://upload.wikimedia.org/wikipedia/commons/thumb/f/f6/Flag_of_Angola.svg/320px-Flag_of_Angola.svg.png", "https://upload.wikimedia.org/wikipedia/commons/thumb/a/a5/Flag_of_Zambia.svg/320px-Flag_of_Zambia.svg.png"], correctAnswerIndex: 0 },
                 { type: 'text', text: "Em que ano Angola tornou-se independente?", answers: ["1975", "1960", "1990", "2002"], correctAnswerIndex: 0 },
-                { type: 'text', text: "Qual estilo musical é originário de Angola?", answers: ["Kizomba", "Samba", "Reggae", "Salsa"], correctAnswerIndex: 0 },
-                { type: 'text', text: "Qual é o rio mais longo de Angola?", answers: ["Kwanza", "Congo", "Zambeze", "Cunene"], correctAnswerIndex: 0 }
+                { type: 'text', text: "Qual estilo musical é originário de Angola?", answers: ["Kizomba", "Samba", "Reggae", "Salsa"], correctAnswerIndex: 0 }
             ],
             en: [
                 { type: 'text', text: "What is the capital of Angola?", answers: ["Luanda", "Benguela", "Huambo", "Lubango"], correctAnswerIndex: 0 },
                 { type: 'text', text: "What is the official currency of Angola?", answers: ["Kwanza", "Franc", "Real", "Dollar"], correctAnswerIndex: 0 },
+                { type: 'image', text: "Which is the official flag of Angola?", answers: ["https://upload.wikimedia.org/wikipedia/commons/thumb/f/f6/Flag_of_Angola.svg/320px-Flag_of_Angola.svg.png", "https://upload.wikimedia.org/wikipedia/commons/thumb/a/a5/Flag_of_Zambia.svg/320px-Flag_of_Zambia.svg.png"], correctAnswerIndex: 0 },
                 { type: 'text', text: "In which year did Angola gain independence?", answers: ["1975", "1960", "1990", "2002"], correctAnswerIndex: 0 },
-                { type: 'text', text: "Which music genre originates from Angola?", answers: ["Kizomba", "Samba", "Reggae", "Salsa"], correctAnswerIndex: 0 },
-                { type: 'text', text: "What is the longest river in Angola?", answers: ["Kwanza", "Congo", "Zambezi", "Cunene"], correctAnswerIndex: 0 }
+                { type: 'text', text: "Which music genre originates from Angola?", answers: ["Kizomba", "Samba", "Reggae", "Salsa"], correctAnswerIndex: 0 }
             ],
-            kg: [ { type: 'text', text: "Nki i mbanza ya ntotila ya Angola?", answers: ["Luanda", "Benguela", "Huambo", "Lubango"], correctAnswerIndex: 0 }, { type: 'text', text: "Nki i nzimbu ya nsi ya Angola?", answers: ["Kwanza", "Franc", "Real", "Dollar"], correctAnswerIndex: 0 }, { type: 'text', text: "Nki mvu Angola banzikisa kimpwanza?", answers: ["1975", "1960", "1990", "2002"], correctAnswerIndex: 0 }, { type: 'text', text: "Nki mutindu ya miziki ukatuka mu Angola?", answers: ["Kizomba", "Samba", "Reggae", "Salsa"], correctAnswerIndex: 0 }, { type: 'text', text: "Nki i nzadi ya nene mu Angola?", answers: ["Kwanza", "Congo", "Zambezi", "Cunene"], correctAnswerIndex: 0 } ],
-            ln: [ { type: 'text', text: "Mbonge nini ezali engumba bokonzi ya Angola?", answers: ["Luanda", "Benguela", "Huambo", "Lubango"], correctAnswerIndex: 0 }, { type: 'text', text: "Mbongo nini esalelamaka na Angola?", answers: ["Kwanza", "Franc", "Real", "Dollar"], correctAnswerIndex: 0 }, { type: 'text', text: "Mobu nini Angola ezwaki lipanda?", answers: ["1975", "1960", "1990", "2002"], correctAnswerIndex: 0 }, { type: 'text', text: "Miziki nini eutaki na mboka Angola?", answers: ["Kizomba", "Samba", "Reggae", "Salsa"], correctAnswerIndex: 0 }, { type: 'text', text: "Ebale nini ezali ya molai koleka na Angola?", answers: ["Kwanza", "Congo", "Zambezi", "Cunene"], correctAnswerIndex: 0 } ],
-            kj: [ { type: 'text', text: "Ihi i mbanza ia mbota ia Angola?", answers: ["Luanda", "Benguela", "Huambo", "Lubango"], correctAnswerIndex: 0 }, { type: 'text', text: "Ihi i kitadi kia nsi ia Angola?", answers: ["Kwanza", "Franco", "Real", "Dólar"], correctAnswerIndex: 0 }, { type: 'text', text: "Mu muvu uhi Angola iatambula utuminu?", answers: ["1975", "1960", "1990", "2002"], correctAnswerIndex: 0 }, { type: 'text', text: "Muzika uhi utunda mu Angola?", answers: ["Kizomba", "Samba", "Reggae", "Salsa"], correctAnswerIndex: 0 }, { type: 'text', text: "Ihi i mbo ya nene mu Angola?", answers: ["Kwanza", "Congo", "Zambezi", "Cunene"], correctAnswerIndex: 0 } ],
-            umb: [ { type: 'text', text: "Helie ofekalupale yo Angola?", answers: ["Luanda", "Benguela", "Huambo", "Lubango"], correctAnswerIndex: 0 }, { type: 'text', text: "Orombongo ipi vielinga vokalunga ko Angola?", answers: ["Kwanza", "Franco", "Real", "Dólar"], correctAnswerIndex: 0 }, { type: 'text', text: "Ulimbo upi Angola viawile elianjo?", answers: ["1975", "1960", "1990", "2002"], correctAnswerIndex: 0 }, { type: 'text', text: "Owisikihulo upi utunda ko Angola?", answers: ["Kizomba", "Samba", "Reggae", "Salsa"], correctAnswerIndex: 0 }, { type: 'text', text: "Omunyi upi ulikola ko Angola?", answers: ["Kwanza", "Congo", "Zambezi", "Cunene"], correctAnswerIndex: 0 } ]
+            kg: [
+                { type: 'text', text: "Nki i mbanza ya ntotila ya Angola?", answers: ["Luanda", "Benguela", "Huambo", "Lubango"], correctAnswerIndex: 0 },
+                { type: 'text', text: "Nki i nzimbu ya nsi ya Angola?", answers: ["Kwanza", "Franc", "Real", "Dollar"], correctAnswerIndex: 0 },
+                { type: 'image', text: "Nki i dimbu (bandeira) ya Angola?", answers: ["https://upload.wikimedia.org/wikipedia/commons/thumb/f/f6/Flag_of_Angola.svg/320px-Flag_of_Angola.svg.png", "https://upload.wikimedia.org/wikipedia/commons/thumb/a/a5/Flag_of_Zambia.svg/320px-Flag_of_Zambia.svg.png"], correctAnswerIndex: 0 },
+                { type: 'text', text: "Nki mvu Angola banzikisa kimpwanza?", answers: ["1975", "1960", "1990", "2002"], correctAnswerIndex: 0 },
+                { type: 'text', text: "Nki mutindu ya miziki ukatuka mu Angola?", answers: ["Kizomba", "Samba", "Reggae", "Salsa"], correctAnswerIndex: 0 }
+            ],
+            ln: [
+                { type: 'text', text: "Mbonge nini ezali engumba bokonzi ya Angola?", answers: ["Luanda", "Benguela", "Huambo", "Lubango"], correctAnswerIndex: 0 },
+                { type: 'text', text: "Mbongo nini esalelamaka na Angola?", answers: ["Kwanza", "Franc", "Real", "Dollar"], correctAnswerIndex: 0 },
+                { type: 'image', text: "Drapeau nini ezali ya mboka Angola?", answers: ["https://upload.wikimedia.org/wikipedia/commons/thumb/f/f6/Flag_of_Angola.svg/320px-Flag_of_Angola.svg.png", "https://upload.wikimedia.org/wikipedia/commons/thumb/a/a5/Flag_of_Zambia.svg/320px-Flag_of_Zambia.svg.png"], correctAnswerIndex: 0 },
+                { type: 'text', text: "Mobu nini Angola ezwaki lipanda?", answers: ["1975", "1960", "1990", "2002"], correctAnswerIndex: 0 },
+                { type: 'text', text: "Miziki nini eutaki na mboka Angola?", answers: ["Kizomba", "Samba", "Reggae", "Salsa"], correctAnswerIndex: 0 }
+            ],
+            kj: [
+                { type: 'text', text: "Ihi i mbanza ia mbota ia Angola?", answers: ["Luanda", "Benguela", "Huambo", "Lubango"], correctAnswerIndex: 0 },
+                { type: 'text', text: "Ihi i kitadi kia nsi ia Angola?", answers: ["Kwanza", "Franco", "Real", "Dólar"], correctAnswerIndex: 0 },
+                { type: 'image', text: "Ihi i ndemba (bandeira) ia Angola?", answers: ["https://upload.wikimedia.org/wikipedia/commons/thumb/f/f6/Flag_of_Angola.svg/320px-Flag_of_Angola.svg.png", "https://upload.wikimedia.org/wikipedia/commons/thumb/a/a5/Flag_of_Zambia.svg/320px-Flag_of_Zambia.svg.png"], correctAnswerIndex: 0 },
+                { type: 'text', text: "Mu muvu uhi Angola iatambula utuminu?", answers: ["1975", "1960", "1990", "2002"], correctAnswerIndex: 0 },
+                { type: 'text', text: "Muzika uhi utunda mu Angola?", answers: ["Kizomba", "Samba", "Reggae", "Salsa"], correctAnswerIndex: 0 }
+            ],
+            umb: [
+                { type: 'text', text: "Helie ofekalupale yo Angola?", answers: ["Luanda", "Benguela", "Huambo", "Lubango"], correctAnswerIndex: 0 },
+                { type: 'text', text: "Orombongo ipi vielinga vokalunga ko Angola?", answers: ["Kwanza", "Franco", "Real", "Dólar"], correctAnswerIndex: 0 },
+                { type: 'image', text: "Oependelo lipi lyo Angola?", answers: ["https://upload.wikimedia.org/wikipedia/commons/thumb/f/f6/Flag_of_Angola.svg/320px-Flag_of_Angola.svg.png", "https://upload.wikimedia.org/wikipedia/commons/thumb/a/a5/Flag_of_Zambia.svg/320px-Flag_of_Zambia.svg.png"], correctAnswerIndex: 0 },
+                { type: 'text', text: "Ulimbo upi Angola viawile elianjo?", answers: ["1975", "1960", "1990", "2002"], correctAnswerIndex: 0 },
+                { type: 'text', text: "Owisikihulo upi utunda ko Angola?", answers: ["Kizomba", "Samba", "Reggae", "Salsa"], correctAnswerIndex: 0 }
+            ]
         };
 
+        // --- ÉTAT DU JEU ---
         let questions = [];
         let currentIndex = 0;
         let score = 0;
@@ -127,21 +174,61 @@
         let gadgets = { '5050': true, 'genie': true, 'temps': true };
         let currentLang = 'fr';
 
+        // --- SON ---
+        const audioContext = new (window.AudioContext || window.webkitAudioContext)();
+        function jouerSon(type) {
+            const oscillator = audioContext.createOscillator();
+            const gainNode = audioContext.createGain();
+            oscillator.connect(gainNode);
+            gainNode.connect(audioContext.destination);
+            if (type === 'correct') {
+                oscillator.frequency.setValueAtTime(523.25, audioContext.currentTime);
+                oscillator.frequency.setValueAtTime(659.25, audioContext.currentTime + 0.1);
+                oscillator.frequency.setValueAtTime(783.99, audioContext.currentTime + 0.2);
+                gainNode.gain.setValueAtTime(0.3, audioContext.currentTime);
+                gainNode.gain.exponentialRampToValueAtTime(0.01, audioContext.currentTime + 0.5);
+                oscillator.start(audioContext.currentTime);
+                oscillator.stop(audioContext.currentTime + 0.5);
+            } else if (type === 'faux') {
+                oscillator.frequency.setValueAtTime(200, audioContext.currentTime);
+                oscillator.frequency.linearRampToValueAtTime(100, audioContext.currentTime + 0.3);
+                gainNode.gain.setValueAtTime(0.3, audioContext.currentTime);
+                gainNode.gain.exponentialRampToValueAtTime(0.01, audioContext.currentTime + 0.3);
+                oscillator.start(audioContext.currentTime);
+                oscillator.stop(audioContext.currentTime + 0.3);
+            }
+        }
+
+        // --- INITIALISATION ---
         function init() {
             const liste = document.getElementById('liste-langues');
-            LANGUES.forEach(lang => {
+            const langues = [
+                { code: 'fr', label: '🇷 Français' }, { code: 'pt', label: '🇵 Português' },
+                { code: 'en', label: '🇬🇧 English' }, { code: 'kg', label: '🇬 Kikongo' },
+                { code: 'ln', label: '🇨 Lingála' }, { code: 'kj', label: '🇦🇴 Kimbundu' },
+                { code: 'umb', label: '🇦🇴 Umbundu' }
+            ];
+            langues.forEach((lang, index) => {
                 const btn = document.createElement('button');
                 btn.className = 'btn-langue';
                 btn.innerText = lang.label;
+                btn.style.animationDelay = `${index * 0.1}s`;
                 btn.onclick = () => startGame(lang.code);
                 liste.appendChild(btn);
             });
         }
 
-        async function startGame(lang) {
+        function startGame(lang) {
             currentLang = lang;
             document.getElementById('accueil').style.display = 'none';
             document.getElementById('jeu').style.display = 'flex';
+            
+            // Appliquer les traductions de l'interface
+            const t = UI_TEXT[lang] || UI_TEXT['fr'];
+            document.getElementById('lbl-score').innerText = t.score;
+            document.getElementById('lbl-chrono').innerText = t.chrono;
+            document.getElementById('btn-genie').innerText = t.genie;
+            document.getElementById('btn-temps').innerText = t.temps;
             
             score = 0;
             currentIndex = 0;
@@ -149,17 +236,7 @@
             updateGadgetsUI();
             updateScore();
 
-            try {
-                const controller = new AbortController();
-                setTimeout(() => controller.abort(), 3000);
-                const res = await fetch(`https://saber-ao-backend.onrender.com/api/questions?lang=${lang}`, { signal: controller.signal });
-                const data = await res.json();
-                if (Array.isArray(data) && data.length > 0) questions = data;
-                else questions = QUESTIONS_LOCALES[lang] || QUESTIONS_LOCALES['pt'];
-            } catch (e) {
-                questions = QUESTIONS_LOCALES[lang] || QUESTIONS_LOCALES['pt'];
-            }
-            
+            questions = QUESTIONS_LOCALES[lang] || QUESTIONS_LOCALES['pt'];
             showQuestion();
         }
 
@@ -181,7 +258,7 @@
                 q.answers.forEach((url, i) => {
                     const div = document.createElement('div');
                     div.className = 'img-card';
-                    div.innerHTML = `<img src="${url}" alt="Option ${i+1}"><div style="color:#ffd24d; margin-top:5px; font-weight:bold;">Option ${String.fromCharCode(65+i)}</div>`;
+                    div.innerHTML = `<img src="${url}" alt="Option ${i+1}"><div style="color:#ffd24d; margin-top:8px; font-weight:bold; font-size:14px;">Option ${String.fromCharCode(65+i)}</div>`;
                     div.onclick = () => checkAnswer(i, div);
                     zone.appendChild(div);
                 });
@@ -206,8 +283,9 @@
                 updateTimerUI();
                 if (timeLeft <= 0) {
                     clearInterval(timerInterval);
-                    alert("⏱️ Temps écoulé !");
-                    nextQuestion();
+                    afficherFeedback('⏱️', 'faux');
+                    jouerSon('faux');
+                    setTimeout(nextQuestion, 1000);
                 }
             }, 1000);
         }
@@ -222,11 +300,27 @@
                 element.classList.add('correct');
                 score += (timeLeft * 10) + 100;
                 updateScore();
+                afficherFeedback('✅', 'correct');
+                jouerSon('correct');
+                document.getElementById('mascotte').classList.add('correct');
+                setTimeout(() => document.getElementById('mascotte').classList.remove('correct'), 1500);
             } else {
                 element.classList.add('faux');
                 if(buttons[q.correctAnswerIndex]) buttons[q.correctAnswerIndex].classList.add('correct');
+                afficherFeedback('❌', 'faux');
+                jouerSon('faux');
+                document.getElementById('mascotte').classList.add('faux');
+                setTimeout(() => document.getElementById('mascotte').classList.remove('faux'), 1000);
             }
-            setTimeout(nextQuestion, 1500);
+            setTimeout(nextQuestion, 2000);
+        }
+
+        function afficherFeedback(emoji, type) {
+            const feedback = document.createElement('div');
+            feedback.className = `feedback ${type}`;
+            feedback.innerText = emoji;
+            document.body.appendChild(feedback);
+            setTimeout(() => feedback.remove(), 1200);
         }
 
         function nextQuestion() {
@@ -235,14 +329,21 @@
         }
 
         function endGame() {
+            const t = UI_TEXT[currentLang] || UI_TEXT['fr'];
+            let message = t.keepGoing;
+            if (score >= 400) message = t.excellent;
+            else if (score >= 200) message = t.good;
+
             document.getElementById('jeu').innerHTML = `
-                <div style="text-align:center; margin-top:50px;">
-                    <div style="font-size:60px;"></div>
-                    <h1 style="color:#ffd24d;">PARTIE TERMINÉE !</h1>
-                    <p style="font-size:24px; margin:20px 0;">Score final : <b>${score}</b> points</p>
-                    <button class="btn-langue" onclick="location.reload()">Rejouer</button>
+                <div style="text-align:center; margin-top:50px; animation: fadeIn 0.8s ease-out;">
+                    <div style="font-size:80px; animation: bounce 1s infinite;">🏆</div>
+                    <h1 style="color:#ffd24d; margin:20px 0; font-size:32px;">${t.endTitle}</h1>
+                    <p style="font-size:28px; margin:20px 0; color:#fff;">${t.endScore} : <b style="color:#ffd24d; font-size:36px;">${score}</b></p>
+                    <p style="font-size:18px; color:#aaa; margin-bottom:30px;">${message}</p>
+                    <button class="btn-langue" onclick="location.reload()" style="max-width:300px; margin:0 auto;">${t.replay}</button>
                 </div>
             `;
+            jouerSon('correct');
         }
 
         function updateScore() { document.getElementById('score').innerText = score; }
@@ -259,7 +360,6 @@
         function utiliserGadget(type) {
             if (!gadgets[type]) return;
             const q = questions[currentIndex];
-            
             if (type === '5050') {
                 const buttons = document.querySelectorAll('.btn-reponse, .img-card');
                 let removed = 0;
@@ -270,13 +370,14 @@
                     }
                 });
             } else if (type === 'genie') {
-                alert(`🧞‍♂️ Le Génie pense que la bonne réponse est la numéro ${q.correctAnswerIndex + 1} !`);
+                alert(`🧞‍♂️ ${UI_TEXT[currentLang].genie}: ${q.correctAnswerIndex + 1}`);
             } else if (type === 'temps') {
                 timeLeft += 10;
                 updateTimerUI();
             }
             gadgets[type] = false;
             updateGadgetsUI();
+            jouerSon('correct');
         }
 
         init();
