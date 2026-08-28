@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { StyleSheet, Text, View, TouchableOpacity, StatusBar } from 'react-native';
 
 export default function App() {
-  // L'application commence sur l'écran 'splash'
+  // L'application commence sur l'écran d'accueil ('splash')
   const [screen, setScreen] = useState('splash'); 
 
   if (screen === 'splash') {
@@ -14,7 +14,7 @@ export default function App() {
           <Text style={styles.titleSplash}>SABER AO</Text>
           <Text style={styles.subtitleSplash}>ARENA AI • QUIZ EDITION</Text>
         </View>
-        <TouchableOpacity style={styles.btnStart} onPress={() => alert('Le jeu va commencer !')}>
+        <TouchableOpacity style={styles.btnStart} onPress={() => alert('Connexion réussie !')}>
           <Text style={styles.btnStartText}>ENTRER DANS L'ARÈNE</Text>
         </TouchableOpacity>
       </View>
@@ -67,3 +67,4 @@ const styles = StyleSheet.create({
     letterSpacing: 1,
   },
 });
+      
