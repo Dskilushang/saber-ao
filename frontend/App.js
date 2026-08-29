@@ -1,70 +1,29 @@
-import React, { useState } from 'react';
-import { StyleSheet, Text, View, TouchableOpacity, StatusBar } from 'react-native';
+// App.js
+import React from 'react';
+import { NavigationContainer } from '@react-navigation/native';
+import { createStackNavigator } from '@react-navigation/stack';
+
+import SplashScreen     from './screens/SplashScreen';
+import AccueilScreen    from './screens/AccueilScreen';
+import CategoriesScreen from './screens/CategoriesScreen';
+import QuizScreen       from './screens/QuizScreen';
+import ResultatScreen   from './screens/ResultatScreen';
+
+const Stack = createStackNavigator();
 
 export default function App() {
-  // L'application commence sur l'écran d'accueil ('splash')
-  const [screen, setScreen] = useState('splash'); 
-
-  if (screen === 'splash') {
-    return (
-      <View style={styles.container}>
-        <StatusBar barStyle="light-content" />
-        <View style={styles.heroContainer}>
-          <Text style={styles.logoIcon}>⚔️</Text>
-          <Text style={styles.titleSplash}>SABER AO</Text>
-          <Text style={styles.subtitleSplash}>ARENA AI • QUIZ EDITION</Text>
-        </View>
-        <TouchableOpacity style={styles.btnStart} onPress={() => alert('Connexion réussie !')}>
-          <Text style={styles.btnStartText}>ENTRER DANS L'ARÈNE</Text>
-        </TouchableOpacity>
-      </View>
-    );
-  }
-
-  return null;
+  return (
+    <NavigationContainer>
+      <Stack.Navigator
+        initialRouteName="Splash"
+        screenOptions={{ headerShown: false }} // Pas de barre de titre native
+      >
+        <Stack.Screen name="Splash"      component={SplashScreen} />
+        <Stack.Screen name="Accueil"     component={AccueilScreen} />
+        <Stack.Screen name="Categories"  component={CategoriesScreen} />
+        <Stack.Screen name="Quiz"        component={QuizScreen} />
+        <Stack.Screen name="Resultat"    component={ResultatScreen} />
+      </Stack.Navigator>
+    </NavigationContainer>
+  );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#0A0F24',
-    alignItems: 'center',
-    justifyContent: 'center',
-    paddingHorizontal: 24,
-  },
-  heroContainer: {
-    alignItems: 'center',
-    marginBottom: 50,
-  },
-  logoIcon: {
-    fontSize: 70,
-    marginBottom: 15,
-  },
-  titleSplash: {
-    fontSize: 38,
-    fontWeight: '900',
-    color: '#FFF',
-    letterSpacing: 2,
-    textAlign: 'center',
-  },
-  subtitleSplash: {
-    fontSize: 14,
-    color: '#6F80A5',
-    marginTop: 8,
-    letterSpacing: 4,
-    textAlign: 'center',
-  },
-  btnStart: {
-    backgroundColor: '#FFD700',
-    paddingVertical: 18,
-    paddingHorizontal: 40,
-    borderRadius: 30,
-  },
-  btnStartText: {
-    color: '#0A0F24',
-    fontWeight: '800',
-    fontSize: 16,
-    letterSpacing: 1,
-  },
-});
-      
