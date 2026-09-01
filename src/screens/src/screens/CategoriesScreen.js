@@ -1,90 +1,99 @@
-// src/screens/CategoriesScreen.js
-import React from 'react';
-import { View, Text, TouchableOpacity, StyleSheet, StatusBar } from 'react-native';
+import React, { useEffect, useRef, useState } from 'react';
+import {
+  View, Text, TouchableOpacity, StyleSheet,
+  FlatList, StatusBar, Animated, Switch, SafeAreaView,
+} from 'react-native';
+import { CATEGORIES } from '../data/questions';
+import Mascotte, { MASCOTTE_STATES } from '../components/Mascotte';
+import SoundManager from '../utils/soundManager';
+
+const LANG_OPTIONS = [
+  { code: 'pt', label: 'PT 🇦🇴' },
+  { code: 'fr', label: 'FR 🇫🇷' },
+];
 
 export default function CategoriesScreen({ navigation }) {
-  // Lista de categorias do nosso jogo sobre Angola
-  const categorias = [
-    { id: 'cultura', nome: '🇦🇴 Cultura & Tradições', cor: '#1e2d4a' },
-    { id: 'musica', nome: '🎵 Música & Dança (Kizomba/Kuduro)', cor: '#1e2d4a' },
-    { id: 'geografia', nome: '🌍 Geografia & Províncias', cor: '#1e2d4a' },
-  ];
+  const [lang, setLang] = useState('pt');
+  const [musicOn, setMusicOn] = useState(true);
+
+  const titleAnim = useRef(new Animated.Value(0)).current;
+  const fadeAnims = useRef(CATEGORIES.map(() => new Animated.Value(0))).current;
+
+  useEffect(() => {
+    Animated.timing(titleAnim, {
+      toValue: 1, duration: 600, useNativeDriver: true,
+    }).start();
+
+    Animated.stagger(80, fadeAnims.map((anim, i) =>
+      Animated.timing(anim, {
+        toValue: 1, duration: 400,
+        delay: 150 + i * 100,
+        useNativeDriver: true,
+      })
+    )).start();
+
+    SoundManager.playBgMusic();
+    return () => SoundManager.stopBgMusic();
+  }, []);
+
+  const toggleMusic = (val) => {
+    setMusicOn(val);
+    SoundManager.setMusicEnabled(val);
+  };
+
+  const selectCategory = async (cat) => {
+    await SoundManager.onClick();
+    navigation.navigate('Quiz', { categoryId: cat.id, lang });
+  };
+
+  const LABELS = {
+    pt: { subtitle: 'Escolhe uma categoria', music: 'Música' },
+    fr: { subtitle: 'Choisissez une catégorie', music: 'Musique' },
+  };
+  const L = LABELS[lang];
+
+  const renderCategory = ({ item, index }) => {
+    const anim = fadeAnims[index];
+    const catLabel = lang === 'fr' ? item.label_fr : item.label_pt;
+    return (
+      <Animated.View style={{
+        opacity: anim,
+        transform: [{ translateY: anim.interpolate({
+          inputRange: [0, 1], outputRange: [30, 0]
+        })}]
+      }}>
+        <TouchableOpacity
+          style={[styles.card, { borderLeftColor: item.color, borderLeftWidth: 5 }]}
+          onPress={() => selectCategory(item)}
+          activeOpacity={0.8}
+        >
+          <Text style={styles.cardIcon}>{item.icon}</Text>
+          <Text style={[styles.cardLabel, { color: item.color }]}>{catLabel}</Text>
+          <Text style={styles.cardArrow}>›</Text>
+        </TouchableOpacity>
+      </Animated.View>
+    );
+  };
 
   return (
-    <View style={styles.container}>
-      <StatusBar barStyle="light-content" />
-      
-      <Text style={styles.titre}>ESCOLHA UMA ARÈNE</Text>
-      <Text style={styles.sousTitre}>Selecione a categoria para desafiar a IA</Text>
+    <SafeAreaView style={styles.container}>
+      <StatusBar barStyle="light-content" backgroundColor="#0A0F24" />
 
-      <View style={styles.grid}>
-        {categorias.map((cat) => (
+      <Animated.View style={[styles.header, { opacity: titleAnim }]}>
+        <Mascotte state={MASCOTTE_STATES.BIENVENUE} size={80} />
+        <Text style={styles.title}>SABER AO</Text>
+        <Text style={styles.subtitle}>{L.subtitle}</Text>
+      </Animated.View>
+
+      <View style={styles.langRow}>
+        {LANG_OPTIONS.map((opt) => (
           <TouchableOpacity
-            key={cat.id}
-            style={[styles.cardCat, { backgroundColor: cat.cor }]}
-            onPress={() => navigation.navigate('Quiz', { categoriaId: cat.id })}
+            key={opt.code}
+            style={[styles.langBtn, lang === opt.code && styles.langBtnActive]}
+            onPress={() => setLang(opt.code)}
           >
-            <Text style={styles.catText}>{cat.nome}</Text>
+            <Text style={[styles.langBtnText, lang === opt.code && styles.langBtnTextActive]}>
+              {opt.label}
+            </Text>
           </TouchableOpacity>
         ))}
-      </View>
-
-      {/* Botão de Voltar */}
-      <TouchableOpacity style={styles.btnRetour} onPress={() => navigation.goBack()}>
-        <Text style={styles.btnRetourText}>⬅ Voltar ao início</Text>
-      </TouchableOpacity>
-    </View>
-  );
-}
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#0A0F24',
-    paddingTop: 60,
-    paddingHorizontal: 24,
-    alignItems: 'center',
-  },
-  titre: {
-    fontSize: 26,
-    fontWeight: '900',
-    color: '#FFD700',
-    letterSpacing: 2,
-    marginBottom: 8,
-    textAlign: 'center',
-  },
-  sousTitre: {
-    fontSize: 14,
-    color: '#6F80A5',
-    marginBottom: 40,
-    textAlign: 'center',
-  },
-  grid: {
-    width: '100%',
-    gap: 16,
-  },
-  cardCat: {
-    width: '100%',
-    padding: 24,
-    borderRadius: 16,
-    borderWidth: 1,
-    borderColor: 'rgba(255, 255, 255, 0.08)',
-    alignItems: 'center',
-  },
-  catText: {
-    color: '#FFFFFF',
-    fontSize: 16,
-    fontWeight: '700',
-    textAlign: 'center',
-  },
-  btnRetour: {
-    marginTop: 40,
-    padding: 10,
-  },
-  btnRetourText: {
-    color: '#6F80A5',
-    fontWeight: '600',
-    fontSize: 14,
-  },
-});
-    
