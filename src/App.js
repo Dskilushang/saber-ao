@@ -1,27 +1,35 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
+import SoundManager from './src/utils/soundManager';
 
-import SplashScreen     from './screens/SplashScreen';
-import AccueilScreen    from './screens/AccueilScreen';
-import CategoriesScreen from './screens/CategoriesScreen';
-import QuizScreen       from './screens/QuizScreen';
-import ResultatScreen   from './screens/ResultatScreen';
+import SplashScreen from './src/screens/SplashScreen';
+import CategoriesScreen from './src/screens/CategoriesScreen';
+import QuizScreen from './src/screens/QuizScreen';
+import ResultatScreen from './src/screens/ResultatScreen';
 
 const Stack = createStackNavigator();
 
 export default function App() {
+  useEffect(() => {
+    const init = async () => {
+      await SoundManager.init();
+      await SoundManager.loadAll();
+    };
+    init();
+    return () => SoundManager.unloadAll();
+  }, []);
+
   return (
     <NavigationContainer>
       <Stack.Navigator
         initialRouteName="Splash"
-        screenOptions={{ headerShown: false }}
+        screenOptions={{ headerShown: false, animation: 'fade' }}
       >
-        <Stack.Screen name="Splash"     component={SplashScreen} />
-        <Stack.Screen name="Accueil"    component={AccueilScreen} />
+        <Stack.Screen name="Splash" component={SplashScreen} />
         <Stack.Screen name="Categories" component={CategoriesScreen} />
-        <Stack.Screen name="Quiz"       component={QuizScreen} />
-        <Stack.Screen name="Resultat"   component={ResultatScreen} />
+        <Stack.Screen name="Quiz" component={QuizScreen} />
+        <Stack.Screen name="Resultat" component={ResultatScreen} />
       </Stack.Navigator>
     </NavigationContainer>
   );
