@@ -1,42 +1,39 @@
-
-import React, { useEffect } from 'react';
-import { View, Text, Image, StyleSheet, Animated } from 'react-native';
+import React, { useEffect, useRef } from 'react';
+import { View, Text, StyleSheet, Animated, StatusBar } from 'react-native';
+import Mascotte, { MASCOTTE_STATES } from '../components/Mascotte';
+import SoundManager from '../utils/soundManager';
 
 export default function SplashScreen({ navigation }) {
-  const fadeAnim = new Animated.Value(0);
+  const fadeAnim  = useRef(new Animated.Value(0)).current;
+  const scaleAnim = useRef(new Animated.Value(0.6)).current;
 
   useEffect(() => {
-    // Fade in
-    Animated.timing(fadeAnim, {
-      toValue: 1,
-      duration: 1200,
-      useNativeDriver: true,
-    }).start();
+    SoundManager.playIntro();
+    Animated.parallel([
+      Animated.timing(fadeAnim,  { toValue:1, duration:800, useNativeDriver:true }),
+      Animated.spring(scaleAnim, { toValue:1, friction:4,   useNativeDriver:true }),
+    ]).start();
 
-    // Après 3 secondes → Accueil automatiquement
-    const timer = setTimeout(() => {
-      navigation.replace('Accueil');
-    }, 3000);
+    const t = setTimeout(() => {
+      Animated.timing(fadeAnim, { toValue:0, duration:400, useNativeDriver:true }).start(() => {
+        navigation.replace('Categories');
+      });
+    }, 2800);
 
-    return () => clearTimeout(timer);
+    return () => clearTimeout(t);
   }, []);
 
   return (
     <View style={styles.container}>
-      <Animated.View style={{ opacity: fadeAnim, alignItems: 'center' }}>
-        <Image
-          source={require('../assets/mascottes-optimized/00_logo_saber_ao.png')}
-          style={styles.logo}
-          resizeMode="contain"
-        />
-        <Text style={styles.titre}>SABER AO</Text>
-        <Text style={styles.sousTitre}>ARENA AI • QUIZ EDITION</Text>
-        <Image
-          source={require('../assets/mascottes-optimized/mascotte_bienvenue.png')}
-          style={styles.mascotte}
-          resizeMode="contain"
-        />
-        <Text style={styles.loading}>A carregar...</Text>
+      <StatusBar barStyle="light-content" backgroundColor="#0A0F24" />
+      <Animated.View style={{
+        opacity: fadeAnim,
+        transform: [{ scale: scaleAnim }],
+        alignItems: 'center'
+      }}>
+        <Mascotte state={MASCOTTE_STATES.BIENVENUE} size={200} />
+        <Text style={styles.title}>SABER AO</Text>
+        <Text style={styles.sub}>Quiz Angola 🇦🇴</Text>
       </Animated.View>
     </View>
   );
@@ -49,32 +46,17 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
   },
-  logo: {
-    width: 160,
-    height: 160,
-    marginBottom: 12,
-  },
-  titre: {
-    fontSize: 42,
+  title: {
+    fontSize: 46,
     fontWeight: '900',
     color: '#FFD700',
-    letterSpacing: 4,
+    letterSpacing: 6,
+    marginTop: 16,
   },
-  sousTitre: {
-    fontSize: 13,
-    color: '#6F80A5',
-    letterSpacing: 5,
-    marginTop: 6,
-    marginBottom: 30,
-  },
-  mascotte: {
-    width: 200,
-    height: 200,
-  },
-  loading: {
-    color: '#6F80A5',
-    fontSize: 13,
-    marginTop: 20,
+  sub: {
+    fontSize: 15,
+    color: '#AAB4D4',
+    marginTop: 8,
     letterSpacing: 2,
   },
 });
