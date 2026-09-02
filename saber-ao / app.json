@@ -1,14 +1,15 @@
 {
   "expo": {
-    "name": "SABER-AO",
+    "name": "SABER AO",
     "slug": "saber-ao",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
     "userInterfaceStyle": "dark",
     "splash": {
+      "image": "./assets/splash.png",
       "resizeMode": "contain",
-      "backgroundColor": "#071026"
+      "backgroundColor": "#0A0F24"
     },
     "assetBundlePatterns": [
       "**/*"
@@ -16,7 +17,8 @@
     "android": {
       "package": "com.dskilushang.saberao",
       "adaptiveIcon": {
-        "backgroundColor": "#071026"
+        "foregroundImage": "./assets/icon.png",
+        "backgroundColor": "#0A0F24"
       }
     }
   }
