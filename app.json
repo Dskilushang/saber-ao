@@ -1,31 +1,9 @@
-{
-  "expo": {
-    "name": "SABER AO",
-    "slug": "saber-ao",
-    "version": "1.0.0",
-    "owner": "dskilushanggithubios-team",
-    "orientation": "portrait",
-    "icon": "./assets/icon.png",
-    "userInterfaceStyle": "dark",
-    "splash": {
-      "image": "./assets/splash.png",
-      "resizeMode": "contain",
-      "backgroundColor": "#0A0F24"
-    },
-    "assetBundlePatterns": [
-      "**/*"
-    ],
-    "android": {
-      "package": "com.dskilushang.saberao",
-      "adaptiveIcon": {
-        "foregroundImage": "./assets/icon.png",
-        "backgroundColor": "#0A0F24"
-      }
-    },
-    "extra": {
-      "eas": {
-        "projectId": "c6b8745e-f3d2-4f35-88be-e7e8f6132bac"
-      }
-    }
+"owner": "dskilushang.github.io",
+"cli": {
+  "appVersionSource": "dynamic"
+},
+"extra": {
+  "eas": {
+    "projectId": "d3a6c0d0-1160-472e-8275-8c6df7cfce42"
   }
 }
