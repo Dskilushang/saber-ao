@@ -4,6 +4,7 @@ import { createStackNavigator } from '@react-navigation/stack';
 import SoundManager from './src/utils/soundManager';
 
 import SplashScreen from './src/screens/SplashScreen';
+import AccueilScreen from './src/screens/AccueilScreen';
 import CategoriesScreen from './src/screens/CategoriesScreen';
 import QuizScreen from './src/screens/QuizScreen';
 import ResultatScreen from './src/screens/ResultatScreen';
@@ -27,10 +28,11 @@ export default function App() {
         screenOptions={{ headerShown: false, animation: 'fade' }}
       >
         <Stack.Screen name="Splash" component={SplashScreen} />
+        <Stack.Screen name="Accueil" component={AccueilScreen} />
         <Stack.Screen name="Categories" component={CategoriesScreen} />
         <Stack.Screen name="Quiz" component={QuizScreen} />
         <Stack.Screen name="Resultat" component={ResultatScreen} />
       </Stack.Navigator>
     </NavigationContainer>
   );
-}
+                       }
