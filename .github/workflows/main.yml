@@ -1,38 +1,17 @@
-name: Test du Projet SABER AO
-
+name: EAS Build
 on:
   push:
-    branches: [ principal, main ]
-  pull_request:
-    branches: [ principal, main ]
-
+    branches: [main]
 jobs:
-  check-frontend:
+  build:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v3
-      - name: Installation Node.js
-        uses: actions/setup-node@v3
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
         with:
           node-version: 18
-      - name: Installation des outils du jeu
-        run: |
-          cd frontend
-          npm install
-      - name: Vérification du code
-        run: echo "Le code du jeu est prêt pour la compilation !"
-
-  check-backend:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v3
-      - name: Installation Node.js
-        uses: actions/setup-node@v3
-        with:
-          node-version: 18
-      - name: Installation du serveur
-        run: |
-          cd backend
-          npm install
-      - name: Vérification du serveur
-        run: echo "Le serveur est prêt à être déployé sur Render !"
+      - run: npm install -g eas-cli
+      - run: npm install
+      - run: eas build -p android --profile preview --non-interactive
+        env:
+          EXPO_TOKEN: ${{ secrets.EXPO_TOKEN }}
