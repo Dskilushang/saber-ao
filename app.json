@@ -3,6 +3,7 @@
     "name": "SABER AO",
     "slug": "saber-ao",
     "version": "1.0.0",
+    "owner": "dskilushanggithubios-team",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
     "userInterfaceStyle": "dark",
