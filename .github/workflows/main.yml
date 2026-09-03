@@ -7,6 +7,10 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
+      - uses: actions/setup-java@v4
+        with:
+          java-version: '17'
+          distribution: 'temurin'
       - uses: actions/setup-node@v4
         with:
           node-version: 18
@@ -14,9 +18,27 @@ jobs:
         run: npm install -g eas-cli
       - name: Install dependencies
         run: npm install --legacy-peer-deps
+      - name: Generate Keystore
+        run: |
+          keytool -genkey -v \
+            -keystore saber-ao.keystore \
+            -alias saber-ao \
+            -keyalg RSA -keysize 2048 -validity 10000 \
+            -dname "CN=SABER AO,O=DSKILUSHANG,C=AO" \
+            -storepass saberao123 -keypass saberao123
+      - name: Create credentials.json
+        run: |
+          echo '{
+            "android": {
+              "keystore": {
+                "keystorePath": "saber-ao.keystore",
+                "keystorePassword": "saberao123",
+                "keyAlias": "saber-ao",
+                "keyPassword": "saberao123"
+              }
+            }
+          }' > credentials.json
       - name: Build Android APK
-        run: eas build -p android --profile preview --non-interactive --no-wait
+        run: eas build -p android --profile preview --local --non-interactive
         env:
-      
           EXPO_TOKEN: ${{ secrets.EXPO_TOKEN }}
-          EAS_NO_VCS: 1
