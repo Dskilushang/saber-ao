@@ -13,9 +13,7 @@
       "package": "com.dskilushang.saberao"
     },
     "owner": "dskilushang.github.io",
-    "cli": {
-      "appVersionSource": "dynamic"
-    },
+    
     "extra": {
       "eas": {
         "projectId": "d3a6c0d0-1160-472e-8275-8c6df7cfce42"
