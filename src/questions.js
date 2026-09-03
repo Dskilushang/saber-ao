@@ -77,4 +77,17 @@ export const QUESTIONS = {
     { id:'des_06', question_pt:'Qual é o estádio nacional de Angola?', question_fr:"Quel est le stade national de l'Angola ?", options_pt:['Estádio 11 de Novembro','Estádio da Cidadela','Estádio Nacional','Estádio de Huambo'], options_fr:['Stade 11 Novembre','Stade de la Citadelle','Stade National','Stade de Huambo'], correct_pt:'Estádio 11 de Novembro', correct_fr:'Stade 11 Novembre' },
     { id:'des_07', question_pt:'Angola organizou qual CAN?', question_fr:"L'Angola a organisé quelle CAN ?", options_pt:['CAN 2010','CAN 2013','CAN 2006','CAN 2019'], options_fr:['CAN 2010','CAN 2013','CAN 2006','CAN 2019'], correct_pt:'CAN 2010', correct_fr:'CAN 2010' },
     { id:'des_08', question_pt:'Qual é o apelido da seleção angolana de andebol feminina?', question_fr:"Quel est le surnom de la sélection féminine de handball angolaise ?", options_pt:['Petróleo','Guerreiras do Futuro','Palancas Negras do Andebol','Águias'], options_fr:['Pétrole','Guerreiras do Futuro','Palancas Negras du Handball','Aigles'], correct_pt:'Palancas Negras do Andebol', correct_fr:'Palancas Negras du Handball' },
-    { id:'des_09', question_pt:'Qual jogador angolano ficou famoso no futebol europeu?', question_fr:"Qu
+    { id:'des_09', question_pt:'Qual jogador angolano ficou famoso no futebol europeu?', question_fr:"Quel joueur angolais est connu en Europe ?", options_pt:['Manucho','Flávio','Dálder','Gilberto'], options_fr:['Manucho','Flávio','Dálder','Gilberto'], correct_pt:'Manucho', correct_fr:'Manucho' },
+    { id:'des_10', question_pt:'Qual é a federação que gere o futebol em Angola?', question_fr:"Quelle fédération gère le football en Angola ?", options_pt:['FAF','FIFA Angola','FCA','AFA'], options_fr:['FAF','FIFA Angola','FCA','AFA'], correct_pt:'FAF', correct_fr:'FAF' },
+  ],
+};
+
+export function getQuestionsByCategory(categoryId, lang = 'pt') {
+  const cats = QUESTIONS[categoryId] || [];
+  return cats.map(q => ({
+    id: q.id,
+    question: lang === 'fr' ? q.question_fr : q.question_pt,
+    options: lang === 'fr' ? q.options_fr : q.options_pt,
+    correct: lang === 'fr' ? q.correct_fr : q.correct_pt,
+  }));
+   }
