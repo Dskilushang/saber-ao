@@ -1,0 +1,13 @@
+build:
+  name: Build Android APK
+  on:
+    push:
+      branches:
+        - main
+  jobs:
+    build:
+      name: Build SABER AO Android
+      type: build
+      params:
+        platform: android
+        profile: preview
