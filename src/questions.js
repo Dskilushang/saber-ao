@@ -81,7 +81,6 @@ export const QUESTIONS = {
     { id:'des_10', question_pt:'Qual é a federação que gere o futebol em Angola?', question_fr:"Quelle fédération gère le football en Angola ?", options_pt:['FAF','FIFA Angola','FCA','AFA'], options_fr:['FAF','FIFA Angola','FCA','AFA'], correct_pt:'FAF', correct_fr:'FAF' },
   ],
 };
-
 export function getQuestionsByCategory(categoryId, lang = 'pt') {
   const cats = QUESTIONS[categoryId] || [];
   return cats.map(q => ({
@@ -90,4 +89,4 @@ export function getQuestionsByCategory(categoryId, lang = 'pt') {
     options: lang === 'fr' ? q.options_fr : q.options_pt,
     correct: lang === 'fr' ? q.correct_fr : q.correct_pt,
   }));
-   }
+}
