@@ -1,34 +1,21 @@
-// src/screens/AccueilScreen.js
 import React from 'react';
-import { View, Text, Image, TouchableOpacity, StyleSheet } from 'react-native';
+import { View, Text, TouchableOpacity, StyleSheet } from 'react-native';
 
 export default function AccueilScreen({ navigation }) {
   return (
     <View style={styles.container}>
 
-      {/* Logo navbar */}
       <View style={styles.navbar}>
-        <Image
-          source={require('../../assets/mascottes-optimized/00_logo_saber_ao.png')}
-          style={styles.navLogo}
-          resizeMode="contain"
-        />
         <Text style={styles.navTitre}>SABER AO</Text>
       </View>
 
-      {/* Mascotte accueil */}
-      <Image
-        source={require('../../assets/mascottes-optimized/mascotte_bienvenue.png')}
-        style={styles.mascotte}
-        resizeMode="contain"
-      />
+      <Text style={styles.emoji}>🦁</Text>
 
       <Text style={styles.titre}>Bem-vindo ao{'\n'}SABER AO !</Text>
       <Text style={styles.sousTitre}>
-        Testa os teus conhecimentos{'\n'}sobre Angola em 3 categorias
+        Testa os teus conhecimentos{'\n'}sobre Angola em 6 categorias
       </Text>
 
-      {/* Bouton jouer */}
       <TouchableOpacity
         style={styles.btnJouer}
         onPress={() => navigation.navigate('Categories')}
@@ -36,7 +23,6 @@ export default function AccueilScreen({ navigation }) {
         <Text style={styles.btnJouerText}>🎮 JOGAR AGORA</Text>
       </TouchableOpacity>
 
-      {/* Bouton règles */}
       <TouchableOpacity style={styles.btnRegles}>
         <Text style={styles.btnReglesText}>📖 Como jogar</Text>
       </TouchableOpacity>
@@ -58,21 +44,15 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     marginBottom: 10,
   },
-  navLogo: {
-    width: 40,
-    height: 40,
-    marginRight: 10,
-  },
   navTitre: {
     color: '#FFD700',
     fontSize: 20,
     fontWeight: '900',
     letterSpacing: 3,
   },
-  mascotte: {
-    width: 180,
-    height: 180,
-    marginVertical: 10,
+  emoji: {
+    fontSize: 100,
+    marginVertical: 20,
   },
   titre: {
     fontSize: 28,
