@@ -97,3 +97,44 @@ export default function CategoriesScreen({ navigation }) {
             </Text>
           </TouchableOpacity>
         ))}
+      </View>
+
+      <FlatList
+        data={CATEGORIES}
+        renderItem={renderCategory}
+        keyExtractor={(item) => item.id}
+        scrollEnabled={true}
+        contentContainerStyle={styles.listContent}
+      />
+
+      <View style={styles.musicRow}>
+        <Text style={styles.musicLabel}>{L.music}</Text>
+        <Switch
+          value={musicOn}
+          onValueChange={toggleMusic}
+          trackColor={{ false: '#444', true: '#4CAF50' }}
+          thumbColor={musicOn ? '#8BC34A' : '#888'}
+        />
+      </View>
+    </SafeAreaView>
+  );
+}
+
+const styles = StyleSheet.create({
+  container: { flex: 1, backgroundColor: '#0A0F24' },
+  header: { alignItems: 'center', marginVertical: 20 },
+  title: { fontSize: 32, fontWeight: 'bold', color: '#FFF', marginTop: 10 },
+  subtitle: { fontSize: 16, color: '#AAA', marginTop: 8 },
+  langRow: { flexDirection: 'row', justifyContent: 'center', gap: 10, marginVertical: 15 },
+  langBtn: { paddingHorizontal: 15, paddingVertical: 8, borderRadius: 20, backgroundColor: '#1A2340' },
+  langBtnActive: { backgroundColor: '#4CAF50' },
+  langBtnText: { color: '#AAA', fontWeight: '600' },
+  langBtnTextActive: { color: '#FFF' },
+  listContent: { paddingHorizontal: 10, paddingBottom: 80 },
+  card: { marginVertical: 8, padding: 15, backgroundColor: '#1A2340', borderRadius: 10, flexDirection: 'row', alignItems: 'center' },
+  cardIcon: { fontSize: 28, marginRight: 10 },
+  cardLabel: { flex: 1, fontSize: 18, fontWeight: '600' },
+  cardArrow: { fontSize: 24, color: '#888' },
+  musicRow: { flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between', paddingHorizontal: 20, paddingVertical: 15, borderTopColor: '#333', borderTopWidth: 1, backgroundColor: '#0A0F24' },
+  musicLabel: { fontSize: 16, color: '#FFF', fontWeight: '600' },
+});
