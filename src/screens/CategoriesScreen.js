@@ -3,7 +3,7 @@ import {
   View, Text, TouchableOpacity, StyleSheet,
   FlatList, StatusBar, Animated, Switch, SafeAreaView,
 } from 'react-native';
-import { CATEGORIES } from '../data/questions';
+import { CATEGORIES } from '../questions';
 import Mascotte, { MASCOTTE_STATES } from '../components/Mascotte';
 import SoundManager from '../utils/soundManager';
 
