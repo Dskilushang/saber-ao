@@ -1,7 +1,22 @@
-"android": {
-  "adaptiveIcon": {
-    "foregroundImage": "./assets/icon.png",
-    "backgroundColor": "#000000"
-  },
-  "package": "com.dskilushang.saberao"
+{
+  "expo": {
+    "name": "SABER AO",
+    "slug": "saber-ao",
+    "version": "1.0.0",
+    "orientation": "portrait",
+    "platforms": ["android"],
+    "android": {
+      "adaptiveIcon": {
+        "foregroundImage": "./assets/icon.png",
+        "backgroundColor": "#000000"
+      },
+      "package": "com.dskilushang.saberao"
+    },
+    "owner": "dskilushang.github.io",
+    "extra": {
+      "eas": {
+        "projectId": "d3a6c0d0-1160-472e-8275-8c6df7cfce42"
+      }
+    }
+  }
 }
