@@ -74,4 +74,164 @@ export default function SplashScreen({ navigation }) {
             <View style={styles.flagRow}>
               <View style={styles.flagMini}>
                 <View style={styles.flagR} />
-                <Vi
+                <View style={styles.flagB} />
+              </View>
+            </View>
+
+            {/* Logo SABER AO */}
+            <Text style={styles.logoSaber}>SABER</Text>
+            <View style={styles.logoAoRow}>
+              <Text style={styles.logoAO}>AO</Text>
+              <Text style={styles.logoQ}>?</Text>
+            </View>
+
+            {/* ABCD */}
+            <View style={styles.abcdContainer}>
+              <View style={[styles.abcdBtn, styles.abcdA]}>
+                <Text style={styles.abcdTxt}>A</Text>
+              </View>
+              <View style={[styles.abcdBtn, styles.abcdB]}>
+                <Text style={styles.abcdTxt}>B</Text>
+              </View>
+              <View style={[styles.abcdBtn, styles.abcdC]}>
+                <Text style={[styles.abcdTxt, styles.abcdCText]}>C</Text>
+              </View>
+              <View style={[styles.abcdBtn, styles.abcdD]}>
+                <Text style={styles.abcdTxt}>D</Text>
+              </View>
+            </View>
+
+            {/* Micro */}
+            <Text style={styles.micIcon}>🎙️</Text>
+          </View>
+        </View>
+
+        {/* Ampoules bas */}
+        <BulbRow count={9} />
+
+        {/* Texte chargement */}
+        <Text style={styles.loadingText}>Carregando...</Text>
+      </Animated.View>
+    </View>
+  );
+}
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    backgroundColor: '#0A0E1A',
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  rays: {
+    ...StyleSheet.absoluteFillObject,
+    backgroundColor: 'rgba(255, 215, 0, 0.1)',
+    borderRadius: width,
+  },
+  bulbRow: {
+    flexDirection: 'row',
+    justifyContent: 'center',
+    marginVertical: 8,
+  },
+  bulb: {
+    width: 10,
+    height: 10,
+    borderRadius: 5,
+    backgroundColor: '#FFD700',
+    marginHorizontal: 5,
+  },
+  ovalFrame: {
+    width: width * 0.85,
+    height: width * 0.85,
+    borderRadius: width * 0.425,
+    backgroundColor: 'rgba(255, 255, 255, 0.05)',
+    borderWidth: 3,
+    borderColor: '#FFD700',
+    justifyContent: 'center',
+    alignItems: 'center',
+    marginVertical: 20,
+  },
+  ovalInner: {
+    width: width * 0.75,
+    height: width * 0.75,
+    borderRadius: width * 0.375,
+    backgroundColor: 'rgba(255, 255, 255, 0.1)',
+    justifyContent: 'center',
+    alignItems: 'center',
+    padding: 20,
+  },
+  flagRow: {
+    marginBottom: 15,
+  },
+  flagMini: {
+    width: 60,
+    height: 40,
+    borderRadius: 5,
+    overflow: 'hidden',
+  },
+  flagR: {
+    flex: 1,
+    backgroundColor: '#CC092F',
+  },
+  flagB: {
+    flex: 1,
+    backgroundColor: '#000000',
+  },
+  logoSaber: {
+    color: '#FFF',
+    fontSize: 36,
+    fontWeight: 'bold',
+    letterSpacing: 3,
+    marginBottom: 5,
+  },
+  logoAoRow: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    marginBottom: 20,
+  },
+  logoAO: {
+    color: '#FFD700',
+    fontSize: 32,
+    fontWeight: 'bold',
+  },
+  logoQ: {
+    color: '#FFF',
+    fontSize: 32,
+    fontWeight: 'bold',
+    marginLeft: 8,
+  },
+  abcdContainer: {
+    flexDirection: 'row',
+    marginBottom: 15,
+  },
+  abcdBtn: {
+    width: 45,
+    height: 45,
+    borderRadius: 22,
+    justifyContent: 'center',
+    alignItems: 'center',
+    marginHorizontal: 8,
+  },
+  abcdA: { backgroundColor: '#E53935' },
+  abcdB: { backgroundColor: '#1E88E5' },
+  abcdC: { backgroundColor: '#FFD700' },
+  abcdD: { backgroundColor: '#43A047' },
+  abcdTxt: {
+    color: '#FFF',
+    fontSize: 20,
+    fontWeight: 'bold',
+  },
+  abcdCText: {
+    color: '#000',
+  },
+  micIcon: {
+    fontSize: 32,
+    marginTop: 10,
+  },
+  loadingText: {
+    color: '#FFD700',
+    fontSize: 16,
+    marginTop: 20,
+    fontWeight: '600',
+  },
+});
