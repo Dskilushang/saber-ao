@@ -41,10 +41,9 @@ export default function CategoriesScreen({ navigation }) {
     SoundManager.setMusicEnabled(val);
   };
 
-  const selectCategory = async (cat) => {
-    await SoundManager.onClick();
-    navigation.navigate('Quiz', { categoryId: cat.id, lang });
-  };
+  const selectCategory = (cat) => {
+  navigation.navigate('Quiz', { categoryId: cat.id, lang });
+};
 
   const LABELS = {
     pt: { subtitle: 'Escolhe uma categoria', music: 'Música' },
