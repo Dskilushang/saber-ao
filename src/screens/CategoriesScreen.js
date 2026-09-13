@@ -40,9 +40,8 @@ export default function CategoriesScreen({ navigation }) {
     setMusicOn(val);
     SoundManager.setMusicEnabled(val);
   };
-
-  const selectCategory = (cat) => {
-  navigation.navigate('Quiz', { categoryId: cat.id, lang });
+const selectCategory = () => {
+  navigation.navigate('Quiz');
 };
 
   const LABELS = {
