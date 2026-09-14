@@ -213,7 +213,8 @@ export default function QuizScreen({ route, navigation }) {
     clearTimeout(nextQuestionTimeoutRef.current);
 
     if (index >= questions.length - 1) {
-      const finalScore = score;
+      // Correction : inclut la dernière réponse dans le score final
+      const finalScore = score + (wasCorrect ? 1 : 0);
 
       const finalState =
         finalScore >= questions.length * 0.8
