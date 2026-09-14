@@ -90,3 +90,32 @@ export function getQuestionsByCategory(categoryId, lang = 'pt') {
     correct: lang === 'fr' ? q.correct_fr : q.correct_pt,
   }));
 }
+export function getQuestionsByCategory(categoryId, lang = 'pt') {
+  const cats = QUESTIONS[categoryId] || [];
+  return cats.map(q => ({
+    id: q.id,
+    question: lang === 'fr' ? q.question_fr : q.question_pt,
+    options: lang === 'fr' ? q.options_fr : q.options_pt,
+    correct: lang === 'fr' ? q.correct_fr : q.correct_pt,
+  }));
+}
+
+export function getRandomQuizQuestions(count = 10, lang = 'pt') {
+  const allQuestions = Object.entries(QUESTIONS).flatMap(
+    ([categoryId, categoryQuestions]) =>
+      categoryQuestions.map((q) => ({
+        id: q.id,
+        categoryId,
+        question: lang === 'fr' ? q.question_fr : q.question_pt,
+        options: lang === 'fr' ? q.options_fr : q.options_pt,
+        correct: lang === 'fr' ? q.correct_fr : q.correct_pt,
+      }))
+  );
+
+  for (let i = allQuestions.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [allQuestions[i], allQuestions[j]] = [allQuestions[j], allQuestions[i]];
+  }
+
+  return allQuestions.slice(0, Math.min(count, allQuestions.length));
+        }
