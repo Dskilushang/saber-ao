@@ -1,109 +1,444 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useEffect, useRef } from 'react';
 import {
-  View, Text, StyleSheet, Animated,
-  TouchableOpacity, StatusBar, ScrollView
+  View,
+  Text,
+  TouchableOpacity,
+  StyleSheet,
+  StatusBar,
+  SafeAreaView,
+  Animated,
 } from 'react-native';
 
-const Bulb = ({ delay = 0 }) => {
-  const opacity = useRef(new Animated.Value(0.3)).current;
+import Mascotte, {
+  MASCOTTE_STATES,
+} from '../components/Mascotte';
+
+import SoundManager from '../utils/soundManager';
+
+export default function AccueilScreen({ route, navigation }) {
+  const { lang = 'pt' } = route.params || {};
+
+  const pulseAnim = useRef(new Animated.Value(1)).current;
+  const glowAnim = useRef(new Animated.Value(0.5)).current;
+
+  const L = {
+    pt: {
+      subtitle: 'O grande jogo de perguntas',
+      play: 'JOGAR',
+      playSub: 'COMEÇAR O DESAFIO',
+      rules: 'Como jogar',
+      language: 'Português',
+    },
+
+    fr: {
+      subtitle: 'Le grand jeu de questions',
+      play: 'JOUER',
+      playSub: 'COMMENCER LE DÉFI',
+      rules: 'Comment jouer',
+      language: 'Français',
+    },
+  }[lang] || {
+    subtitle: 'O grande jogo de perguntas',
+    play: 'JOGAR',
+    playSub: 'COMEÇAR O DESAFIO',
+    rules: 'Como jogar',
+    language: 'Português',
+  };
+
   useEffect(() => {
+    SoundManager.init();
+    SoundManager.playBgMusic();
+
     Animated.loop(
       Animated.sequence([
-        Animated.delay(delay),
-        Animated.timing(opacity, { toValue: 1, duration: 400, useNativeDriver: true }),
-        Animated.timing(opacity, { toValue: 0.3, duration: 400, useNativeDriver: true }),
+        Animated.timing(pulseAnim, {
+          toValue: 1.04,
+          duration: 900,
+          useNativeDriver: true,
+        }),
+        Animated.timing(pulseAnim, {
+          toValue: 1,
+          duration: 900,
+          useNativeDriver: true,
+        }),
       ])
     ).start();
+
+    Animated.loop(
+      Animated.sequence([
+        Animated.timing(glowAnim, {
+          toValue: 1,
+          duration: 1000,
+          useNativeDriver: true,
+        }),
+        Animated.timing(glowAnim, {
+          toValue: 0.45,
+          duration: 1000,
+          useNativeDriver: true,
+        }),
+      ])
+    ).start();
+
+    return () => {
+      SoundManager.stopBgMusic();
+    };
   }, []);
-  return <Animated.View style={[styles.bulb, { opacity }]} />;
-};
 
-const BulbRow = ({ count = 6 }) => (
-  <View style={styles.bulbRow}>
-    {Array.from({ length: count }).map((_, i) => (
-      <Bulb key={i} delay={i * 120} />
-    ))}
-  </View>
-);
+  const startGame = async () => {
+    await SoundManager.onClick();
 
-const LogoMini = () => (
-  <View style={styles.logoOval}>
-    <View style={styles.logoInner}>
-      <Text style={styles.logoSaber}>SABER</Text>
-      <View style={styles.logoAoRow}>
-        <Text style={styles.logoAO}>AO</Text>
-        <Text style={styles.logoQ}>?</Text>
-        <View style={styles.flagMini}>
-          <View style={styles.flagR} />
-          <View style={styles.flagB} />
-        </View>
-      </View>
-    </View>
-    <View style={styles.logoAbcd}>
-      {[['A','abcdA'],['B','abcdB'],['C','abcdC'],['D','abcdB']].map(([l, s]) => (
-        <View key={l} style={[styles.abcdBtn, styles[s]]}>
-          <Text style={[styles.abcdTxt, s === 'abcdC' && { color: '#000' }]}>{l}</Text>
-        </View>
-      ))}
-    </View>
-    <Text style={styles.logoMic}>🎙️</Text>
-  </View>
-);
+    navigation.navigate('Quiz', {
+      lang,
+    });
+  };
 
-const CATEGORIES = [
-  { id: 'historia',  label_pt: 'História',  label_fr: 'Histoire',   icon: '🏛️', color: '#E53935' },
-  { id: 'geografia', label_pt: 'Geografia', label_fr: 'Géographie', icon: '️', color: '#43A047' },
-  { id: 'cultura',   label_pt: 'Cultura',   label_fr: 'Culture',    icon: '🎭', color: '#8E24AA' },
-  { id: 'musica',    label_pt: 'Música',    label_fr: 'Musique',    icon: '🎵', color: '#FB8C00' },
-  { id: 'ciencia',   label_pt: 'Ciência',   label_fr: 'Science',    icon: '🔬', color: '#1E88E5' },
-  { id: 'desporto',  label_pt: 'Desporto',  label_fr: 'Sport',      icon: '⚽', color: '#16A085' },
-];
+  const showRules = () => {
+    SoundManager.onClick();
 
-export default function AccueilScreen({ navigation }) {
-  const [lang, setLang] = useState('pt');
-  const fadeAnim = useRef(new Animated.Value(0)).current;
-
-  useEffect(() => {
-    Animated.timing(fadeAnim, { toValue: 1, duration: 600, useNativeDriver: true }).start();
-  }, []);
+    alert(
+      lang === 'fr'
+        ? 'Répondez aux questions avant la fin du temps. Utilisez vos jokers au bon moment !'
+        : 'Responda às perguntas antes do fim do tempo. Use os seus jokers no momento certo!'
+    );
+  };
 
   return (
-    <View style={styles.container}>
-      <StatusBar barStyle="light-content" />
-      <BulbRow count={6} />
-      <LogoMini />
-      <ScrollView contentContainerStyle={styles.scrollContent}>
-        {CATEGORIES.map((cat) => (
-          <TouchableOpacity 
-            key={cat.id} 
-            style={[styles.categoryCard, { backgroundColor: cat.color }]}
-            onPress={() => console.log(`Navigation vers ${cat.id}`)}
-          >
-            <Text style={styles.categoryIcon}>{cat.icon}</Text>
-            <Text style={styles.categoryLabel}>
-              {lang === 'pt' ? cat.label_pt : cat.label_fr}
-            </Text>
-          </TouchableOpacity>
-        ))}
-      </ScrollView>
-    </View>
+    <SafeAreaView style={styles.container}>
+      <StatusBar
+        barStyle="light-content"
+        backgroundColor="#080B18"
+      />
+
+      {/* LUMIÈRES DÉCORATIVES */}
+      <Animated.View
+        style={[
+          styles.lightLeft,
+          { opacity: glowAnim },
+        ]}
+      />
+
+      <Animated.View
+        style={[
+          styles.lightRight,
+          { opacity: glowAnim },
+        ]}
+      />
+
+      {/* EN-TÊTE */}
+      <View style={styles.topBar}>
+        <View style={styles.flagMark}>
+          <View style={styles.flagRed} />
+          <View style={styles.flagBlack} />
+          <Text style={styles.flagStar}>★</Text>
+        </View>
+
+        <Text style={styles.topTitle}>
+          SABER AO
+        </Text>
+
+        <TouchableOpacity
+          style={styles.languageButton}
+          onPress={() => {
+            SoundManager.onClick();
+
+            navigation.navigate('Accueil', {
+              lang: lang === 'pt' ? 'fr' : 'pt',
+            });
+          }}
+        >
+          <Text style={styles.languageText}>
+            {lang === 'pt' ? 'PT' : 'FR'}
+          </Text>
+        </TouchableOpacity>
+      </View>
+
+      {/* LOGO */}
+      <View style={styles.logoArea}>
+        <Text style={styles.logoText}>
+          SABER
+        </Text>
+
+        <Text style={styles.logoAO}>
+          AO
+        </Text>
+
+        <View style={styles.logoLine} />
+
+        <Text style={styles.subtitle}>
+          {L.subtitle}
+        </Text>
+      </View>
+
+      {/* MASCOTTE */}
+      <Animated.View
+        style={[
+          styles.mascotteArea,
+          {
+            transform: [
+              {
+                scale: pulseAnim,
+              },
+            ],
+          },
+        ]}
+      >
+        <Mascotte
+          state={MASCOTTE_STATES.BIENVENUE}
+          size={180}
+        />
+      </Animated.View>
+
+      {/* BOUTON PRINCIPAL */}
+      <View style={styles.playArea}>
+        <TouchableOpacity
+          activeOpacity={0.82}
+          style={styles.playButton}
+          onPress={startGame}
+        >
+          <Text style={styles.playText}>
+            {L.play}
+          </Text>
+
+          <Text style={styles.playSubText}>
+            {L.playSub}
+          </Text>
+        </TouchableOpacity>
+
+        <TouchableOpacity
+          style={styles.rulesButton}
+          onPress={showRules}
+        >
+          <Text style={styles.rulesText}>
+            ℹ️ {L.rules}
+          </Text>
+        </TouchableOpacity>
+      </View>
+
+      {/* PIED DE PAGE */}
+      <View style={styles.footer}>
+        <View style={styles.footerLine} />
+
+        <Text style={styles.footerText}>
+          {L.language}
+        </Text>
+
+        <Text style={styles.version}>
+          SABER AO • 1.0
+        </Text>
+      </View>
+    </SafeAreaView>
   );
 }
 
 const styles = StyleSheet.create({
-  container: { 
-    flex: 1, 
-    backgroundColor: '#121212' 
+  container: {
+    flex: 1,
+    backgroundColor: '#080B18',
+    overflow: 'hidden',
   },
-  bulbRow: { 
-    flexDirection: 'row', 
-    justifyContent: 'center', 
-    marginVertical: 10 
+
+  lightLeft: {
+    position: 'absolute',
+    width: 180,
+    height: 180,
+    borderRadius: 90,
+    backgroundColor: '#8B0000',
+    left: -100,
+    top: 120,
   },
-  bulb: { 
-    width: 12, 
-    height: 12, 
-    borderRadius: 6, 
+
+  lightRight: {
+    position: 'absolute',
+    width: 180,
+    height: 180,
+    borderRadius: 90,
+    backgroundColor: '#FFD700',
+    right: -100,
+    top: 260,
+  },
+
+  topBar: {
+    height: 60,
+    flexDirection: 'row',
+    alignItems: 'center',
+    paddingHorizontal: 18,
+    justifyContent: 'space-between',
+  },
+
+  flagMark: {
+    width: 34,
+    height: 26,
+    borderRadius: 5,
+    overflow: 'hidden',
+    position: 'relative',
+  },
+
+  flagRed: {
+    position: 'absolute',
+    top: 0,
+    left: 0,
+    right: 0,
+    height: 13,
+    backgroundColor: '#C8102E',
+  },
+
+  flagBlack: {
+    position: 'absolute',
+    bottom: 0,
+    left: 0,
+    right: 0,
+    height: 13,
+    backgroundColor: '#050505',
+  },
+
+  flagStar: {
+    position: 'absolute',
+    alignSelf: 'center',
+    top: 2,
+    color: '#FFD700',
+    fontSize: 16,
+  },
+
+  topTitle: {
+    color: '#FFD700',
+    fontSize: 17,
+    fontWeight: '900',
+    letterSpacing: 3,
+  },
+
+  languageButton: {
+    minWidth: 42,
+    height: 34,
+    borderRadius: 17,
+    borderWidth: 1,
+    borderColor: 'rgba(255,215,0,0.5)',
+    alignItems: 'center',
+    justifyContent: 'center',
+    backgroundColor: 'rgba(255,215,0,0.08)',
+  },
+
+  languageText: {
+    color: '#FFD700',
+    fontSize: 12,
+    fontWeight: '900',
+  },
+
+  logoArea: {
+    alignItems: 'center',
+    marginTop: 18,
+  },
+
+  logoText: {
+    color: '#FFFFFF',
+    fontSize: 44,
+    fontWeight: '900',
+    letterSpacing: 5,
+  },
+
+  logoAO: {
+    color: '#FFD700',
+    fontSize: 46,
+    fontWeight: '900',
+    letterSpacing: 7,
+    marginTop: -8,
+  },
+
+  logoLine: {
+    width: 90,
+    height: 3,
+    backgroundColor: '#FFD700',
+    borderRadius: 2,
+    marginTop: 5,
+  },
+
+  subtitle: {
+    color: '#AAB4D4',
+    fontSize: 13,
+    marginTop: 9,
+    textAlign: 'center',
+    letterSpacing: 0.5,
+  },
+
+  mascotteArea: {
+    flex: 1,
+    alignItems: 'center',
+    justifyContent: 'center',
+    minHeight: 210,
+  },
+
+  playArea: {
+    alignItems: 'center',
+    paddingHorizontal: 30,
+    marginBottom: 18,
+  },
+
+  playButton: {
+    width: '100%',
+    maxWidth: 340,
+    minHeight: 76,
+    borderRadius: 18,
+    backgroundColor: '#FFD700',
+    alignItems: 'center',
+    justifyContent: 'center',
+    elevation: 8,
+    shadowOpacity: 0.35,
+    shadowRadius: 10,
+    shadowOffset: {
+      width: 0,
+      height: 5,
+    },
+  },
+
+  playText: {
+    color: '#080B18',
+    fontSize: 27,
+    fontWeight: '900',
+    letterSpacing: 3,
+  },
+
+  playSubText: {
+    color: '#3B3000',
+    fontSize: 10,
+    fontWeight: '800',
+    letterSpacing: 1.5,
+    marginTop: 2,
+  },
+
+  rulesButton: {
+    marginTop: 13,
+    paddingVertical: 8,
+    paddingHorizontal: 18,
+  },
+
+  rulesText: {
+    color: '#AAB4D4',
+    fontSize: 12,
+    fontWeight: '600',
+  },
+
+  footer: {
+    alignItems: 'center',
+    paddingBottom: 12,
+  },
+
+  footerLine: {
+    width: 45,
+    height: 2,
+    backgroundColor: 'rgba(255,215,0,0.35)',
+    marginBottom: 6,
+  },
+
+  footerText: {
+    color: '#66708F',
+    fontSize: 10,
+  },
+
+  version: {
+    color: '#454D68',
+    fontSize: 9,
+    marginTop: 3,
+  },
+});    borderRadius: 6, 
     backgroundColor: '#FFD700', 
     marginHorizontal: 4 
   },
