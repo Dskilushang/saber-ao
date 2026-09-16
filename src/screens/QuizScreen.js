@@ -22,7 +22,10 @@ export default function QuizScreen({ route, navigation }) {
   const { lang = 'pt' } = route.params || {};
 
   // Questions mélangées provenant de toutes les catégories
-  const questions = getRandomQuizQuestions(TOTAL_QUESTIONS, lang);
+  // CORRECTION : la série de questions est générée une seule fois
+  const [questions] = useState(() =>
+    getRandomQuizQuestions(TOTAL_QUESTIONS, lang)
+  );
 
   const [index, setIndex] = useState(0);
   const [score, setScore] = useState(0);
