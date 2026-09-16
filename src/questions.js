@@ -1,120 +1,650 @@
+// ============================================================
+// SABER AO — BASE DE QUESTIONS
+// ============================================================
+// Une partie standard = 10 questions.
+//
+// Q1-Q2  : Niveau 1 — 100 pts — 20 s
+// Q3-Q5  : Niveau 2 — 200 pts — 20 s
+// Q6-Q8  : Niveau 3 — 300 pts — 20 s
+// Q9-Q10 : Niveau 4 — 500 pts — 25 s
+//
+// Les catégories servent à organiser la banque de questions.
+// Elles ne créent PAS de menu de catégories dans le jeu.
+// ============================================================
+
+
+// ============================================================
+// CATÉGORIES
+// ============================================================
+
 export const CATEGORIES = [
-  { id: 'historia',  label_pt: 'História',  label_fr: 'Histoire',   icon: '🏛️', color: '#C0392B' },
-  { id: 'geografia', label_pt: 'Geografia', label_fr: 'Géographie', icon: '🗺️', color: '#27AE60' },
-  { id: 'cultura',   label_pt: 'Cultura',   label_fr: 'Culture',    icon: '🎭', color: '#8E44AD' },
-  { id: 'musica',    label_pt: 'Música',    label_fr: 'Musique',    icon: '🎵', color: '#E67E22' },
-  { id: 'ciencia',   label_pt: 'Ciência',   label_fr: 'Science',    icon: '🔬', color: '#2980B9' },
-  { id: 'desporto',  label_pt: 'Desporto',  label_fr: 'Sport',      icon: '⚽', color: '#16A085' },
+  {
+    id: 'historia',
+    label_pt: 'História',
+    label_fr: 'Histoire',
+    icon: '🏛️',
+    color: '#C0392B',
+  },
+  {
+    id: 'geografia',
+    label_pt: 'Geografia',
+    label_fr: 'Géographie',
+    icon: '🗺️',
+    color: '#27AE60',
+  },
+  {
+    id: 'cultura',
+    label_pt: 'Cultura',
+    label_fr: 'Culture',
+    icon: '🎭',
+    color: '#8E44AD',
+  },
+  {
+    id: 'musica',
+    label_pt: 'Música',
+    label_fr: 'Musique',
+    icon: '🎵',
+    color: '#E67E22',
+  },
+  {
+    id: 'ciencia',
+    label_pt: 'Ciência',
+    label_fr: 'Science',
+    icon: '🔬',
+    color: '#2980B9',
+  },
+  {
+    id: 'desporto',
+    label_pt: 'Desporto',
+    label_fr: 'Sport',
+    icon: '⚽',
+    color: '#16A085',
+  },
+
+  // Nouvelles catégories préparées pour l'extension
+  {
+    id: 'religiao',
+    label_pt: 'Religião',
+    label_fr: 'Religion',
+    icon: '✝️',
+    color: '#7D3C98',
+  },
+  {
+    id: 'espiritualidade',
+    label_pt: 'Espiritualidade',
+    label_fr: 'Spiritualité',
+    icon: '✨',
+    color: '#AF7AC5',
+  },
+  {
+    id: 'politica',
+    label_pt: 'Política e Cidadania',
+    label_fr: 'Politique et citoyenneté',
+    icon: '🏛️',
+    color: '#34495E',
+  },
+  {
+    id: 'culinaria',
+    label_pt: 'Culinária',
+    label_fr: 'Gastronomie',
+    icon: '🍲',
+    color: '#D35400',
+  },
+  {
+    id: 'zoologia',
+    label_pt: 'Zoologia',
+    label_fr: 'Zoologie',
+    icon: '🦁',
+    color: '#229954',
+  },
+  {
+    id: 'proverbios',
+    label_pt: 'Provérbios',
+    label_fr: 'Proverbes',
+    icon: '📜',
+    color: '#A569BD',
+  },
+  {
+    id: 'literatura',
+    label_pt: 'Literatura',
+    label_fr: 'Littérature',
+    icon: '📚',
+    color: '#884EA0',
+  },
+  {
+    id: 'linguas',
+    label_pt: 'Línguas',
+    label_fr: 'Langues',
+    icon: '🗣️',
+    color: '#2874A6',
+  },
+  {
+    id: 'artes',
+    label_pt: 'Artes',
+    label_fr: 'Arts',
+    icon: '🎨',
+    color: '#CA6F1E',
+  },
+  {
+    id: 'tecnologia',
+    label_pt: 'Tecnologia',
+    label_fr: 'Technologie',
+    icon: '💻',
+    color: '#2E86C1',
+  },
+  {
+    id: 'natureza',
+    label_pt: 'Natureza e Ambiente',
+    label_fr: 'Nature et environnement',
+    icon: '🌍',
+    color: '#239B56',
+  },
+  {
+    id: 'economia',
+    label_pt: 'Economia',
+    label_fr: 'Économie',
+    icon: '💰',
+    color: '#B7950B',
+  },
+  {
+    id: 'saude',
+    label_pt: 'Saúde',
+    label_fr: 'Santé',
+    icon: '🩺',
+    color: '#148F77',
+  },
+  {
+    id: 'inventos',
+    label_pt: 'Invenções e Descobertas',
+    label_fr: 'Inventions et découvertes',
+    icon: '💡',
+    color: '#F1C40F',
+  },
+  {
+    id: 'personalidades',
+    label_pt: 'Personalidades',
+    label_fr: 'Personnalités',
+    icon: '👤',
+    color: '#5D6D7E',
+  },
 ];
 
-export const QUESTIONS = {
-  historia: [
-    { id:'hist_01', question_pt:'Em que ano Angola conquistou a sua independência?', question_fr:"En quelle année l'Angola a conquis son indépendance ?", options_pt:['1975','1961','1980','1970'], options_fr:['1975','1961','1980','1970'], correct_pt:'1975', correct_fr:'1975' },
-    { id:'hist_02', question_pt:'Qual foi o primeiro presidente de Angola?', question_fr:"Qui fut le premier président de l'Angola ?", options_pt:['Agostinho Neto','Jonas Savimbi','Holden Roberto','José Eduardo dos Santos'], options_fr:['Agostinho Neto','Jonas Savimbi','Holden Roberto','José Eduardo dos Santos'], correct_pt:'Agostinho Neto', correct_fr:'Agostinho Neto' },
-    { id:'hist_03', question_pt:'De que país Angola se tornou independente?', question_fr:"De quel pays l'Angola s'est-il indépendant ?", options_pt:['Portugal','França','Espanha','Reino Unido'], options_fr:['Portugal','France','Espagne','Royaume-Uni'], correct_pt:'Portugal', correct_fr:'Portugal' },
-    { id:'hist_04', question_pt:'Qual movimento proclamou a independência em 1975?', question_fr:"Quel mouvement a proclamé l'indépendance en 1975 ?", options_pt:['MPLA','UNITA','FNLA','FLEC'], options_fr:['MPLA','UNITA','FNLA','FLEC'], correct_pt:'MPLA', correct_fr:'MPLA' },
-    { id:'hist_05', question_pt:'Em que cidade foi proclamada a independência?', question_fr:"Dans quelle ville l'indépendance fut-elle proclamée ?", options_pt:['Luanda','Huambo','Benguela','Cabinda'], options_fr:['Luanda','Huambo','Benguela','Cabinda'], correct_pt:'Luanda', correct_fr:'Luanda' },
-    { id:'hist_06', question_pt:'Quando terminou a guerra civil em Angola?', question_fr:"Quand s'est terminée la guerre civile en Angola ?", options_pt:['2002','1994','1998','2005'], options_fr:['2002','1994','1998','2005'], correct_pt:'2002', correct_fr:'2002' },
-    { id:'hist_07', question_pt:'Qual herói nacional foi poeta e presidente?', question_fr:"Quel héros national fut poète et président ?", options_pt:['Agostinho Neto','Lúcio Lara','Iko Carreira','Saydi Mingas'], options_fr:['Agostinho Neto','Lúcio Lara','Iko Carreira','Saydi Mingas'], correct_pt:'Agostinho Neto', correct_fr:'Agostinho Neto' },
-    { id:'hist_08', question_pt:'Qual língua foi imposta durante a colonização?', question_fr:"Quelle langue fut imposée durant la colonisation ?", options_pt:['Português','Francês','Inglês','Espanhol'], options_fr:['Portugais','Français','Anglais','Espagnol'], correct_pt:'Português', correct_fr:'Portugais' },
-    { id:'hist_09', question_pt:'O que significa MPLA?', question_fr:"Que signifie MPLA ?", options_pt:['Movimento Popular de Libertação de Angola','Movimento Para a Liberdade de Angola','Movimento Político de Luanda Angola','Movimento Pela Libertação de África'], options_fr:['Mouvement Populaire de Libération de l\'Angola','Mouvement Pour la Liberté de l\'Angola','Mouvement Politique de Luanda Angola','Mouvement Pour la Libération de l\'Afrique'], correct_pt:'Movimento Popular de Libertação de Angola', correct_fr:'Mouvement Populaire de Libération de l\'Angola' },
-    { id:'hist_10', question_pt:'Qual é o dia da independência de Angola?', question_fr:"Quel est le jour de l'indépendance de l'Angola ?", options_pt:['11 de Novembro','4 de Fevereiro','1 de Agosto','25 de Abril'], options_fr:['11 Novembre','4 Février','1 Août','25 Avril'], correct_pt:'11 de Novembro', correct_fr:'11 Novembre' },
-  ],
-  geografia: [
-    { id:'geo_01', question_pt:'Qual é a capital de Angola?', question_fr:"Quelle est la capitale de l'Angola ?", options_pt:['Luanda','Huambo','Benguela','Malanje'], options_fr:['Luanda','Huambo','Benguela','Malanje'], correct_pt:'Luanda', correct_fr:'Luanda' },
-    { id:'geo_02', question_pt:'Quantas províncias tem Angola?', question_fr:"Combien de provinces compte l'Angola ?", options_pt:['18','16','20','14'], options_fr:['18','16','20','14'], correct_pt:'18', correct_fr:'18' },
-    { id:'geo_03', question_pt:'Qual rio dá nome a duas províncias angolanas?', question_fr:"Quel fleuve donne son nom à deux provinces ?", options_pt:['Kwanza','Congo','Zambeze','Cunene'], options_fr:['Kwanza','Congo','Zambèze','Cunene'], correct_pt:'Kwanza', correct_fr:'Kwanza' },
-    { id:'geo_04', question_pt:'Qual é a segunda maior cidade de Angola?', question_fr:"Quelle est la deuxième plus grande ville ?", options_pt:['Huambo','Benguela','Lubango','Malanje'], options_fr:['Huambo','Benguela','Lubango','Malanje'], correct_pt:'Huambo', correct_fr:'Huambo' },
-    { id:'geo_05', question_pt:'Qual é o ponto mais alto de Angola?', question_fr:"Quel est le point culminant de l'Angola ?", options_pt:['Morro do Môco','Serra da Leba','Monte Nabi','Planalto do Bié'], options_fr:['Morro do Môco','Serra da Leba','Monte Nabi','Plateau du Bié'], correct_pt:'Morro do Môco', correct_fr:'Morro do Môco' },
-    { id:'geo_06', question_pt:'Que país faz fronteira a norte?', question_fr:"Quel pays borde l'Angola au nord ?", options_pt:['República do Congo','Namíbia','Zâmbia','África do Sul'], options_fr:['République du Congo','Namibie','Zambie','Afrique du Sud'], correct_pt:'República do Congo', correct_fr:'République du Congo' },
-    { id:'geo_07', question_pt:'Qual província é um enclave separado?', question_fr:"Quelle province est une enclave séparée ?", options_pt:['Cabinda','Zaire','Uíge','Bengo'], options_fr:['Cabinda','Zaire','Uíge','Bengo'], correct_pt:'Cabinda', correct_fr:'Cabinda' },
-    { id:'geo_08', question_pt:'Qual é a língua oficial de Angola?', question_fr:"Quelle est la langue officielle de l'Angola ?", options_pt:['Português','Kimbundu','Francês','Inglês'], options_fr:['Portugais','Kimbundu','Français','Anglais'], correct_pt:'Português', correct_fr:'Portugais' },
-    { id:'geo_09', question_pt:'Qual é a moeda oficial de Angola?', question_fr:"Quelle est la monnaie officielle de l'Angola ?", options_pt:['Kwanza','Rand','Franco','Dólar'], options_fr:['Kwanza','Rand','Franc','Dollar'], correct_pt:'Kwanza', correct_fr:'Kwanza' },
-    { id:'geo_10', question_pt:'Que província tem as famosas Pedras Negras?', question_fr:"Quelle province a les célèbres Pedras Negras ?", options_pt:['Huíla','Namibe','Cunene','Cuando Cubango'], options_fr:['Huíla','Namibe','Cunene','Cuando Cubango'], correct_pt:'Huíla', correct_fr:'Huíla' },
-  ],
-  cultura: [
-    { id:'cult_01', question_pt:'Qual bebida é feita de milho ou mandioca fermentada?', question_fr:"Quelle boisson est faite de maïs ou manioc fermenté ?", options_pt:['Maluva','Kissangua','Caporoto','Calulu'], options_fr:['Maluva','Kissangua','Caporoto','Calulu'], correct_pt:'Kissangua', correct_fr:'Kissangua' },
-    { id:'cult_02', question_pt:'O que significa "Está de mambo" em Gíria angolana?', question_fr:"Que signifie \"Está de mambo\" en argot angolais ?", options_pt:['Está ótimo','Está triste','Está com fome','Está cansado'], options_fr:['C\'est super','C\'est triste','Il a faim','Il est fatigué'], correct_pt:'Está ótimo', correct_fr:'C\'est super' },
-    { id:'cult_03', question_pt:'Qual prato de base é feito de farinha de mandioca ou milho?', question_fr:"Quel plat de base est fait de farine de manioc ou maïs ?", options_pt:['Funje','Calulu','Muamba','Funge de Bombo'], options_fr:['Funje','Calulu','Muamba','Funge de Bombo'], correct_pt:'Funje', correct_fr:'Funje' },
-    { id:'cult_04', question_pt:'Qual é o animal símbolo nacional, uma antílope rara?', question_fr:"Quel est l'animal symbole national, une antilope rare ?", options_pt:['Palanca Negra','Leão','Elefante','Zebra'], options_fr:['Palanca Negra','Lion','Éléphant','Zèbre'], correct_pt:'Palanca Negra', correct_fr:'Palanca Negra' },
-    { id:'cult_05', question_pt:'Qual língua bantu é falada principalmente em Luanda?', question_fr:"Quelle langue bantoue est parlée principalement à Luanda ?", options_pt:['Kimbundu','Kikongo','Umbundu','Tchokwe'], options_fr:['Kimbundu','Kikongo','Umbundu','Tchokwe'], correct_pt:'Kimbundu', correct_fr:'Kimbundu' },
-    { id:'cult_06', question_pt:'Como se chama o instrumento musical de arco angolano?', question_fr:"Comment s'appelle l'instrument musical à arc angolais ?", options_pt:['Hungu','Dikanza','Marimba','Ngoma'], options_fr:['Hungu','Dikanza','Marimba','Ngoma'], correct_pt:'Hungu', correct_fr:'Hungu' },
-    { id:'cult_07', question_pt:'Qual é o traje tradicional feminino muito colorido?', question_fr:"Quel est le vêtement féminin traditionnel très coloré ?", options_pt:['Pano','Capulana','Kitenge','Bazin'], options_fr:['Pano','Capulana','Kitenge','Bazin'], correct_pt:'Pano', correct_fr:'Pano' },
-    { id:'cult_08', question_pt:'Qual a escultura Chokwe mais famosa mundialmente?', question_fr:"Quelle est la sculpture Chokwe la plus connue dans le monde ?", options_pt:['Pensador','Mukanda','Cihongo','Mwana pwo'], options_fr:['Penseur','Mukanda','Cihongo','Mwana pwo'], correct_pt:'Pensador', correct_fr:'Penseur' },
-    { id:'cult_09', question_pt:'Qual é o carnaval mais famoso de Angola?', question_fr:"Quel est le carnaval le plus célèbre d'Angola ?", options_pt:['Carnaval de Luanda','Carnaval do Huambo','Carnaval de Benguela','Carnaval de Malanje'], options_fr:['Carnaval de Luanda','Carnaval de Huambo','Carnaval de Benguela','Carnaval de Malanje'], correct_pt:'Carnaval de Luanda', correct_fr:'Carnaval de Luanda' },
-    { id:'cult_10', question_pt:'Qual é o nome do mercado mais famoso de Luanda?', question_fr:"Quel est le nom du marché le plus célèbre de Luanda ?", options_pt:['Roque Santeiro','Mercado do Kinaxixe','Mercado 30','Benfica'], options_fr:['Roque Santeiro','Marché du Kinaxixe','Marché 30','Benfica'], correct_pt:'Roque Santeiro', correct_fr:'Roque Santeiro' },
-  ],
-  musica: [
-    { id:'mus_01', question_pt:'Qual estilo angolano dançado em casal influenciou a música lusófona?', question_fr:"Quel style angolais en couple a influencé la musique lusophone ?", options_pt:['Semba','Kizomba','Kuduro','Rebita'], options_fr:['Semba','Kizomba','Kuduro','Rebita'], correct_pt:'Semba', correct_fr:'Semba' },
-    { id:'mus_02', question_pt:'Qual género dos anos 90 tem ritmos rápidos e eletrónicos?', question_fr:"Quel genre des années 90 a des rythmes rapides et électroniques ?", options_pt:['Kuduro','Semba','Kizomba','Afrohouse'], options_fr:['Kuduro','Semba','Kizomba','Afrohouse'], correct_pt:'Kuduro', correct_fr:'Kuduro' },
-    { id:'mus_03', question_pt:'Qual dança lenta e romântica é originária de Angola?', question_fr:"Quelle danse lente et romantique est originaire d'Angola ?", options_pt:['Kizomba','Semba','Kuduro','Rebita'], options_fr:['Kizomba','Semba','Kuduro','Rebita'], correct_pt:'Kizomba', correct_fr:'Kizomba' },
-    { id:'mus_04', question_pt:'Qual cantor angolano é famoso pela Kizomba romântica?', question_fr:"Quel chanteur angolais est célèbre pour la Kizomba romantique ?", options_pt:['Bonga','Yuri da Cunha','Paulo Flores','Anselmo Ralph'], options_fr:['Bonga','Yuri da Cunha','Paulo Flores','Anselmo Ralph'], correct_pt:'Yuri da Cunha', correct_fr:'Yuri da Cunha' },
-    { id:'mus_05', question_pt:'Qual é o ritmo angolano de influência congolesa dos anos 60-70?', question_fr:"Quel est le rythme angolais d'influence congolaise des années 60-70 ?", options_pt:['Semba','Rebita','Maringa','Kazukuta'], options_fr:['Semba','Rebita','Maringa','Kazukuta'], correct_pt:'Semba', correct_fr:'Semba' },
-    { id:'mus_06', question_pt:'Qual cantora é chamada Rainha do Semba?', question_fr:"Quelle chanteuse est surnommée Reine du Semba ?", options_pt:['Filomena Maricoa','Lourdes Van-Dúnem','Aline Frazão','Sara Tavares'], options_fr:['Filomena Maricoa','Lourdes Van-Dúnem','Aline Frazão','Sara Tavares'], correct_pt:'Filomena Maricoa', correct_fr:'Filomena Maricoa' },
-    { id:'mus_07', question_pt:'Qual instrumento de percussão é base do ritmo angolano?', question_fr:"Quel instrument de percussion est à la base du rythme angolais ?", options_pt:['Ngoma','Dikanza','Hungu','Marimba'], options_fr:['Ngoma','Dikanza','Hungu','Marimba'], correct_pt:'Ngoma', correct_fr:'Ngoma' },
-    { id:'mus_08', question_pt:'Qual grupo de música tradicional é mais famoso internacionalmente?', question_fr:"Quel groupe de musique traditionnelle est le plus connu internationalement ?", options_pt:['Ngola Ritmos','Duo Ouro Negro','Os Jovens do Prenda','Bonga'], options_fr:['Ngola Ritmos','Duo Ouro Negro','Os Jovens do Prenda','Bonga'], correct_pt:'Ngola Ritmos', correct_fr:'Ngola Ritmos' },
-    { id:'mus_09', question_pt:'Qual artista angolano ficou mundialmente famoso com o Kuduro?', question_fr:"Quel artiste angolais est devenu mondialement célèbre avec le Kuduro ?", options_pt:['Buraka Som Sistema','Dog Murras','Titica','C4 Pedro'], options_fr:['Buraka Som Sistema','Dog Murras','Titica','C4 Pedro'], correct_pt:'Buraka Som Sistema', correct_fr:'Buraka Som Sistema' },
-    { id:'mus_10', question_pt:'Qual é o festival de música mais importante de Angola?', question_fr:"Quel est le festival de musique le plus important en Angola ?", options_pt:['Luanda Festival','Festas do Carnaval','Ang\'Ola Music Fest','Kuduro Fest'], options_fr:['Luanda Festival','Fêtes du Carnaval','Ang\'Ola Music Fest','Kuduro Fest'], correct_pt:'Luanda Festival', correct_fr:'Luanda Festival' },
-  ],
-  ciencia: [
-    { id:'sci_01', question_pt:'Qual é o principal recurso natural exportado por Angola?', question_fr:"Quelle est la principale ressource naturelle exportée par l'Angola ?", options_pt:['Petróleo','Diamantes','Ouro','Cobre'], options_fr:['Pétrole','Diamants','Or','Cuivre'], correct_pt:'Petróleo', correct_fr:'Pétrole' },
-    { id:'sci_02', question_pt:'Angola é dos maiores produtores mundiais de quê além do petróleo?', question_fr:"L'Angola est l'un des plus grands producteurs mondiaux de quoi en plus du pétrole ?", options_pt:['Diamantes','Ouro','Urânio','Cobre'], options_fr:['Diamants','Or','Uranium','Cuivre'], correct_pt:'Diamantes', correct_fr:'Diamants' },
-    { id:'sci_03', question_pt:'Qual é a maior barragem de Angola?', question_fr:"Quel est le plus grand barrage d'Angola ?", options_pt:['Capanda','Laúca','Gove','Matala'], options_fr:['Capanda','Laúca','Gove','Matala'], correct_pt:'Laúca', correct_fr:'Laúca' },
-    { id:'sci_04', question_pt:'Qual é a principal fonte de energia elétrica de Angola?', question_fr:"Quelle est la principale source d'énergie électrique de l'Angola ?", options_pt:['Hidroelétrica','Solar','Nuclear','Eólica'], options_fr:['Hydroélectrique','Solaire','Nucléaire','Éolienne'], correct_pt:'Hidroelétrica', correct_fr:'Hydroélectrique' },
-    { id:'sci_05', question_pt:'Qual é o parque nacional mais conhecido de Angola?', question_fr:"Quel est le parc national le plus connu d'Angola ?", options_pt:['Kissama','Iona','Cameia','Bicuar'], options_fr:['Kissama','Iona','Cameia','Bicuar'], correct_pt:'Kissama', correct_fr:'Kissama' },
-    { id:'sci_06', question_pt:'Qual planta símbolo de Angola é resistente e vive no deserto?', question_fr:"Quelle plante symbole d'Angola est résistante et vit dans le désert ?", options_pt:['Welwitschia','Baobá','Imbondeiro','Mulembeira'], options_fr:['Welwitschia','Baobab','Imbondeiro','Mulembeira'], correct_pt:'Welwitschia', correct_fr:'Welwitschia' },
-    { id:'sci_07', question_pt:'Quantos km² tem Angola aproximadamente?', question_fr:"Combien de km² fait approximativement l'Angola ?", options_pt:['1.246.700','900.000','1.500.000','750.000'], options_fr:['1.246.700','900.000','1.500.000','750.000'], correct_pt:'1.246.700', correct_fr:'1.246.700' },
-    { id:'sci_08', question_pt:'Qual é a universidade mais antiga de Angola?', question_fr:"Quelle est la plus ancienne université d'Angola ?", options_pt:['UCAN','UAN','UPRA','UniPiaget'], options_fr:['UCAN','UAN','UPRA','UniPiaget'], correct_pt:'UAN', correct_fr:'UAN' },
-    { id:'sci_09', question_pt:'Qual é o operador de telecomunicações mais antigo de Angola?', question_fr:"Quel est le plus ancien opérateur de télécommunications d'Angola ?", options_pt:['Angola Telecom','Unitel','Movicel','MS Telecom'], options_fr:['Angola Telecom','Unitel','Movicel','MS Telecom'], correct_pt:'Angola Telecom', correct_fr:'Angola Telecom' },
-    { id:'sci_10', question_pt:'Qual é o principal porto de Angola?', question_fr:"Quel est le principal port de l'Angola ?", options_pt:['Porto de Luanda','Porto de Lobito','Porto do Namibe','Porto de Cabinda'], options_fr:['Port de Luanda','Port de Lobito','Port de Namibe','Port de Cabinda'], correct_pt:'Porto de Luanda', correct_fr:'Port de Luanda' },
-  ],
-  desporto: [
-    { id:'des_01', question_pt:'Qual é o desporto mais popular em Angola?', question_fr:"Quel est le sport le plus populaire en Angola ?", options_pt:['Futebol','Basquetebol','Andebol','Atletismo'], options_fr:['Football','Basketball','Handball','Athlétisme'], correct_pt:'Futebol', correct_fr:'Football' },
-    { id:'des_02', question_pt:'Qual é o clube de futebol mais popular de Angola?', question_fr:"Quel est le club de football le plus populaire ?", options_pt:['Petro de Luanda','Primeiro de Agosto','Sagrada Esperança','Recreativo do Libolo'], options_fr:['Petro de Luanda','Primeiro de Agosto','Sagrada Esperança','Recreativo do Libolo'], correct_pt:'Petro de Luanda', correct_fr:'Petro de Luanda' },
-    { id:'des_03', question_pt:'Em que ano Angola foi pela primeira vez ao Mundial de Futebol?', question_fr:"En quelle année l'Angola a-t-il participé pour la 1ère fois au Mondial ?", options_pt:['2006','2002','2010','1998'], options_fr:['2006','2002','2010','1998'], correct_pt:'2006', correct_fr:'2006' },
-    { id:'des_04', question_pt:'Angola é forte em qual desporto coletivo além do futebol?', question_fr:"L'Angola est fort dans quel sport collectif après le football ?", options_pt:['Andebol','Basquetebol','Voleibol','Rugby'], options_fr:['Handball','Basketball','Volleyball','Rugby'], correct_pt:'Andebol', correct_fr:'Handball' },
-    { id:'des_05', question_pt:'Como se chama a seleção nacional de futebol de Angola?', question_fr:"Comment s'appelle la sélection nationale de football ?", options_pt:['Palancas Negras','Leões de Luanda','Águias de Angola','Kuandas'], options_fr:['Palancas Negras','Lions de Luanda',"Aigles d'Angola",'Kuandas'], correct_pt:'Palancas Negras', correct_fr:'Palancas Negras' },
-    { id:'des_06', question_pt:'Qual é o estádio nacional de Angola?', question_fr:"Quel est le stade national de l'Angola ?", options_pt:['Estádio 11 de Novembro','Estádio da Cidadela','Estádio Nacional','Estádio de Huambo'], options_fr:['Stade 11 Novembre','Stade de la Citadelle','Stade National','Stade de Huambo'], correct_pt:'Estádio 11 de Novembro', correct_fr:'Stade 11 Novembre' },
-    { id:'des_07', question_pt:'Angola organizou qual CAN?', question_fr:"L'Angola a organisé quelle CAN ?", options_pt:['CAN 2010','CAN 2013','CAN 2006','CAN 2019'], options_fr:['CAN 2010','CAN 2013','CAN 2006','CAN 2019'], correct_pt:'CAN 2010', correct_fr:'CAN 2010' },
-    { id:'des_08', question_pt:'Qual é o apelido da seleção angolana de andebol feminina?', question_fr:"Quel est le surnom de la sélection féminine de handball angolaise ?", options_pt:['Petróleo','Guerreiras do Futuro','Palancas Negras do Andebol','Águias'], options_fr:['Pétrole','Guerreiras do Futuro','Palancas Negras du Handball','Aigles'], correct_pt:'Palancas Negras do Andebol', correct_fr:'Palancas Negras du Handball' },
-    { id:'des_09', question_pt:'Qual jogador angolano ficou famoso no futebol europeu?', question_fr:"Quel joueur angolais est connu en Europe ?", options_pt:['Manucho','Flávio','Dálder','Gilberto'], options_fr:['Manucho','Flávio','Dálder','Gilberto'], correct_pt:'Manucho', correct_fr:'Manucho' },
-    { id:'des_10', question_pt:'Qual é a federação que gere o futebol em Angola?', question_fr:"Quelle fédération gère le football en Angola ?", options_pt:['FAF','FIFA Angola','FCA','AFA'], options_fr:['FAF','FIFA Angola','FCA','AFA'], correct_pt:'FAF', correct_fr:'FAF' },
-  ],
+
+// ============================================================
+// CONFIGURATION DES NIVEAUX
+// ============================================================
+
+export const DIFFICULTY_CONFIG = {
+  1: {
+    id: 1,
+    label_pt: 'Fácil',
+    label_fr: 'Facile',
+    points: 100,
+    timeLimit: 20,
+  },
+
+  2: {
+    id: 2,
+    label_pt: 'Intermédio',
+    label_fr: 'Intermédiaire',
+    points: 200,
+    timeLimit: 20,
+  },
+
+  3: {
+    id: 3,
+    label_pt: 'Difícil',
+    label_fr: 'Difficile',
+    points: 300,
+    timeLimit: 20,
+  },
+
+  4: {
+    id: 4,
+    label_pt: 'Especialista',
+    label_fr: 'Expert',
+    points: 500,
+    timeLimit: 25,
+  },
 };
-export function getQuestionsByCategory(categoryId, lang = 'pt') {
-  const cats = QUESTIONS[categoryId] || [];
 
-  return cats.map((q) => ({
-    id: q.id,
-    question: lang === 'fr' ? q.question_fr : q.question_pt,
-    options: lang === 'fr' ? q.options_fr : q.options_pt,
-    correct: lang === 'fr' ? q.correct_fr : q.correct_pt,
-    categoryId,
-  }));
-}
 
-export function getRandomQuizQuestions(count = 10, lang = 'pt') {
-  const allQuestions = Object.entries(QUESTIONS).flatMap(
-    ([categoryId, categoryQuestions]) =>
-      categoryQuestions.map((q) => ({
-        id: q.id,
-        categoryId,
-        question: lang === 'fr' ? q.question_fr : q.question_pt,
-        options: lang === 'fr' ? q.options_fr : q.options_pt,
-        correct: lang === 'fr' ? q.correct_fr : q.correct_pt,
-      }))
-  );
+// ============================================================
+// STRUCTURE D'UNE PARTIE STANDARD
+// ============================================================
 
-  // Mélange aléatoire Fisher-Yates
-  for (let i = allQuestions.length - 1; i > 0; i--) {
-    const j = Math.floor(Math.random() * (i + 1));
+export const SESSION_DIFFICULTIES = [
+  1,
+  1,
+  2,
+  2,
+  2,
+  3,
+  3,
+  3,
+  4,
+  4,
+];
 
-    [allQuestions[i], allQuestions[j]] =
-      [allQuestions[j], allQuestions[i]];
-  }
 
-  return allQuestions.slice(
-    0,
-    Math.min(count, allQuestions.length)
-  );
-}
+// ============================================================
+// TYPES DE QUESTIONS
+// ============================================================
+
+export const QUESTION_TYPES = [
+  'classic',
+  'image',
+  'image_ab',
+  'identification',
+  'true_false',
+  'chronology',
+  'audio',
+  'surprise',
+];
+
+
+// ============================================================
+// BANQUE DE QUESTIONS
+// ============================================================
+
+export const QUESTIONS = {
+
+  // ==========================================================
+  // HISTÓRIA
+  // ==========================================================
+
+  historia: [
+
+    {
+      id: 'hist_01',
+      difficulty: 1,
+      type: 'classic',
+
+      question_pt: 'Em que ano Angola conquistou a sua independência?',
+      question_fr: "En quelle année l'Angola a conquis son indépendance ?",
+
+      options_pt: ['1975', '1961', '1980', '1970'],
+      options_fr: ['1975', '1961', '1980', '1970'],
+
+      correct_pt: '1975',
+      correct_fr: '1975',
+    },
+
+    {
+      id: 'hist_02',
+      difficulty: 1,
+      type: 'classic',
+
+      question_pt: 'Qual foi o primeiro presidente de Angola?',
+      question_fr: "Qui fut le premier président de l'Angola ?",
+
+      options_pt: [
+        'Agostinho Neto',
+        'Jonas Savimbi',
+        'Holden Roberto',
+        'José Eduardo dos Santos',
+      ],
+
+      options_fr: [
+        'Agostinho Neto',
+        'Jonas Savimbi',
+        'Holden Roberto',
+        'José Eduardo dos Santos',
+      ],
+
+      correct_pt: 'Agostinho Neto',
+      correct_fr: 'Agostinho Neto',
+    },
+
+    {
+      id: 'hist_03',
+      difficulty: 2,
+      type: 'classic',
+
+      question_pt: 'De que país Angola se tornou independente?',
+      question_fr: "De quel pays l'Angola s'est-il indépendant ?",
+
+      options_pt: [
+        'Portugal',
+        'França',
+        'Espanha',
+        'Reino Unido',
+      ],
+
+      options_fr: [
+        'Portugal',
+        'France',
+        'Espagne',
+        'Royaume-Uni',
+      ],
+
+      correct_pt: 'Portugal',
+      correct_fr: 'Portugal',
+    },
+
+    {
+      id: 'hist_04',
+      difficulty: 2,
+      type: 'classic',
+
+      question_pt: 'Qual movimento proclamou a independência em 1975?',
+      question_fr: "Quel mouvement a proclamé l'indépendance en 1975 ?",
+
+      options_pt: [
+        'MPLA',
+        'UNITA',
+        'FNLA',
+        'FLEC',
+      ],
+
+      options_fr: [
+        'MPLA',
+        'UNITA',
+        'FNLA',
+        'FLEC',
+      ],
+
+      correct_pt: 'MPLA',
+      correct_fr: 'MPLA',
+    },
+
+    {
+      id: 'hist_05',
+      difficulty: 2,
+      type: 'classic',
+
+      question_pt: 'Em que cidade foi proclamada a independência?',
+      question_fr: "Dans quelle ville l'indépendance fut-elle proclamée ?",
+
+      options_pt: [
+        'Luanda',
+        'Huambo',
+        'Benguela',
+        'Cabinda',
+      ],
+
+      options_fr: [
+        'Luanda',
+        'Huambo',
+        'Benguela',
+        'Cabinda',
+      ],
+
+      correct_pt: 'Luanda',
+      correct_fr: 'Luanda',
+    },
+
+    {
+      id: 'hist_06',
+      difficulty: 3,
+      type: 'classic',
+
+      question_pt: 'Quando terminou a guerra civil em Angola?',
+      question_fr: "Quand s'est terminée la guerre civile en Angola ?",
+
+      options_pt: [
+        '2002',
+        '1994',
+        '1998',
+        '2005',
+      ],
+
+      options_fr: [
+        '2002',
+        '1994',
+        '1998',
+        '2005',
+      ],
+
+      correct_pt: '2002',
+      correct_fr: '2002',
+    },
+
+    {
+      id: 'hist_07',
+      difficulty: 3,
+      type: 'classic',
+
+      question_pt: 'Qual herói nacional foi poeta e presidente?',
+      question_fr: "Quel héros national fut poète et président ?",
+
+      options_pt: [
+        'Agostinho Neto',
+        'Lúcio Lara',
+        'Iko Carreira',
+        'Saydi Mingas',
+      ],
+
+      options_fr: [
+        'Agostinho Neto',
+        'Lúcio Lara',
+        'Iko Carreira',
+        'Saydi Mingas',
+      ],
+
+      correct_pt: 'Agostinho Neto',
+      correct_fr: 'Agostinho Neto',
+    },
+
+    {
+      id: 'hist_08',
+      difficulty: 3,
+      type: 'classic',
+
+      question_pt: 'Qual língua foi imposta durante a colonização?',
+      question_fr: "Quelle langue fut imposée durant la colonisation ?",
+
+      options_pt: [
+        'Português',
+        'Francês',
+        'Inglês',
+        'Espanhol',
+      ],
+
+      options_fr: [
+        'Portugais',
+        'Français',
+        'Anglais',
+        'Espagnol',
+      ],
+
+      correct_pt: 'Português',
+      correct_fr: 'Portugais',
+    },
+
+    {
+      id: 'hist_09',
+      difficulty: 4,
+      type: 'classic',
+
+      question_pt: 'O que significa MPLA?',
+      question_fr: "Que signifie MPLA ?",
+
+      options_pt: [
+        'Movimento Popular de Libertação de Angola',
+        'Movimento Para a Liberdade de Angola',
+        'Movimento Político de Luanda Angola',
+        'Movimento Pela Libertação de África',
+      ],
+
+      options_fr: [
+        "Mouvement Populaire de Libération de l'Angola",
+        "Mouvement Pour la Liberté de l'Angola",
+        "Mouvement Politique de Luanda Angola",
+        "Mouvement Pour la Libération de l'Afrique",
+      ],
+
+      correct_pt: 'Movimento Popular de Libertação de Angola',
+      correct_fr: "Mouvement Populaire de Libération de l'Angola",
+    },
+
+    {
+      id: 'hist_10',
+      difficulty: 4,
+      type: 'classic',
+
+      question_pt: 'Qual é o dia da independência de Angola?',
+      question_fr: "Quel est le jour de l'indépendance de l'Angola ?",
+
+      options_pt: [
+        '11 de Novembro',
+        '4 de Fevereiro',
+        '1 de Agosto',
+        '25 de Abril',
+      ],
+
+      options_fr: [
+        '11 Novembre',
+        '4 Février',
+        '1 Août',
+        '25 Avril',
+      ],
+
+      correct_pt: '11 de Novembro',
+      correct_fr: '11 Novembre',
+    },
+  ],
+
+
+  // ==========================================================
+  // GEOGRAFIA
+  // ==========================================================
+
+  geografia: [
+
+    {
+      id: 'geo_01',
+      difficulty: 1,
+      type: 'classic',
+
+      question_pt: 'Qual é a capital de Angola?',
+      question_fr: "Quelle est la capitale de l'Angola ?",
+
+      options_pt: [
+        'Luanda',
+        'Huambo',
+        'Benguela',
+        'Malanje',
+      ],
+
+      options_fr: [
+        'Luanda',
+        'Huambo',
+        'Benguela',
+        'Malanje',
+      ],
+
+      correct_pt: 'Luanda',
+      correct_fr: 'Luanda',
+    },
+
+    {
+      id: 'geo_02',
+      difficulty: 1,
+      type: 'classic',
+
+      question_pt: 'Quantas províncias tem Angola?',
+      question_fr: "Combien de provinces compte l'Angola ?",
+
+      options_pt: [
+        '18',
+        '16',
+        '20',
+        '14',
+      ],
+
+      options_fr: [
+        '18',
+        '16',
+        '20',
+        '14',
+      ],
+
+      correct_pt: '18',
+      correct_fr: '18',
+    },
+
+    {
+      id: 'geo_03',
+      difficulty: 2,
+      type: 'classic',
+
+      question_pt: 'Qual rio dá nome a duas províncias angolanas?',
+      question_fr: "Quel fleuve donne son nom à deux provinces ?",
+
+      options_pt: [
+        'Kwanza',
+        'Congo',
+        'Zambeze',
+        'Cunene',
+      ],
+
+      options_fr: [
+        'Kwanza',
+        'Congo',
+        'Zambèze',
+        'Cunene',
+      ],
+
+      correct_pt: 'Kwanza',
+      correct_fr: 'Kwanza',
+    },
+
+    {
+      id: 'geo_04',
+      difficulty: 2,
+      type: 'classic',
+
+      question_pt: 'Qual é a segunda maior cidade de Angola?',
+      question_fr: "Quelle est la deuxième plus grande ville ?",
+
+      options_pt: [
+        'Huambo',
+        'Benguela',
+        'Lubango',
+        'Malanje',
+      ],
+
+      options_fr: [
+        'Huambo',
+        'Benguela',
+        'Lubango',
+        'Malanje',
+      ],
+
+      correct_pt: 'Huambo',
+      correct_fr: 'Huambo',
+    },
+
+    {
+      id: 'geo_05',
+      difficulty: 2,
+      type: 'classic',
+
+      question_pt: 'Qual é o ponto mais alto de Angola?',
+      question_fr: "Quel est le point culminant de l'Angola ?",
+
+      options_pt: [
+        'Morro do Môco',
+        'Serra da Leba',
+        'Monte Nabi',
+        'Planalto do Bié',
+      ],
+
+      options_fr: [
+        'Morro do Môco',
+        'Serra da Leba',
+        'Monte Nabi',
+        'Plateau du Bié',
+      ],
+
+      correct_pt: 'Morro do Môco',
+      correct_fr: 'Morro do Môco',
+    },
+
+    {
+      id: 'geo_06',
+      difficulty: 3,
+      type: 'classic',
+
+      question
