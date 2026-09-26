@@ -1000,4 +1000,72 @@ export const QUESTIONS = {
     },
   ],
 };
-        
+ // ------------------------------------------------------------
+// Utilitário de categoria
+// ------------------------------------------------------------
+
+export function getQuestionsByCategory(categoryId) {
+  const list = Array.isArray(QUESTIONS[categoryId])
+    ? QUESTIONS[categoryId]
+    : [];
+
+  return list.map(q => ({ ...q, categoryId }));
+}
+
+// ------------------------------------------------------------
+// Geração da partida
+// ------------------------------------------------------------
+// O cronómetro NÃO chama esta função.
+// As perguntas são selecionadas uma única vez para a partida.
+
+export function getRandomQuizQuestions(count = 10) {
+  const total = Math.max(
+    0,
+    Math.min(Number(count) || 10, SESSION_DIFFICULTIES.length)
+  );
+
+  const allQuestions = Object.entries(QUESTIONS).flatMap(
+    ([categoryId, list]) =>
+      (Array.isArray(list) ? list : []).map(q => ({
+        ...q,
+        categoryId,
+      }))
+  );
+
+  const unused = [...allQuestions];
+  const selected = [];
+
+  for (let position = 0; position < total; position += 1) {
+    const targetDifficulty = SESSION_DIFFICULTIES[position];
+
+    let candidates = unused.filter(
+      q => Number(q.difficulty) === targetDifficulty
+    );
+
+    if (candidates.length === 0) {
+      candidates = unused;
+    }
+
+    if (candidates.length === 0) {
+      break;
+    }
+
+    const chosen =
+      candidates[Math.floor(Math.random() * candidates.length)];
+
+    const index = unused.indexOf(chosen);
+
+    if (index >= 0) {
+      unused.splice(index, 1);
+    }
+
+    selected.push({
+      ...chosen,
+      difficulty: targetDifficulty,
+      points: DIFFICULTY_CONFIG[targetDifficulty].points,
+      timeLimit: DIFFICULTY_CONFIG[targetDifficulty].timeLimit,
+    });
+  }
+
+  return selected;
+}       
