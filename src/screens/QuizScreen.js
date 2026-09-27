@@ -1020,13 +1020,13 @@ export default function QuizScreen({ navigation, route }) {
           return (
 
             <TouchableOpacity
-              key={`${option}-${index}`}
-              style={optionStyle}
-              activeOpacity={0.8}
-              disabled={
-                isHidden ||
-                processing ||
-                answerStatus !== null
-              }
-                onPress={() => handleAnswer(option)}
+  key={`${option}-${index}`}
+  style={optionStyle}
+  activeOpacity={0.8}
+  disabled={
+    isHidden ||
+    processing ||
+    answerStatus !== null
+  }
+  onPress={() => handleAnswer(option)}
 >
