@@ -1029,5 +1029,4 @@ export default function QuizScreen({ navigation, route }) {
                 answerStatus !== null
               }
               onPress={() =>
-                handleAnswer(option)
-}
+                handleAnswer(option)}
