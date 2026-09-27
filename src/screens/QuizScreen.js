@@ -1029,3 +1029,13 @@ export default function QuizScreen({ navigation, route }) {
     answerStatus !== null
   }
   onPress={() => handleAnswer(option)}>
+    <View style={styles.optionContent}>
+      <Text style={styles.optionLetter}>
+        {String.fromCharCode(65 + index)}
+      </Text>
+      <Text style={styles.optionText}>
+        {option}
+      </Text>
+    </View>
+  </TouchableOpacity>
+))}
