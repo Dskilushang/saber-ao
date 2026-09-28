@@ -1040,3 +1040,4 @@ export default function QuizScreen({ navigation, route }) {
     </View>
   </TouchableOpacity>
 );
+})}
