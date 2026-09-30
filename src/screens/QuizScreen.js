@@ -1037,7 +1037,335 @@ export default function QuizScreen({ navigation, route }) {
                 <Text style={styles.optionText}>
                   {option}
                 </Text>
-              </View>
+                            </View>
             </TouchableOpacity>
           );
         })}
+      </View>
+
+      {/* ================================================== */}
+      {/* JOKERS */}
+      {/* ================================================== */}
+
+      <View style={styles.jokerRow}>
+
+        <TouchableOpacity
+          style={[
+            styles.jokerButton,
+            !jokers.fiftyFifty && styles.jokerUsed,
+          ]}
+          activeOpacity={0.8}
+          disabled={
+            !jokers.fiftyFifty ||
+            processing ||
+            answerStatus !== null
+          }
+          onPress={useFiftyFifty}
+        >
+          <Text style={styles.jokerText}>
+            50-50
+          </Text>
+        </TouchableOpacity>
+
+
+        <TouchableOpacity
+          style={[
+            styles.jokerButton,
+            !jokers.hint && styles.jokerUsed,
+          ]}
+          activeOpacity={0.8}
+          disabled={
+            !jokers.hint ||
+            processing ||
+            answerStatus !== null
+          }
+          onPress={useHint}
+        >
+          <Text style={styles.jokerText}>
+            DICA
+          </Text>
+        </TouchableOpacity>
+
+
+        <TouchableOpacity
+          style={[
+            styles.jokerButton,
+            !jokers.pass && styles.jokerUsed,
+          ]}
+          activeOpacity={0.8}
+          disabled={
+            !jokers.pass ||
+            processing ||
+            answerStatus !== null
+          }
+          onPress={usePass}
+        >
+          <Text style={styles.jokerText}>
+            PASSAR
+          </Text>
+        </TouchableOpacity>
+
+      </View>
+
+    </SafeAreaView>
+  );
+}
+
+const styles = StyleSheet.create({
+
+  container: {
+    flex: 1,
+    backgroundColor: '#0A0F24',
+  },
+
+  header: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+    paddingHorizontal: 16,
+    paddingTop: 10,
+    paddingBottom: 8,
+  },
+
+  headerLeft: {
+    flexDirection: 'row',
+    alignItems: 'center',
+  },
+
+  gameTitle: {
+    color: '#FFD700',
+    fontWeight: '900',
+    fontSize: 18,
+    letterSpacing: 1.5,
+  },
+
+  questionCounter: {
+    color: '#AAB4D4',
+    fontSize: 13,
+    fontWeight: '700',
+    marginLeft: 12,
+  },
+
+  scoreBox: {
+    alignItems: 'center',
+  },
+
+  scoreLabel: {
+    color: '#AAB4D4',
+    fontSize: 10,
+    fontWeight: '800',
+  },
+
+  scoreValue: {
+    color: '#FFD700',
+    fontSize: 20,
+    fontWeight: '900',
+  },
+
+  levelContainer: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'center',
+    paddingHorizontal: 16,
+    marginTop: 4,
+    marginBottom: 8,
+  },
+
+  levelBadge: {
+    backgroundColor: 'rgba(255,215,0,0.15)',
+    borderWidth: 1,
+    borderColor: 'rgba(255,215,0,0.35)',
+    borderRadius: 14,
+    paddingHorizontal: 10,
+    paddingVertical: 5,
+  },
+
+  levelText: {
+    color: '#FFD700',
+    fontSize: 11,
+    fontWeight: '900',
+  },
+
+  difficultyText: {
+    color: '#FFFFFF',
+    fontSize: 12,
+    fontWeight: '800',
+    marginHorizontal: 10,
+  },
+
+  pointsBadge: {
+    backgroundColor: 'rgba(0,200,100,0.15)',
+    borderWidth: 1,
+    borderColor: 'rgba(0,200,100,0.35)',
+    borderRadius: 14,
+    paddingHorizontal: 10,
+    paddingVertical: 5,
+  },
+
+  pointsText: {
+    color: '#00C864',
+    fontSize: 11,
+    fontWeight: '900',
+  },
+
+  timerContainer: {
+    height: 28,
+    marginHorizontal: 16,
+    marginBottom: 8,
+    borderRadius: 14,
+    overflow: 'hidden',
+    backgroundColor: 'rgba(255,255,255,0.08)',
+    justifyContent: 'center',
+  },
+
+  timerProgress: {
+    position: 'absolute',
+    left: 0,
+    top: 0,
+    bottom: 0,
+    backgroundColor: 'rgba(255,215,0,0.25)',
+  },
+
+  timerText: {
+    color: '#FFFFFF',
+    fontSize: 15,
+    fontWeight: '900',
+    textAlign: 'center',
+  },
+
+  mascotContainer: {
+    alignItems: 'center',
+    justifyContent: 'center',
+    height: 145,
+  },
+
+  questionCard: {
+    backgroundColor: 'rgba(255,255,255,0.05)',
+    marginHorizontal: 16,
+    marginBottom: 12,
+    padding: 18,
+    borderRadius: 16,
+    borderWidth: 1,
+    borderColor: 'rgba(255,215,0,0.12)',
+  },
+
+  questionText: {
+    color: '#FFFFFF',
+    fontSize: 16,
+    fontWeight: '600',
+    lineHeight: 24,
+    textAlign: 'center',
+  },
+
+  answersContainer: {
+    paddingHorizontal: 16,
+  },
+
+  answerButton: {
+    backgroundColor: 'rgba(255,255,255,0.06)',
+    borderRadius: 12,
+    paddingVertical: 13,
+    paddingHorizontal: 14,
+    marginBottom: 9,
+    borderWidth: 1,
+    borderColor: 'rgba(255,255,255,0.10)',
+    minHeight: 54,
+    justifyContent: 'center',
+  },
+
+  correctAnswer: {
+    backgroundColor: 'rgba(0,200,100,0.18)',
+    borderColor: '#00C864',
+  },
+
+  wrongAnswer: {
+    backgroundColor: 'rgba(255,60,60,0.18)',
+    borderColor: '#FF3C3C',
+  },
+
+  optionContent: {
+    flexDirection: 'row',
+    alignItems: 'center',
+  },
+
+  optionLetter: {
+    width: 30,
+    color: '#FFD700',
+    fontSize: 14,
+    fontWeight: '900',
+    textAlign: 'center',
+    marginRight: 10,
+  },
+
+  optionText: {
+    color: '#FFFFFF',
+    fontSize: 14,
+    flex: 1,
+    lineHeight: 20,
+  },
+
+  jokerRow: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+    paddingHorizontal: 16,
+    marginTop: 4,
+    marginBottom: 10,
+  },
+
+  jokerButton: {
+    backgroundColor: 'rgba(255,215,0,0.12)',
+    borderRadius: 20,
+    paddingHorizontal: 14,
+    paddingVertical: 9,
+    borderWidth: 1,
+    borderColor: 'rgba(255,215,0,0.25)',
+    minWidth: 82,
+    alignItems: 'center',
+  },
+
+  jokerUsed: {
+    opacity: 0.25,
+  },
+
+  jokerText: {
+    color: '#FFD700',
+    fontWeight: '800',
+    fontSize: 11,
+  },
+
+  errorContainer: {
+    flex: 1,
+    alignItems: 'center',
+    justifyContent: 'center',
+    padding: 30,
+  },
+
+  errorTitle: {
+    color: '#FFD700',
+    fontSize: 24,
+    fontWeight: '900',
+    marginBottom: 12,
+  },
+
+  errorText: {
+    color: '#FFFFFF',
+    fontSize: 16,
+    textAlign: 'center',
+    marginBottom: 20,
+  },
+
+  backButton: {
+    backgroundColor: '#FFD700',
+    paddingHorizontal: 30,
+    paddingVertical: 12,
+    borderRadius: 24,
+  },
+
+  backButtonText: {
+    color: '#0A0F24',
+    fontWeight: '900',
+    fontSize: 14,
+  },
+
+});
