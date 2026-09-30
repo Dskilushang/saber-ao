@@ -931,75 +931,7 @@ export const QUESTIONS = {
     },
   ],
 };
-      {
-      id: "cin_29",
-      difficulty: 3,
-      type: "classic",
-      category: "Atores no Exterior",
-      topic: "Hoji Fortuna",
-      question: "O ator angolano Hoji Fortuna alcançou relevo em produções globais de Hollywood e do streaming. Em qual destas produções de fantasia da Netflix ele integrou o elenco?",
-      options: [
-        "The Witcher (Série)",
-        "Shadow and Bone",
-        "Sandman",
-        "The Umbrella Academy"
-      ],
-      correctAnswer: "Shadow and Bone",
-      correct: "Shadow and Bone",
-    },
-
-    {
-      id: "cin_30",
-      difficulty: 3,
-      type: "classic",
-      category: "Filmes Curtos",
-      topic: "Ilunji",
-      question: "A curta-metragem de ficção psicológica Ilunji (2014) foi realizada por quem?",
-      options: [
-        "Mário Bastos (Fradique)",
-        "Ery Claver",
-        "Inês Gonçalves",
-        "Nádia Silva"
-      ],
-      correctAnswer: "Mário Bastos (Fradique)",
-      correct: "Mário Bastos (Fradique)",
-    },
-
-    {
-      id: "cin_31",
-      difficulty: 3,
-      type: "classic",
-      category: "Humor e Crítica",
-      topic: "Nossa Senhora da Loja do Chinês",
-      question: "O enredo de Nossa Senhora da Loja do Chinês constrói uma sátira social e um drama urbano em Luanda a partir de qual elemento propulsor da narrativa?",
-      options: [
-        "Uma estátua de plástico da Virgem Maria comprada numa loja",
-        "Um carregamento ilegal de aparelhos de ar condicionado",
-        "O roubo de um colar de ouro de uma famosa cantora de Kuduro",
-        "A venda de bilhetes falsos para um concerto de Semba"
-      ],
-      correctAnswer: "Uma estátua de plástico da Virgem Maria comprada numa loja",
-      correct: "Uma estátua de plástico da Virgem Maria comprada numa loja",
-    },
-
-    {
-      id: "cin_32",
-      difficulty: 3,
-      type: "classic",
-      category: "História das Salas",
-      topic: "Cine Teatro Nacional",
-      question: "Historicamente, o circuito de exibição em Angola contou com icónicas salas de arquitetura modernista africana. Qual destas salas, situada na Baixa de Luanda, é uma das mais antigas referências culturais do país?",
-      options: [
-        "Cine Teatro Nacional (Chá de Caxinde / Cinema Restauro)",
-        "Cine Atlântico",
-        "Cine Karl Marx",
-        "Cine São Paulo"
-      ],
-      correctAnswer: "Cine Teatro Nacional (Chá de Caxinde / Cinema Restauro)",
-      correct: "Cine Teatro Nacional (Chá de Caxinde / Cinema Restauro)",
-    },
-  ],
-};
+  
  // ------------------------------------------------------------
 // Utilitário de categoria
 // ------------------------------------------------------------
