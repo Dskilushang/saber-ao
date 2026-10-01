@@ -991,12 +991,16 @@ export function getRandomQuizQuestions(count = 10) {
       unused.splice(index, 1);
     }
 
-    selected.push({
-      ...chosen,
-      difficulty: targetDifficulty,
-      points: DIFFICULTY_CONFIG[targetDifficulty].points,
-      timeLimit: DIFFICULTY_CONFIG[targetDifficulty].timeLimit,
-    });
+    const shuffledOptions = [...chosen.options]
+  .sort(() => Math.random() - 0.5);
+
+selected.push({
+  ...chosen,
+  options: shuffledOptions,
+  difficulty: targetDifficulty,
+  points: DIFFICULTY_CONFIG[targetDifficulty].points,
+  timeLimit: DIFFICULTY_CONFIG[targetDifficulty].timeLimit,
+});
   }
 
   return selected;
