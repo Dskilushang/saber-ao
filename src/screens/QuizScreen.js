@@ -1082,10 +1082,8 @@ export default function QuizScreen({ navigation, route }) {
           onPress={useHint}
         >
           <Text style={styles.jokerText}>
-            DICA
-          </Text>
-        </TouchableOpacity>
-
+  GÉNIE
+</Text>
 
         <TouchableOpacity
           style={[
