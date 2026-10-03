@@ -1085,7 +1085,7 @@ export default function QuizScreen({ navigation, route }) {
   GÉNIE
 </Text>
 
-        <TouchableOpacity
+        <TouchableOpacity>
           style={[
             styles.jokerButton,
             !jokers.pass && styles.jokerUsed,
