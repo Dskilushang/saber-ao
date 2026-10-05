@@ -1068,7 +1068,7 @@ export default function QuizScreen({ navigation, route }) {
         </TouchableOpacity>
 
 
-        <TouchableOpacity
+                <TouchableOpacity
           style={[
             styles.jokerButton,
             !jokers.hint && styles.jokerUsed,
@@ -1082,9 +1082,11 @@ export default function QuizScreen({ navigation, route }) {
           onPress={useHint}
         >
           <Text style={styles.jokerText}>
-  <GÉNIE>
-</Text>
-<TouchableOpacity>
+            GÉNIE
+          </Text>
+        </TouchableOpacity>
+
+        <TouchableOpacity
           style={[
             styles.jokerButton,
             !jokers.pass && styles.jokerUsed,
