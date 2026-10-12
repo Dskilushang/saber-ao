@@ -6,20 +6,13 @@
     "start": "expo start",
     "android": "expo start --android",
     "ios": "expo start --ios",
-    "web": "expo start --web"
-    {
-  "scripts": {
-    "start": "expo start",
-    "android": "expo start --android",
-    "ios": "expo start --ios",
     "web": "expo start --web",
     "build:web": "expo export --platform web"
-  }
-   },
+  },
   "dependencies": {
     "react-dom": "18.2.0",
-"react-native-web": "~0.19.10",
-"@expo/metro-runtime": "~3.2.3",
+    "react-native-web": "~0.19.10",
+    "@expo/metro-runtime": "~3.2.3",
     "expo": "~51.0.0",
     "expo-av": "~14.0.0",
     "expo-splash-screen": "~0.27.0",
