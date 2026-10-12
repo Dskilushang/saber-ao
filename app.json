@@ -5,6 +5,9 @@
     "version": "1.0.0",
     "orientation": "portrait",
     "platforms": ["android", "web"],
+    "experiments": {
+      "baseUrl": "/saber-ao"
+    },
     "android": {
       "adaptiveIcon": {
         "backgroundColor": "#000000"
