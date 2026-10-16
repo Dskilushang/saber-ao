@@ -77,7 +77,7 @@ export default function QuizScreen({ navigation, route }) {
   // Le timer ne régénère donc jamais les questions.
   // ----------------------------------------------------------
 
-  const [questions] = useState(() =>
+  const [questions, setQuestions] = useState(() =>
     getRandomQuizQuestions(TOTAL_QUESTIONS, lang)
   );
 
@@ -87,6 +87,8 @@ export default function QuizScreen({ navigation, route }) {
   // ----------------------------------------------------------
 
   const [questionIndex, setQuestionIndex] = useState(0);
+
+  const [questionVersion, setQuestionVersion] = useState(0);
 
   const [score, setScore] = useState(0);
 
@@ -108,11 +110,14 @@ export default function QuizScreen({ navigation, route }) {
     MASCOTTE_STATES.QUESTION
   );
 
+  // hiddenOptions now contains indices of options to hide (for 50/50)
   const [hiddenOptions, setHiddenOptions] = useState([]);
 
+  // jokers: 50/50, audience (PÚBLICO), phoneFriend (AMIGO), pass/trocar
   const [jokers, setJokers] = useState({
     fiftyFifty: true,
-    hint: true,
+    audience: true,
+    phoneFriend: true,
     pass: true,
   });
 
@@ -313,7 +318,7 @@ export default function QuizScreen({ navigation, route }) {
 
     startTimer();
 
-  }, [questionIndex]);
+  }, [questionIndex, questionVersion]);
 
 
   // ==========================================================
@@ -340,19 +345,6 @@ export default function QuizScreen({ navigation, route }) {
     if (!currentQuestion) {
       return 0;
     }
-
-    /*
-     * Pour l'instant :
-     *
-     * FACILE        = 100 points
-     * INTERMÉDIAIRE = 200 points
-     * DIFFICILE     = 300 points
-     * EXPERT        = 500 points
-     *
-     * Le bonus de rapidité et la pénalité des jokers
-     * pourront être ajoutés ensuite lorsque leur formule
-     * définitive sera arrêtée.
-     */
 
     return currentPoints;
   };
@@ -576,7 +568,7 @@ export default function QuizScreen({ navigation, route }) {
 
 
   // ==========================================================
-  // JOKER 50/50
+  // JOKER 50/50 (by index)
   // ==========================================================
 
   const useFiftyFifty = () => {
@@ -589,43 +581,34 @@ export default function QuizScreen({ navigation, route }) {
       return;
     }
 
+    // find correct index (first occurrence)
+    const correctIndex = options.findIndex(
+      opt => opt === correctAnswer
+    );
 
-    const wrongOptions =
-      options.filter(
-        option =>
-          option !== correctAnswer
-      );
+    const indices = options.map((_, i) => i);
 
+    const wrongIndices = indices.filter(i => i !== correctIndex);
 
-    /*
-     * On retire deux mauvaises réponses
-     * maximum.
-     */
+    // shuffle
+    const shuffledWrong = [...wrongIndices].sort(
+      () => Math.random() - 0.5
+    );
 
-    const shuffledWrong =
-      [...wrongOptions].sort(
-        () => Math.random() - 0.5
-      );
+    const toHide = shuffledWrong.slice(0, Math.min(2, shuffledWrong.length));
 
-
-    const toHide =
-      shuffledWrong.slice(0, 2);
-
-
+    // store indices to hide
     setHiddenOptions(toHide);
-
 
     setJokers(previous => ({
       ...previous,
       fiftyFifty: false,
     }));
 
-
     changeMascotTemporarily(
       MASCOTTE_STATES.SURPRIS,
       1200
     );
-
 
     try {
       SoundManager.onJoker();
@@ -639,77 +622,208 @@ export default function QuizScreen({ navigation, route }) {
 
 
   // ==========================================================
-  // JOKER INDICE
+  // JOKER PÚBLICO (audience) : integer percentages sum to 100
   // ==========================================================
 
-  const useHint = () => {
+  const useAudience = () => {
 
     if (
-      !jokers.hint ||
+      !jokers.audience ||
       processingRef.current ||
       answerStatus !== null
     ) {
       return;
     }
 
-
     setJokers(previous => ({
       ...previous,
-      hint: false,
+      audience: false,
     }));
-
 
     changeMascotTemporarily(
       MASCOTTE_STATES.REFLEXION,
       1800
     );
 
-
     try {
       SoundManager.onJoker();
     } catch (error) {
-      console.log(
-        'Hint sound error:',
-        error
-      );
+      console.log('Joker sound error:', error);
     }
 
+    // visible option indices
+    const indices = options.map((_, i) => i);
+    const visibleIndices = indices.filter(i => !hiddenOptions.includes(i));
 
-    const hint =
-      currentQuestion?.hint;
-
-
-    if (hint) {
-
+    if (visibleIndices.length === 0) {
       Alert.alert(
+        lang === 'fr' ? 'PÚBLICO' : 'PÚBLICO',
         lang === 'fr'
-          ? 'INDICE'
-          : 'DICA',
-        hint
+          ? 'Aucune option visible.'
+          : 'Nenhuma opção visível.'
       );
-
-    } else {
-
-      /*
-       * Si la banque de questions ne contient
-       * pas encore de véritable indice, on informe
-       * simplement le joueur.
-       */
-
-      Alert.alert(
-        lang === 'fr'
-          ? 'INDICE'
-          : 'DICA',
-        lang === 'fr'
-          ? 'Aucun indice supplémentaire disponible pour cette question.'
-          : 'Nenhuma dica adicional disponível para esta pergunta.'
-      );
+      return;
     }
+
+    const correctIndex = options.findIndex(opt => opt === correctAnswer);
+
+    // ensure correctIndex is among visible (should be)
+    const visibleCount = visibleIndices.length;
+
+    // set ranges depending on how many visible options
+    let minCorrect = 35;
+    let maxCorrect = 70;
+    if (visibleCount === 2) {
+      minCorrect = 60; maxCorrect = 90;
+    } else if (visibleCount === 3) {
+      minCorrect = 45; maxCorrect = 75;
+    }
+
+    const randInt = (a, b) => Math.floor(Math.random() * (b - a + 1)) + a;
+
+    let correctPct = randInt(minCorrect, maxCorrect);
+
+    // if correctIndex is hidden (unlikely), fallback to lower favor
+    if (!visibleIndices.includes(correctIndex)) {
+      correctPct = Math.floor((100 / visibleCount));
+    }
+
+    const remaining = 100 - correctPct;
+
+    const otherIndices = visibleIndices.filter(i => i !== correctIndex);
+
+    // distribute remaining among others using integer partition with fractional remainders
+    let percents = {};
+
+    otherIndices.forEach(i => (percents[i] = 0));
+
+    if (otherIndices.length > 0) {
+      const randoms = otherIndices.map(() => Math.random());
+      const sumRandoms = randoms.reduce((a, b) => a + b, 0);
+      const raw = randoms.map(r => (r / sumRandoms) * remaining);
+
+      const floors = raw.map(v => Math.floor(v));
+      const fractions = raw.map((v, idx) => ({ idx, frac: v - Math.floor(v) }));
+
+      let totalFloor = floors.reduce((a, b) => a + b, 0);
+      let leftover = remaining - totalFloor;
+
+      // assign floors
+      otherIndices.forEach((i, k) => {
+        percents[i] = floors[k];
+      });
+
+      // distribute leftover to highest fractional parts
+      fractions.sort((a, b) => b.frac - a.frac);
+      let j = 0;
+      while (leftover > 0) {
+        const idx = fractions[j % fractions.length].idx;
+        const targetIndex = otherIndices[idx];
+        percents[targetIndex] += 1;
+        leftover -= 1;
+        j += 1;
+      }
+    }
+
+    // build final percentages ensuring sum to 100
+    let finalPercents = {};
+
+    indices.forEach(i => {
+      if (visibleIndices.includes(i)) {
+        if (i === correctIndex) finalPercents[i] = correctPct;
+        else finalPercents[i] = percents[i] || 0;
+      } else {
+        finalPercents[i] = 0;
+      }
+    });
+
+    // final sum correction just in case
+    const total = Object.values(finalPercents).reduce((a, b) => a + b, 0);
+    if (total !== 100) {
+      // adjust the correctIndex by difference
+      const diff = 100 - total;
+      finalPercents[correctIndex] = (finalPercents[correctIndex] || 0) + diff;
+    }
+
+    // format message
+    const lines = indices.map(i => {
+      const letter = String.fromCharCode(65 + i);
+      const pct = finalPercents[i] || 0;
+      return `${letter}: ${pct}%`;
+    });
+
+    Alert.alert(
+      lang === 'fr' ? 'PÚBLICO' : 'PÚBLICO',
+      lines.join('\n')
+    );
   };
 
 
   // ==========================================================
-  // JOKER PASSER / TROUVER UNE AUTRE QUESTION
+  // JOKER AMIGO (phone friend)
+  // ==========================================================
+
+  const usePhoneFriend = () => {
+
+    if (
+      !jokers.phoneFriend ||
+      processingRef.current ||
+      answerStatus !== null
+    ) {
+      return;
+    }
+
+    setJokers(prev => ({ ...prev, phoneFriend: false }));
+
+    changeMascotTemporarily(
+      MASCOTTE_STATES.REFLEXION,
+      1500
+    );
+
+    try {
+      SoundManager.onJoker();
+    } catch (error) {
+      console.log('Joker sound error:', error);
+    }
+
+    const friends = [
+      { name: 'DSKILUSHANG', prob: 0.8 },
+      { name: 'KIESSELOVE', prob: 0.65 },
+      { name: 'KIMIA', prob: 0.5 },
+    ];
+
+    const pick = friends[Math.floor(Math.random() * friends.length)];
+
+    const correctIndex = options.findIndex(opt => opt === correctAnswer);
+    const indices = options.map((_, i) => i);
+    const visibleIndices = indices.filter(i => !hiddenOptions.includes(i));
+
+    let suggestedIndex = null;
+
+    if (Math.random() < pick.prob && visibleIndices.includes(correctIndex)) {
+      suggestedIndex = correctIndex;
+    } else {
+      // pick a random visible wrong index
+      const wrongVisible = visibleIndices.filter(i => i !== correctIndex);
+      if (wrongVisible.length > 0) {
+        suggestedIndex = wrongVisible[Math.floor(Math.random() * wrongVisible.length)];
+      } else {
+        suggestedIndex = correctIndex; // fallback
+      }
+    }
+
+    const letter = String.fromCharCode(65 + suggestedIndex);
+    const text = options[suggestedIndex];
+
+    Alert.alert(
+      lang === 'fr' ? 'AMIGO' : 'AMIGO',
+      `${pick.name} ${lang === 'fr' ? 'pense que la réponse est' : 'acha que a resposta é'} ${letter}: ${text}`
+    );
+  };
+
+
+  // ==========================================================
+  // JOKER TROCAR (remplacer la question sans changer le compteur)
   // ==========================================================
 
   const usePass = () => {
@@ -722,58 +836,59 @@ export default function QuizScreen({ navigation, route }) {
       return;
     }
 
-
     processingRef.current = true;
-
     setProcessing(true);
 
     stopTimer();
-
 
     setJokers(previous => ({
       ...previous,
       pass: false,
     }));
 
-
     changeMascotTemporarily(
       MASCOTTE_STATES.SURPRIS,
       1200
     );
 
-
     try {
       SoundManager.onJoker();
     } catch (error) {
-      console.log(
-        'Pass joker sound error:',
-        error
-      );
+      console.log('Pass joker sound error:', error);
     }
 
-
     setTimeout(() => {
+      // generate a new question and replace current one in the questions array
+      const newQs = getRandomQuizQuestions(1, lang);
+      if (Array.isArray(newQs) && newQs.length > 0) {
+        const newQ = newQs[0];
 
-      if (
-        questionIndex >=
-        questions.length - 1
-      ) {
+        // preserve metadata from current question
+        try {
+          newQ.difficulty = currentQuestion?.difficulty ?? newQ.difficulty;
+          newQ.points = currentQuestion?.points ?? newQ.points;
+          newQ.timeLimit = currentQuestion?.timeLimit ?? newQ.timeLimit;
+        } catch (e) {
+          // ignore if currentQuestion undefined
+        }
 
-        finishGame(
-          score,
-          correctAnswers
-        );
+        setQuestions(prev => {
+          const clone = [...prev];
+          clone[questionIndex] = newQ;
+          return clone;
+        });
 
-        return;
+        // force re-initialization of effects relying on question content
+        setQuestionVersion(v => v + 1);
+
+        // reset UI states for the replaced question
+        setSelectedAnswer(null);
+        setAnswerStatus(null);
+        setHiddenOptions([]);
+        setProcessing(false);
+        processingRef.current = false;
       }
-
-
-      setQuestionIndex(
-        previousIndex =>
-          previousIndex + 1
-      );
-
-    }, 1000);
+    }, 800);
   };
 
 
@@ -972,7 +1087,7 @@ export default function QuizScreen({ navigation, route }) {
         {options.map((option, index) => {
 
           const isHidden =
-            hiddenOptions.includes(option);
+            hiddenOptions.includes(index);
 
 
           let optionStyle =
@@ -1068,21 +1183,39 @@ export default function QuizScreen({ navigation, route }) {
         </TouchableOpacity>
 
 
-                <TouchableOpacity
+        <TouchableOpacity
           style={[
             styles.jokerButton,
-            !jokers.hint && styles.jokerUsed,
+            !jokers.audience && styles.jokerUsed,
           ]}
           activeOpacity={0.8}
           disabled={
-            !jokers.hint ||
+            !jokers.audience ||
             processing ||
             answerStatus !== null
           }
-          onPress={useHint}
+          onPress={useAudience}
         >
           <Text style={styles.jokerText}>
-            GÉNIE
+            PÚBLICO
+          </Text>
+        </TouchableOpacity>
+
+        <TouchableOpacity
+          style={[
+            styles.jokerButton,
+            !jokers.phoneFriend && styles.jokerUsed,
+          ]}
+          activeOpacity={0.8}
+          disabled={
+            !jokers.phoneFriend ||
+            processing ||
+            answerStatus !== null
+          }
+          onPress={usePhoneFriend}
+        >
+          <Text style={styles.jokerText}>
+            AMIGO
           </Text>
         </TouchableOpacity>
 
@@ -1100,7 +1233,7 @@ export default function QuizScreen({ navigation, route }) {
           onPress={usePass}
         >
           <Text style={styles.jokerText}>
-            PASSAR
+            TROCAR
           </Text>
         </TouchableOpacity>
 
