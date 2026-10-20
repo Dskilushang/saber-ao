@@ -2,8 +2,54 @@ import { Alert } from 'react-native';
 import SoundManager from './soundManager';
 import { getRandomQuizQuestions } from '../questions';
 
-// Utility handlers for jokers. Each function receives the necessary
-// state and setters from the QuizScreen component to avoid coupling.
+export function computeAudiencePercentages({ options, correctAnswer, hiddenOptions = [] }) {
+  const visibleIndices = options
+    .map((_, index) => index)
+    .filter((index) => !hiddenOptions.includes(index));
+
+  if (visibleIndices.length === 0) {
+    return {};
+  }
+
+  const correctIndex = Number(correctAnswer);
+  let result = {};
+
+  visibleIndices.forEach((index) => {
+    result[index] = 0;
+  });
+
+  let correctPct = visibleIndices.length <= 2 ? 75 : 55;
+
+  if (visibleIndices.length === 3) {
+    correctPct = 50;
+  }
+
+  result[correctIndex] = correctPct;
+
+  const distractors = visibleIndices.filter((index) => index !== correctIndex);
+  const remaining = 100 - correctPct;
+
+  if (distractors.length === 0) {
+    return result;
+  }
+
+  const weights = distractors.map(() => Math.random() * 1.5 + 0.5);
+  const totalWeight = weights.reduce((sum, value) => sum + value, 0);
+
+  distractors.forEach((index, i) => {
+    const raw = (weights[i] / totalWeight) * remaining;
+    result[index] = Math.round(raw);
+  });
+
+  const totalAssigned = Object.values(result).reduce((sum, value) => sum + value, 0);
+  const diff = 100 - totalAssigned;
+
+  if (diff !== 0 && distractors.length > 0) {
+    result[distractors[0]] += diff;
+  }
+
+  return result;
+}
 
 export async function useFiftyFiftyHandler({
   jokers,
@@ -15,40 +61,25 @@ export async function useFiftyFiftyHandler({
   processingRef,
   answerStatus,
 }) {
-  if (
-    !jokers.fiftyFifty ||
-    processingRef.current ||
-    answerStatus !== null
-  ) {
+  if (!jokers.fiftyFifty || processingRef.current || answerStatus !== null) {
     return;
   }
 
-  // find correct index (first occurrence)
-  const correctIndex = options.findIndex(
-    opt => opt === correctAnswer
-  );
+  const correctIndex = Number(correctAnswer);
+  const wrongIndexes = options
+    .map((_, index) => index)
+    .filter((index) => index !== correctIndex);
 
-  const indices = options.map((_, i) => i);
+  const toHide = [...wrongIndexes]
+    .sort(() => Math.random() - 0.5)
+    .slice(0, 2);
 
-  const wrongIndices = indices.filter(i => i !== correctIndex);
-
-  // shuffle
-  const shuffledWrong = [...wrongIndices].sort(
-    () => Math.random() - 0.5
-  );
-
-  const toHide = shuffledWrong.slice(0, Math.min(2, shuffledWrong.length));
-
-  // store indices to hide
   setHiddenOptions(toHide);
+  setJokers((previous) => ({ ...previous, fiftyFifty: false }));
 
-  setJokers(previous => ({
-    ...previous,
-    fiftyFifty: false,
-  }));
-
-  changeMascotTemporarily &&
+  if (typeof changeMascotTemporarily === 'function') {
     changeMascotTemporarily('SURPRIS', 1200);
+  }
 
   try {
     await SoundManager.onJoker();
@@ -61,26 +92,23 @@ export async function useAudienceHandler({
   jokers,
   setJokers,
   options,
+  correctAnswer,
   hiddenOptions,
   changeMascotTemporarily,
   processingRef,
   answerStatus,
   lang = 'pt',
+  returnPercentages = false,
 }) {
-  if (
-    !jokers.audience ||
-    processingRef.current ||
-    answerStatus !== null
-  ) {
-    return;
+  if (!jokers.audience || processingRef.current || answerStatus !== null) {
+    return returnPercentages ? {} : undefined;
   }
 
-  setJokers(previous => ({
-    ...previous,
-    audience: false,
-  }));
+  setJokers((previous) => ({ ...previous, audience: false }));
 
-  changeMascotTemporarily && changeMascotTemporarily('REFLEXION', 1800);
+  if (typeof changeMascotTemporarily === 'function') {
+    changeMascotTemporarily('REFLEXION', 1800);
+  }
 
   try {
     await SoundManager.onJoker();
@@ -88,100 +116,19 @@ export async function useAudienceHandler({
     console.log('Joker sound error:', error);
   }
 
-  // visible option indices
-  const indices = options.map((_, i) => i);
-  const visibleIndices = indices.filter(i => !hiddenOptions.includes(i));
-
-  if (visibleIndices.length === 0) {
-    Alert.alert(
-      lang === 'fr' ? 'PÚBLICO' : 'PÚBLICO',
-      lang === 'fr' ? 'Aucune option visible.' : 'Nenhuma opção visível.'
-    );
-    return;
-  }
-
-  const correctIndex = options.findIndex(opt => opt === (options[correctIndex] || null));
-
-  // However original code used a correctIndex from correctAnswer; try to find it
-  const actualCorrectIndex = options.findIndex(opt => opt === options.find(o => o === o) );
-  // The above is a placeholder; better compute using presence of correctAnswer in caller.
-
-  // We'll compute correctIndex more reliably only if caller passed correctAnswer in options
-  // But to preserve behavior, expect the caller to compute correctIndex if needed.
-
-  // For safe default, calculate correctPct ranges based on visible count
-  const visibleCount = visibleIndices.length;
-
-  let minCorrect = 35;
-  let maxCorrect = 70;
-  if (visibleCount === 2) {
-    minCorrect = 60;
-    maxCorrect = 90;
-  } else if (visibleCount === 3) {
-    minCorrect = 45;
-    maxCorrect = 75;
-  }
-
-  const randInt = (a, b) => Math.floor(Math.random() * (b - a + 1)) + a;
-
-  let correctPct = randInt(minCorrect, maxCorrect);
-
-  const remaining = 100 - correctPct;
-
-  const otherIndices = visibleIndices.filter(i => i !== actualCorrectIndex);
-
-  let percents = {};
-  otherIndices.forEach(i => (percents[i] = 0));
-
-  if (otherIndices.length > 0) {
-    const randoms = otherIndices.map(() => Math.random());
-    const sumRandoms = randoms.reduce((a, b) => a + b, 0);
-    const raw = randoms.map(r => (r / sumRandoms) * remaining);
-
-    const floors = raw.map(v => Math.floor(v));
-    const fractions = raw.map((v, idx) => ({ idx, frac: v - Math.floor(v) }));
-
-    let totalFloor = floors.reduce((a, b) => a + b, 0);
-    let leftover = remaining - totalFloor;
-
-    otherIndices.forEach((i, k) => {
-      percents[i] = floors[k];
-    });
-
-    fractions.sort((a, b) => b.frac - a.frac);
-    let j = 0;
-    while (leftover > 0) {
-      const idx = fractions[j % fractions.length].idx;
-      const targetIndex = otherIndices[idx];
-      percents[targetIndex] += 1;
-      leftover -= 1;
-      j += 1;
-    }
-  }
-
-  let finalPercents = {};
-
-  indices.forEach(i => {
-    if (visibleIndices.includes(i)) {
-      if (i === actualCorrectIndex) finalPercents[i] = correctPct;
-      else finalPercents[i] = percents[i] || 0;
-    } else {
-      finalPercents[i] = 0;
-    }
+  const percentages = computeAudiencePercentages({
+    options,
+    correctAnswer,
+    hiddenOptions,
   });
 
-  const total = Object.values(finalPercents).reduce((a, b) => a + b, 0);
-  if (total !== 100) {
-    const diff = 100 - total;
-    // add diff to the first visible index (fallback)
-    const target = visibleIndices[0];
-    finalPercents[target] = (finalPercents[target] || 0) + diff;
+  if (returnPercentages) {
+    return percentages;
   }
 
-  const lines = indices.map(i => {
-    const letter = String.fromCharCode(65 + i);
-    const pct = finalPercents[i] || 0;
-    return `${letter}: ${pct}%`;
+  const lines = options.map((_, index) => {
+    const letter = String.fromCharCode(65 + index);
+    return `${letter}: ${percentages[index] || 0}%`;
   });
 
   Alert.alert(lang === 'fr' ? 'PÚBLICO' : 'PÚBLICO', lines.join('\n'));
@@ -197,18 +144,17 @@ export async function usePhoneFriendHandler({
   processingRef,
   answerStatus,
   lang = 'pt',
+  returnSuggestion = false,
 }) {
-  if (
-    !jokers.phoneFriend ||
-    processingRef.current ||
-    answerStatus !== null
-  ) {
-    return;
+  if (!jokers.phoneFriend || processingRef.current || answerStatus !== null) {
+    return returnSuggestion ? '' : undefined;
   }
 
-  setJokers(prev => ({ ...prev, phoneFriend: false }));
+  setJokers((previous) => ({ ...previous, phoneFriend: false }));
 
-  changeMascotTemporarily && changeMascotTemporarily('REFLEXION', 1500);
+  if (typeof changeMascotTemporarily === 'function') {
+    changeMascotTemporarily('REFLEXION', 1500);
+  }
 
   try {
     await SoundManager.onJoker();
@@ -217,37 +163,35 @@ export async function usePhoneFriendHandler({
   }
 
   const friends = [
-    { name: 'DSKILUSHANG', prob: 0.8 },
-    { name: 'KIESSELOVE', prob: 0.65 },
-    { name: 'KIMIA', prob: 0.5 },
+    { name: 'DSKILUSHANG', weight: 0.8 },
+    { name: 'KIESSELOVE', weight: 0.65 },
+    { name: 'KIMIA', weight: 0.5 },
   ];
 
   const pick = friends[Math.floor(Math.random() * friends.length)];
+  const correctIndex = Number(correctAnswer);
+  const visibleIndices = options
+    .map((_, index) => index)
+    .filter((index) => !hiddenOptions.includes(index));
 
-  const correctIndex = options.findIndex(opt => opt === correctAnswer);
-  const indices = options.map((_, i) => i);
-  const visibleIndices = indices.filter(i => !hiddenOptions.includes(i));
+  let suggestedIndex = correctIndex;
 
-  let suggestedIndex = null;
-
-  if (Math.random() < pick.prob && visibleIndices.includes(correctIndex)) {
-    suggestedIndex = correctIndex;
-  } else {
-    const wrongVisible = visibleIndices.filter(i => i !== correctIndex);
-    if (wrongVisible.length > 0) {
-      suggestedIndex = wrongVisible[Math.floor(Math.random() * wrongVisible.length)];
-    } else {
-      suggestedIndex = correctIndex;
-    }
+  if (!visibleIndices.includes(correctIndex) || Math.random() > pick.weight) {
+    const wrongVisible = visibleIndices.filter((index) => index !== correctIndex);
+    suggestedIndex = wrongVisible.length > 0
+      ? wrongVisible[Math.floor(Math.random() * wrongVisible.length)]
+      : correctIndex;
   }
 
   const letter = String.fromCharCode(65 + suggestedIndex);
   const text = options[suggestedIndex];
+  const suggestion = `${pick.name} ${lang === 'fr' ? 'pense que la réponse est' : 'acha que a resposta é'} ${letter}: ${text}`;
 
-  Alert.alert(
-    lang === 'fr' ? 'AMIGO' : 'AMIGO',
-    `${pick.name} ${lang === 'fr' ? 'pense que la réponse est' : 'acha que a resposta é'} ${letter}: ${text}`
-  );
+  if (returnSuggestion) {
+    return suggestion;
+  }
+
+  Alert.alert(lang === 'fr' ? 'AMIGO' : 'AMIGO', suggestion);
 }
 
 export async function usePassHandler({
@@ -258,33 +202,33 @@ export async function usePassHandler({
   setProcessing,
   stopTimer,
   setQuestions,
-  getRandomQuizQuestions: getRandomFn = getRandomQuizQuestions,
   setQuestionVersion,
   setSelectedAnswer,
   setAnswerStatus,
   setHiddenOptions,
+  setTimeLeft,
+  setMascotState,
+  questionIndex,
   lang = 'pt',
 }) {
-  if (
-    !jokers.pass ||
-    processingRef.current ||
-    answerStatus !== null
-  ) {
-    // note: answerStatus is expected to be read by caller if needed
+  if (!jokers.pass || processingRef.current) {
     return;
   }
 
   processingRef.current = true;
-  setProcessing && setProcessing(true);
+  if (typeof setProcessing === 'function') {
+    setProcessing(true);
+  }
 
-  stopTimer && stopTimer();
+  if (typeof stopTimer === 'function') {
+    stopTimer();
+  }
 
-  setJokers(previous => ({
-    ...previous,
-    pass: false,
-  }));
+  setJokers((previous) => ({ ...previous, pass: false }));
 
-  changeMascotTemporarily && changeMascotTemporarily('SURPRIS', 1200);
+  if (typeof changeMascotTemporarily === 'function') {
+    changeMascotTemporarily('SURPRIS', 1200);
+  }
 
   try {
     await SoundManager.onJoker();
@@ -292,37 +236,212 @@ export async function usePassHandler({
     console.log('Pass joker sound error:', error);
   }
 
-  setTimeout(() => {
-    const newQs = getRandomFn(1, lang);
-    if (Array.isArray(newQs) && newQs.length > 0) {
-      const newQ = newQs[0];
-
-      try {
-        // Caller may have provided currentQuestion metadata to preserve.
-        // If not provided, newQ stays as is.
-      } catch (e) {
-        // ignore
+  return new Promise((resolve) => {
+    setTimeout(() => {
+      const replacement = getRandomQuizQuestions(1, lang)?.[0];
+      if (!replacement) {
+        if (typeof setProcessing === 'function') {
+          setProcessing(false);
+        }
+        processingRef.current = false;
+        resolve();
+        return;
       }
 
-      setQuestions(prev => {
-        const clone = [...prev];
-        // find first index where the question was replaced by caller via closure
-        // Caller should have passed a correct index via closure usage in wrapper
-        // We'll assume the caller will replace by index, so here we just return clone
-        return clone;
+      setQuestions((prev) => {
+        const next = [...prev];
+        next[questionIndex] = replacement;
+        return next;
       });
 
-      // The actual replacement of the question must be done by the caller because
-      // the handler cannot know the current questionIndex. The wrapper in QuizScreen
-      // will perform the replacement using setQuestions and questionIndex.
+      if (typeof setQuestionVersion === 'function') {
+        setQuestionVersion((value) => value + 1);
+      }
 
-      setQuestionVersion && setQuestionVersion(v => v + 1);
+      if (typeof setSelectedAnswer === 'function') {
+        setSelectedAnswer(null);
+      }
 
-      setSelectedAnswer && setSelectedAnswer(null);
-      setAnswerStatus && setAnswerStatus(null);
-      setHiddenOptions && setHiddenOptions([]);
-      setProcessing && setProcessing(false);
+      if (typeof setAnswerStatus === 'function') {
+        setAnswerStatus(null);
+      }
+
+      if (typeof setHiddenOptions === 'function') {
+        setHiddenOptions([]);
+      }
+
+      if (typeof setTimeLeft === 'function') {
+        setTimeLeft(Number(replacement?.timeLimit) || 20);
+      }
+
+      if (typeof setMascotState === 'function') {
+        setMascotState(MASCOTTE_STATES.QUESTION);
+      }
+
+      if (typeof setProcessing === 'function') {
+        setProcessing(false);
+      }
+
       processingRef.current = false;
-    }
-  }, 800);
+      resolve();
+    }, 800);
+  });
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
