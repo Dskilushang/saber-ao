@@ -12,14 +12,13 @@ export function computeAudiencePercentages({ options, correctAnswer, hiddenOptio
   }
 
   const correctIndex = Number(correctAnswer);
-  let result = {};
+  const result = {};
 
   visibleIndices.forEach((index) => {
     result[index] = 0;
   });
 
   let correctPct = visibleIndices.length <= 2 ? 75 : 55;
-
   if (visibleIndices.length === 3) {
     correctPct = 50;
   }
@@ -210,6 +209,7 @@ export async function usePassHandler({
   setMascotState,
   questionIndex,
   lang = 'pt',
+  setJokerFeedback,
 }) {
   if (!jokers.pass || processingRef.current) {
     return;
@@ -275,7 +275,14 @@ export async function usePassHandler({
       }
 
       if (typeof setMascotState === 'function') {
-        setMascotState(MASCOTTE_STATES.QUESTION);
+        setMascotState({
+          ID: 'QUESTION',
+          label: 'QUESTION',
+        });
+      }
+
+      if (typeof setJokerFeedback === 'function') {
+        setJokerFeedback('Pass utilisé : question remplacée.');
       }
 
       if (typeof setProcessing === 'function') {
@@ -287,161 +294,4 @@ export async function usePassHandler({
     }, 800);
   });
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+"}
