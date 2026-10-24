@@ -54,7 +54,6 @@ export default function QuizScreen({ navigation }) {
 
   const timerRef = useRef(null);
   const timerDeadlineRef = useRef(null);
-const timerDeadlineRef = useRef(null);
   const mascotTimeoutRef = useRef(null);
   const transitionTimeoutRef = useRef(null);
   const processingRef = useRef(false);
