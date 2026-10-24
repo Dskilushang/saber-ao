@@ -478,17 +478,7 @@ const [audienceVotes, setAudienceVotes] = useState(null);
 
       await playJokerSound();
 
-      Alert.alert(
-        'PÚBLICO',
-        visible
-          .map(
-            (index) =>
-              `${ANSWER_LETTERS[index]}: ${
-                percentages[index] || 0
-              }%`
-          )
-          .join('\n')
-      );
+      setAudienceVotes(percentages);
 
       return;
     }
