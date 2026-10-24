@@ -650,9 +650,8 @@ export default function QuizScreen({ navigation }) {
           const isSelected = selectedAnswer === index;
 
           const isCorrect =
-            answerStatus === 'correct' &&
-            index === correctAnswer;
-
+  ['correct', 'wrong', 'timeout'].includes(answerStatus) &&
+  index === correctAnswer;
           const isWrong =
             answerStatus === 'wrong' &&
             isSelected &&
