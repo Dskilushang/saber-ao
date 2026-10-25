@@ -676,7 +676,43 @@ const [audienceVotes, setAudienceVotes] = useState(null);
           {jokerFeedback}
         </Text>
       )}
+      {audienceVotes && (
+        <View style={styles.audienceCard}>
+          <Text style={styles.audienceTitle}>
+            VOTO DO PÚBLICO
+          </Text>
 
+          <View style={styles.audienceChart}>
+            {ANSWER_LETTERS.map((letter, index) => {
+              const percentage = audienceVotes[index] || 0;
+
+              return (
+                <View
+                  key={letter}
+                  style={styles.audienceColumn}
+                >
+                  <Text style={styles.audiencePercent}>
+                    {percentage}%
+                  </Text>
+
+                  <View style={styles.audienceBarTrack}>
+                    <View
+                      style={[
+                        styles.audienceBar,
+                        { height: percentage },
+                      ]}
+                    />
+                  </View>
+
+                  <Text style={styles.audienceLetter}>
+                    {letter}
+                  </Text>
+                </View>
+              );
+            })}
+          </View>
+        </View>
+      )}
       <View style={styles.jokerRow}>
         <TouchableOpacity
           style={[
