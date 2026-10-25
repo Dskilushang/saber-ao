@@ -881,7 +881,63 @@ const styles = StyleSheet.create({
     marginTop: 10,
     fontWeight: '700',
   },
+  audienceCard: {
+    backgroundColor: '#182642',
+    borderRadius: 12,
+    borderWidth: 1,
+    borderColor: '#f5a623',
+    padding: 12,
+    marginTop: 10,
+  },
 
+  audienceTitle: {
+    color: '#f5c451',
+    fontSize: 13,
+    fontWeight: '800',
+    textAlign: 'center',
+    marginBottom: 12,
+  },
+
+  audienceChart: {
+    flexDirection: 'row',
+    justifyContent: 'space-around',
+    alignItems: 'flex-end',
+  },
+
+  audienceColumn: {
+    flex: 1,
+    alignItems: 'center',
+  },
+
+  audiencePercent: {
+    color: '#ffffff',
+    fontSize: 12,
+    fontWeight: '800',
+    marginBottom: 6,
+  },
+
+  audienceBarTrack: {
+    height: 100,
+    width: 28,
+    backgroundColor: '#293650',
+    borderRadius: 5,
+    justifyContent: 'flex-end',
+    overflow: 'hidden',
+  },
+
+  audienceBar: {
+    width: '100%',
+    backgroundColor: '#f5a623',
+    borderTopLeftRadius: 5,
+    borderTopRightRadius: 5,
+  },
+
+  audienceLetter: {
+    color: '#f5c451',
+    fontSize: 13,
+    fontWeight: '800',
+    marginTop: 6,
+  },
   loadingText: {
     color: '#fff',
     textAlign: 'center',
