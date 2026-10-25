@@ -206,6 +206,7 @@ const [audienceVotes, setAudienceVotes] = useState(null);
         setAnswerStatus(null);
         setHiddenOptions([]);
         setJokerFeedback('');
+        setAudienceVotes(null);
 
         setProcessing(false);
         processingRef.current = false;
