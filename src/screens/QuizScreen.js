@@ -568,7 +568,8 @@ const [audienceVotes, setAudienceVotes] = useState(null);
       setSelectedAnswer(null);
       setAnswerStatus(null);
       setHiddenOptions([]);
-
+      setAudienceVotes(null);
+      
       setJokerFeedback('Pergunta trocada.');
 
       setMascotState(MASCOTTE_STATES.QUESTION);
