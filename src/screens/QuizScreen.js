@@ -571,6 +571,7 @@ const [friendAnswer, setFriendAnswer] = useState(null);
       setFriendModalVisible(true);
       await playJokerSound();
       return;
+    }
         
     // JOKER PASSAR
     if (jokerType === 'pass') {
