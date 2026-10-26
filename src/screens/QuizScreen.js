@@ -330,6 +330,7 @@ const [audienceVotes, setAudienceVotes] = useState(null);
     stopTimer();
 
     setSelectedAnswer(optionIndex);
+    setAudienceVotes(null);
     setAnswerStatus(isCorrect ? 'correct' : 'wrong');
 
     changeMascotTemporarily(
