@@ -680,7 +680,7 @@ const [audienceVotes, setAudienceVotes] = useState(null);
           {jokerFeedback}
         </Text>
       )}
-      {audienceVotes && (
+      `{audienceVotes && answerStatus === null && (
         <View style={styles.audienceCard}>
           <Text style={styles.audienceTitle}>
             VOTO DO PÚBLICO
