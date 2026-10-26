@@ -121,6 +121,8 @@ export default function QuizScreen({ navigation }) {
   const [hiddenOptions, setHiddenOptions] = useState([]);
   const [jokerFeedback, setJokerFeedback] = useState('');
 const [audienceVotes, setAudienceVotes] = useState(null);
+  const [friendModalVisible, setFriendModalVisible] = useState(false);
+const [friendAnswer, setFriendAnswer] = useState(null);
   const [jokers, setJokers] = useState({
     fiftyFifty: true,
     audience: true,
