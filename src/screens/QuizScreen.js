@@ -7,6 +7,7 @@ import {
   SafeAreaView,
   Animated,
   Alert,
+  Modal,
  } from 'react-native';
 
 import { getRandomQuizQuestions } from '../questions';
