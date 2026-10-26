@@ -7,8 +7,7 @@ import {
   SafeAreaView,
   Animated,
   Alert,
-  modal,
-} from 'react-native';
+ } from 'react-native';
 
 import { getRandomQuizQuestions } from '../questions';
 import Mascotte, { MASCOTTE_STATES } from '../components/Mascotte';
