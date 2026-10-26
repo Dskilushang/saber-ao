@@ -571,16 +571,7 @@ const [friendAnswer, setFriendAnswer] = useState(null);
       setFriendModalVisible(true);
       await playJokerSound();
       return;
-        }
-        'AMIGO',
-        `${friend.name} acha que a resposta é ${
-          ANSWER_LETTERS[suggested]
-        }: ${options[suggested]}`
-      );
-
-      return;
-    }
-
+        
     // JOKER PASSAR
     if (jokerType === 'pass') {
       processingRef.current = true;
