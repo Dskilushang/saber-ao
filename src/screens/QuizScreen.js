@@ -24,6 +24,81 @@ const DIFFICULTY_CONFIG = {
 };
 
 const ANSWER_LETTERS = ['A', 'B', 'C', 'D'];
+const FRIENDS = [
+  { name: 'DSKILUSHANG', chance: 0.8, emoji: '🧑🏾‍🎨' },
+  { name: 'KIESSELOVE', chance: 0.65, emoji: '👩🏾' },
+  { name: 'KIMIA', chance: 0.5, emoji: '🧒🏾' },
+];
+const friendStyles = StyleSheet.create({
+  overlay: {
+    flex: 1,
+    backgroundColor: 'rgba(0,0,0,0.75)',
+    justifyContent: 'center',
+    padding: 20,
+  },
+  card: {
+    backgroundColor: '#182642',
+    borderRadius: 16,
+    padding: 18,
+    borderWidth: 1,
+    borderColor: '#2a3f66',
+  },
+  title: {
+    color: '#f5c451',
+    fontSize: 16,
+    fontWeight: '800',
+    textAlign: 'center',
+    marginBottom: 14,
+  },
+  friendsRow: {
+    flexDirection: 'row',
+    justifyContent: 'space-around',
+  },
+  friend: {
+    alignItems: 'center',
+    width: '30%',
+  },
+  avatar: {
+    width: 64,
+    height: 64,
+    borderRadius: 32,
+    backgroundColor: '#1f355e',
+    borderWidth: 2,
+    borderColor: '#78a6ff',
+    alignItems: 'center',
+    justifyContent: 'center',
+    marginBottom: 6,
+  },
+  avatarEmoji: { fontSize: 32 },
+  friendName: {
+    color: '#fff',
+    fontSize: 11,
+    fontWeight: '700',
+    textAlign: 'center',
+  },
+  answerBox: {
+    alignItems: 'center',
+    paddingVertical: 8,
+  },
+  answerText: {
+    color: '#fff',
+    fontSize: 17,
+    fontWeight: '700',
+    textAlign: 'center',
+    marginTop: 8,
+  },
+  closeButton: {
+    marginTop: 18,
+    backgroundColor: '#f5a623',
+    borderRadius: 12,
+    paddingVertical: 12,
+  },
+  closeText: {
+    color: '#10182a',
+    fontWeight: '800',
+    textAlign: 'center',
+  },
+});
 
 export default function QuizScreen({ navigation }) {
   const lang = 'pt';
