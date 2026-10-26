@@ -758,7 +758,7 @@ if (!currentQuestion) {
           {jokerFeedback}
         </Text>
       )}
-      `{audienceVotes && answerStatus === null && (
+      {audienceVotes && answerStatus === null && (
         <View style={styles.audienceCard}>
           <Text style={styles.audienceTitle}>
             VOTO DO PÚBLICO
