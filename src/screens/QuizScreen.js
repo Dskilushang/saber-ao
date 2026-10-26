@@ -565,45 +565,12 @@ const [friendAnswer, setFriendAnswer] = useState(null);
 
     // JOKER AMIGO
     if (jokerType === 'phoneFriend') {
-      const friends = [
-        { name: 'DSKILUSHANG', chance: 0.8 },
-        { name: 'KIESSELOVE', chance: 0.65 },
-        { name: 'KIMIA', chance: 0.5 },
-      ];
-
-      const friend =
-        friends[Math.floor(Math.random() * friends.length)];
-
-      const visible = options
-        .map((_, index) => index)
-        .filter((index) => !hiddenOptions.includes(index));
-
-      const wrong = visible.filter(
-        (index) => index !== correctAnswer
-      );
-
-      const suggested =
-        visible.includes(correctAnswer) &&
-        Math.random() < friend.chance
-          ? correctAnswer
-          : wrong.length > 0
-            ? wrong[
-                Math.floor(Math.random() * wrong.length)
-              ]
-            : correctAnswer;
-
-      setJokers((previous) => ({
-        ...previous,
-        phoneFriend: false,
-      }));
-
-      setJokerFeedback(
-        'Ajuda do amigo utilizada.'
-      );
-
+      stopTimer();
+      setFriendAnswer(null);
+      setFriendModalVisible(true);
       await playJokerSound();
-
-      Alert.alert(
+      return;
+        }
         'AMIGO',
         `${friend.name} acha que a resposta é ${
           ANSWER_LETTERS[suggested]
