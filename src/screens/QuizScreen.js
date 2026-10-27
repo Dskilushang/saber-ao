@@ -893,10 +893,10 @@ if (!currentQuestion) {
           {friendAnswer ? 'CONTINUAR' : 'FECHAR'}
         </Text>
       </TouchableOpacity>
-    </View>
-  </View>
+</View>
+</View>
 </Modal>
-          </SafeAreaView>
+</SafeAreaView>
   );
 }
 
