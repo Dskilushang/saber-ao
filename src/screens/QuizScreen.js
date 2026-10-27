@@ -840,7 +840,7 @@ if (!currentQuestion) {
           <Text style={styles.jokerText}>PASSAR</Text>
         </TouchableOpacity>
       </View>
-    <Modal>
+    <Modal
   visible={friendModalVisible}
   transparent
   animationType="fade"
