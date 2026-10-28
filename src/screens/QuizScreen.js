@@ -676,31 +676,24 @@ if (jokerType === 'phoneFriend') {
     }
   };
 
-   // Escolher um amigo para ajudar
+   // Escolher o conselho de um amigo
 const handleChooseFriend = (friend) => {
-  const visible = options
-    .map((_, index) => index)
-    .filter((index) => !hiddenOptions.includes(index));
-
-  const wrong = visible.filter(
-    (index) => index !== correctAnswer
-  );
-
-  const suggested =
-    visible.includes(correctAnswer) &&
-    (wrong.length === 0 || Math.random() < 0.5)
-      ? correctAnswer
-      : wrong.length > 0
-        ? wrong[Math.floor(Math.random() * wrong.length)]
-        : correctAnswer;
-
   setJokers((previous) => ({
     ...previous,
     phoneFriend: false,
   }));
 
-  setJokerFeedback('Ajuda do amigo utilizada.');
-  setFriendAnswer({ friend, suggested });
+  setJokerFeedback(
+    friend.name +
+      ' sugere ' +
+      ANSWER_LETTERS[friend.suggested] +
+      '.'
+  );
+
+  setFriendModalVisible(false);
+  setFriendSuggestions([]);
+
+  startTimer();
 };
   // Fechar a janela dos amigos
 const closeFriendModal = () => {
@@ -913,7 +906,8 @@ if (!currentQuestion) {
               <TouchableOpacity
                 key={friend.id}
                 style={friendStyles.friend}
-                onPress={() => handleChooseFriend(friend)}
+                onPress={() =>
+                  handleChooseFriend(friend)}
                 activeOpacity={0.8}
               >
                 <Image
