@@ -882,9 +882,10 @@ if (!currentQuestion) {
                   onPress={() => handleChooseFriend(friend)}
                 >
                   <View style={friendStyles.avatar}>
-                    <Text style={friendStyles.avatarEmoji}>
-                      {friend.emoji}
-                    </Text>
+                  <Image
+                  source={friend.image}
+                  style={friendStyles.friendImage}
+                  />
                   </View>
 
                   <Text style={friendStyles.friendName}>
