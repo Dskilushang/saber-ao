@@ -587,13 +587,41 @@ const [friendSuggestions, setFriendSuggestions] = useState([]);
     }
 
     // JOKER AMIGO
-    if (jokerType === 'phoneFriend') {
-      stopTimer();
-      setFriendAnswer(null);
-      setFriendModalVisible(true);
-      await playJokerSound();
-      return;
-    }
+if (jokerType === 'phoneFriend') {
+  stopTimer();
+
+  const allIndexes = options.map((_, index) => index);
+
+  const wrongIndexes = allIndexes.filter(
+    (index) => index !== correctAnswer
+  );
+
+  const shuffledWrong = [...wrongIndexes].sort(
+    () => Math.random() - 0.5
+  );
+
+  const suggestionIndexes = [
+    correctAnswer,
+    ...shuffledWrong.slice(0, 2),
+  ].sort(() => Math.random() - 0.5);
+
+  const shuffledFriends = [...FRIENDS].sort(
+    () => Math.random() - 0.5
+  );
+
+  setFriendSuggestions(
+    shuffledFriends.map((friend, index) => ({
+      ...friend,
+      suggested: suggestionIndexes[index],
+    }))
+  );
+
+  setFriendModalVisible(true);
+
+  await playJokerSound();
+
+  return;
+          }
         
     // JOKER PASSAR
     if (jokerType === 'pass') {
