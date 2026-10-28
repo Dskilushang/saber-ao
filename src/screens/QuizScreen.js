@@ -840,71 +840,62 @@ if (!currentQuestion) {
           <Text style={styles.jokerText}>PASSAR</Text>
         </TouchableOpacity>
       </View>
-    <Modal
-  visible={friendModalVisible}
-  transparent
-  animationType="fade"
-  onRequestClose={closeFriendModal}
->
-  <View style={friendStyles.overlay}>
-    <View style={friendStyles.card}>
-      <Text> style={friendStyles.title}>
-<Modal
-  visible={friendModalVisible}
-  transparent
-  animationType="fade"
-  onRequestClose={closeFriendModal}
->
-  <View style={friendStyles.overlay}>
-    <View style={friendStyles.card}>
-      <Text> style={friendStyles.title}>
-        LIGAR PARA UM AMIGO
-      </Text>
+       <Modal
+      visible={friendModalVisible}
+      transparent
+      animationType="fade"
+      onRequestClose={closeFriendModal}
+    >
+      <View style={friendStyles.overlay}>
+        <View style={friendStyles.card}>
+          <Text style={friendStyles.title}>
+            LIGAR PARA UM AMIGO
+          </Text>
 
-      {!friendAnswer ? (
-        <View style={friendStyles.friendsRow}>
-          {FRIENDS.map((friend) => (
-            <TouchableOpacity
-              key={friend.name}
-              style={friendStyles.friend}
-              onPress={() => handleChooseFriend(friend)}
-            >
-              <View style={friendStyles.avatar}>
-                <Text> style={friendStyles.avatarEmoji}>
-                  {friend.emoji}
-                </Text>
-              </View>
+          {!friendAnswer ? (
+            <View style={friendStyles.friendsRow}>
+              {FRIENDS.map((friend) => (
+                <TouchableOpacity
+                  key={friend.name}
+                  style={friendStyles.friend}
+                  onPress={() => handleChooseFriend(friend)}
+                >
+                  <View style={friendStyles.avatar}>
+                    <Text style={friendStyles.avatarEmoji}>
+                      {friend.emoji}
+                    </Text>
+                  </View>
 
-              <Text> style={friendStyles.friendName}>
-                {friend.name}
+                  <Text style={friendStyles.friendName}>
+                    {friend.name}
+                  </Text>
+                </TouchableOpacity>
+              ))}
+            </View>
+          ) : (
+            <View style={friendStyles.answerBox}>
+              <Text style={friendStyles.friendName}>
+                {friendAnswer.friend.name} SUGERE:
               </Text>
-            </TouchableOpacity>
-          ))}
-        </View>
-      ) : (
-        <View style={friendStyles.answerBox}>
-          <Text> style={friendStyles.friendName}>
-            {friendAnswer.friend.name} SUGERE:
-          </Text>
 
-          <Text> style={friendStyles.answerText}>
-            {ANSWER_LETTERS[friendAnswer.suggested]}.{' '}
-            {options[friendAnswer.suggested]}
-          </Text>
-        </View>
-      )}
+              <Text style={friendStyles.answerText}>
+                {ANSWER_LETTERS[friendAnswer.suggested]}.{' '}
+                {options[friendAnswer.suggested]}
+              </Text>
+            </View>
+          )}
 
-      <TouchableOpacity
-        style={friendStyles.closeButton}
-        onPress={closeFriendModal}
-      >
-        <Text> style={friendStyles.closeText}>
-          {friendAnswer ? 'CONTINUAR' : 'FECHAR'}
-        </Text>
-      </TouchableOpacity>
-    </View>
-  </View>
-</Modal>
+          <TouchableOpacity
+            style={friendStyles.closeButton}
+            onPress={closeFriendModal}
+          >
+            <Text style={friendStyles.closeText}>
+              {friendAnswer ? 'CONTINUAR' : 'FECHAR'}
+            </Text>
+          </TouchableOpacity>
+        </View>
+      </View>
+    </Modal>
 </SafeAreaView>
   );
 }
