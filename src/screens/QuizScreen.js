@@ -86,7 +86,12 @@ const friendStyles = StyleSheet.create({
     justifyContent: 'center',
     marginBottom: 6,
   },
-  avatarEmoji: { fontSize: 32 },
+    friendImage: {
+    width: 60,
+    height: 60,
+    borderRadius: 30,
+    resizeMode: 'cover',
+  },
   friendName: {
     color: '#fff',
     fontSize: 11,
