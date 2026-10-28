@@ -87,11 +87,10 @@ const friendStyles = StyleSheet.create({
     marginBottom: 6,
   },
     friendImage: {
-    width: 60,
-    height: 60,
-    borderRadius: 30,
-    resizeMode: 'cover',
-  },
+  width: 68,
+  height: 68,
+  resizeMode: 'contain',
+},
   friendName: {
     color: '#fff',
     fontSize: 11,
@@ -109,6 +108,14 @@ const friendStyles = StyleSheet.create({
     textAlign: 'center',
     marginTop: 8,
   },
+  suggestionText: {
+  color: '#fff',
+  fontSize: 11,
+  fontWeight: '600',
+  textAlign: 'center',
+  marginTop: 8,
+  width: '100%',
+},
   closeButton: {
     marginTop: 18,
     backgroundColor: '#f5a623',
