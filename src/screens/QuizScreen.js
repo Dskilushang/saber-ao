@@ -889,7 +889,7 @@ if (!currentQuestion) {
           <Text style={styles.jokerText}>PASSAR</Text>
         </TouchableOpacity>
       </View>
-       <Modal
+           <Modal
       visible={friendModalVisible}
       transparent
       animationType="fade"
@@ -901,46 +901,39 @@ if (!currentQuestion) {
             LIGAR PARA UM AMIGO
           </Text>
 
-          {!friendAnswer ? (
-            <View style={friendStyles.friendsRow}>
-              {FRIENDS.map((friend) => (
-                <TouchableOpacity
-                  key={friend.name}
-                  style={friendStyles.friend}
-                  onPress={() => handleChooseFriend(friend)}
-                >
-                  <View style={friendStyles.avatar}>
-                  <Image
+          <View style={friendStyles.friendsRow}>
+            {friendSuggestions.map((friend) => (
+              <TouchableOpacity
+                key={friend.id}
+                style={friendStyles.friend}
+                onPress={() => handleChooseFriend(friend)}
+                activeOpacity={0.8}
+              >
+                <Image
                   source={friend.image}
                   style={friendStyles.friendImage}
-                  />
-                  </View>
+                />
 
-                  <Text style={friendStyles.friendName}>
-                    {friend.name}
-                  </Text>
-                </TouchableOpacity>
-              ))}
-            </View>
-          ) : (
-            <View style={friendStyles.answerBox}>
-              <Text style={friendStyles.friendName}>
-                {friendAnswer.friend.name} SUGERE:
-              </Text>
+                <Text style={friendStyles.friendName}>
+                  {friend.name}
+                </Text>
 
-              <Text style={friendStyles.answerText}>
-                {ANSWER_LETTERS[friendAnswer.suggested]}.{' '}
-                {options[friendAnswer.suggested]}
-              </Text>
-            </View>
-          )}
+                <Text style={friendStyles.suggestionText}>
+                  SUGERE:
+                  {'\n'}
+                  {ANSWER_LETTERS[friend.suggested]}.{' '}
+                  {options[friend.suggested]}
+                </Text>
+              </TouchableOpacity>
+            ))}
+          </View>
 
           <TouchableOpacity
             style={friendStyles.closeButton}
             onPress={closeFriendModal}
           >
             <Text style={friendStyles.closeText}>
-              {friendAnswer ? 'CONTINUAR' : 'FECHAR'}
+              FECHAR
             </Text>
           </TouchableOpacity>
         </View>
