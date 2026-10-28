@@ -8,7 +8,8 @@ import {
   Animated,
   Alert,
   Modal,
- } from 'react-native';
+  Image,
+} from 'react-native';
 
 import { getRandomQuizQuestions } from '../questions';
 import Mascotte, { MASCOTTE_STATES } from '../components/Mascotte';
