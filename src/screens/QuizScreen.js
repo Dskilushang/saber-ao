@@ -14,6 +14,9 @@ import {
 import { getRandomQuizQuestions } from '../questions';
 import Mascotte, { MASCOTTE_STATES } from '../components/Mascotte';
 import SoundManager from '../utils/soundManager';
+import dskilushangImage from '../../assets/mascottes-optimized/dskilushang_ref.webp';
+import kiesseloveImage from '../../assets/mascottes-optimized/kiesselove_ref.webp';
+import kimiaImage from '../../assets/mascottes-optimized/kimia_ref.webp';
 
 const TOTAL_QUESTIONS = 10;
 
