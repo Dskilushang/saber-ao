@@ -849,6 +849,15 @@ if (!currentQuestion) {
   <View style={friendStyles.overlay}>
     <View style={friendStyles.card}>
       <Text style={friendStyles.title}>
+<Modal
+  visible={friendModalVisible}
+  transparent
+  animationType="fade"
+  onRequestClose={closeFriendModal}
+>
+  <View style={friendStyles.overlay}>
+    <View style={friendStyles.card}>
+      <Text style={friendStyles.title}>
         LIGAR PARA UM AMIGO
       </Text>
 
@@ -893,8 +902,8 @@ if (!currentQuestion) {
           {friendAnswer ? 'CONTINUAR' : 'FECHAR'}
         </Text>
       </TouchableOpacity>
-</View>
-</View>
+    </View>
+  </View>
 </Modal>
 </SafeAreaView>
   );
