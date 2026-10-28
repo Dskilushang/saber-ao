@@ -695,19 +695,19 @@ const handleChooseFriend = (friend) => {
   setJokerFeedback('Ajuda do amigo utilizada.');
   setFriendAnswer({ friend, suggested });
 };
-  // Fechar a janela do amigo
-  const closeFriendModal = () => {
-    setFriendModalVisible(false);
-    setFriendAnswer(null);
+  // Fechar a janela dos amigos
+const closeFriendModal = () => {
+  setFriendModalVisible(false);
+  setFriendSuggestions([]);
 
-    if (
-      answerStatus === null &&
-      currentQuestion &&
-      !processingRef.current
-    ) {
-      startTimer();
-    }
-  };
+  if (
+    answerStatus === null &&
+    currentQuestion &&
+    !processingRef.current
+  ) {
+    startTimer();
+  }
+};
 
 if (!currentQuestion) {
     return (
