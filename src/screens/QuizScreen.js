@@ -642,32 +642,31 @@ const [friendAnswer, setFriendAnswer] = useState(null);
   };
 
    // Escolher um amigo para ajudar
-  const handleChooseFriend = (friend) => {
-    const visible = options
-      .map((_, index) => index)
-      .filter((index) => !hiddenOptions.includes(index));
+const handleChooseFriend = (friend) => {
+  const visible = options
+    .map((_, index) => index)
+    .filter((index) => !hiddenOptions.includes(index));
 
-    const wrong = visible.filter(
-      (index) => index !== correctAnswer
-    );
+  const wrong = visible.filter(
+    (index) => index !== correctAnswer
+  );
 
-    const suggested =
-      visible.includes(correctAnswer) &&
-      Math.random() < friend.chance
-        ? correctAnswer
-        : wrong.length > 0
-          ? wrong[Math.floor(Math.random() * wrong.length)]
-          : correctAnswer;
+  const suggested =
+    visible.includes(correctAnswer) &&
+    (wrong.length === 0 || Math.random() < 0.5)
+      ? correctAnswer
+      : wrong.length > 0
+        ? wrong[Math.floor(Math.random() * wrong.length)]
+        : correctAnswer;
 
-    setJokers((previous) => ({
-      ...previous,
-      phoneFriend: false,
-    }));
+  setJokers((previous) => ({
+    ...previous,
+    phoneFriend: false,
+  }));
 
-    setJokerFeedback('Ajuda do amigo utilizada.');
-    setFriendAnswer({ friend, suggested });
-  };
-
+  setJokerFeedback('Ajuda do amigo utilizada.');
+  setFriendAnswer({ friend, suggested });
+};
   // Fechar a janela do amigo
   const closeFriendModal = () => {
     setFriendModalVisible(false);
