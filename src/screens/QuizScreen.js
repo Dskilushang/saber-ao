@@ -28,10 +28,23 @@ const DIFFICULTY_CONFIG = {
 };
 
 const ANSWER_LETTERS = ['A', 'B', 'C', 'D'];
+
 const FRIENDS = [
-  { name: 'DSKILUSHANG', chance: 0.8, emoji: '🧑🏾‍🎨' },
-  { name: 'KIESSELOVE', chance: 0.65, emoji: '👩🏾' },
-  { name: 'KIMIA', chance: 0.5, emoji: '🧒🏾' },
+  {
+    id: 'dskilushang',
+    name: 'DSKILUSHANG',
+    image: dskilushangImage,
+  },
+  {
+    id: 'kiesselove',
+    name: 'KIESSELOVE',
+    image: kiesseloveImage,
+  },
+  {
+    id: 'kimia',
+    name: 'KIMIA',
+    image: kimiaImage,
+  },
 ];
 const friendStyles = StyleSheet.create({
   overlay: {
