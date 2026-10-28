@@ -848,7 +848,7 @@ if (!currentQuestion) {
 >
   <View style={friendStyles.overlay}>
     <View style={friendStyles.card}>
-      <Text style={friendStyles.title}>
+      <Text> style={friendStyles.title}>
 <Modal
   visible={friendModalVisible}
   transparent
@@ -857,7 +857,7 @@ if (!currentQuestion) {
 >
   <View style={friendStyles.overlay}>
     <View style={friendStyles.card}>
-      <Text style={friendStyles.title}>
+      <Text> style={friendStyles.title}>
         LIGAR PARA UM AMIGO
       </Text>
 
@@ -870,12 +870,12 @@ if (!currentQuestion) {
               onPress={() => handleChooseFriend(friend)}
             >
               <View style={friendStyles.avatar}>
-                <Text style={friendStyles.avatarEmoji}>
+                <Text> style={friendStyles.avatarEmoji}>
                   {friend.emoji}
                 </Text>
               </View>
 
-              <Text style={friendStyles.friendName}>
+              <Text> style={friendStyles.friendName}>
                 {friend.name}
               </Text>
             </TouchableOpacity>
@@ -883,11 +883,11 @@ if (!currentQuestion) {
         </View>
       ) : (
         <View style={friendStyles.answerBox}>
-          <Text style={friendStyles.friendName}>
+          <Text> style={friendStyles.friendName}>
             {friendAnswer.friend.name} SUGERE:
           </Text>
 
-          <Text style={friendStyles.answerText}>
+          <Text> style={friendStyles.answerText}>
             {ANSWER_LETTERS[friendAnswer.suggested]}.{' '}
             {options[friendAnswer.suggested]}
           </Text>
@@ -898,7 +898,7 @@ if (!currentQuestion) {
         style={friendStyles.closeButton}
         onPress={closeFriendModal}
       >
-        <Text style={friendStyles.closeText}>
+        <Text> style={friendStyles.closeText}>
           {friendAnswer ? 'CONTINUAR' : 'FECHAR'}
         </Text>
       </TouchableOpacity>
