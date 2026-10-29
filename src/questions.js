@@ -292,15 +292,16 @@ export const QUESTIONS = {
       correct: "Luanda",
     },
     {
+          {
       id: "geo_02",
       difficulty: 1,
       type: "classic",
-      question: "Quantas províncias tem Angola?",
-      options: ["18", "16", "20", "14"],
-      correctAnswer: "18",
-      correct: "18",
+      question: "Quantas províncias tem Angola atualmente?",
+      options: ["21", "18", "20", "16"],
+      correctAnswer: "21",
+      correct: "21",
+      explanation: "Angola tem atualmente 21 províncias.",
     },
-    {
       id: "geo_03",
       difficulty: 2,
       type: "classic",
