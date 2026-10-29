@@ -596,6 +596,10 @@ const [friendSuggestions, setFriendSuggestions] = useState([]);
     // JOKER AMIGO
 if (jokerType === 'phoneFriend') {
   stopTimer();
+    setJokers((previous) => ({
+    ...previous,
+    phoneFriend: false,
+  }));
 
   const allIndexes = options.map((_, index) => index);
 
