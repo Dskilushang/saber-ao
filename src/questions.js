@@ -178,7 +178,7 @@ export const QUESTIONS = {
       correctAnswer: "1975",
       correct: "1975",
     },
-    {
+    
       id: "hist_02",
       difficulty: 1,
       type: "classic",
@@ -192,7 +192,7 @@ export const QUESTIONS = {
       correctAnswer: "Agostinho Neto",
       correct: "Agostinho Neto",
     },
-    {
+    
       id: "hist_03",
       difficulty: 2,
       type: "classic",
@@ -201,8 +201,7 @@ export const QUESTIONS = {
       correctAnswer: "Portugal",
       correct: "Portugal",
     },
-    {
-      {
+    
   id: "hist_04",
   difficulty: 2,
   type: "classic",
@@ -220,8 +219,7 @@ export const QUESTIONS = {
       correctAnswer: "Luanda",
       correct: "Luanda",
     },
-    {
-      {
+    
   id: "geo_06",
   difficulty: 3,
   type: "classic",
@@ -299,7 +297,7 @@ export const QUESTIONS = {
       correct: "Luanda",
     },
     {
-          {
+    
       id: "geo_02",
       difficulty: 1,
       type: "classic",
@@ -364,7 +362,7 @@ export const QUESTIONS = {
       correct: "Cabinda",
     },
     {
-      {
+      
   id: "geo_08",
   difficulty: 3,
   type: "classic",
