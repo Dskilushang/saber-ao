@@ -676,7 +676,7 @@ if (jokerType === 'phoneFriend') {
     }
   };
 
-   // Escolher o conselho de um amigo
+// Escolher o conselho de um amigo
 const handleChooseFriend = (friend) => {
   setJokerFeedback(
     'TEST AMIGO: ' + friend.name
@@ -685,8 +685,8 @@ const handleChooseFriend = (friend) => {
   setFriendModalVisible(false);
   setFriendSuggestions([]);
 };
-};
-  // Fechar a janela dos amigos
+
+// Fechar a janela dos amigos
 const closeFriendModal = () => {
   setFriendModalVisible(false);
   setFriendSuggestions([]);
@@ -698,6 +698,7 @@ const closeFriendModal = () => {
   ) {
     startTimer();
   }
+};
 };
 
 if (!currentQuestion) {
