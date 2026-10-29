@@ -683,13 +683,21 @@ if (jokerType === 'phoneFriend') {
 // Escolher o conselho de um amigo
 const handleChooseFriend = (friend) => {
   setJokerFeedback(
-    'TEST AMIGO: ' + friend.name
+    friend.name + ' sugere ' +
+    ANSWER_LETTERS[friend.suggested] + '.'
   );
 
   setFriendModalVisible(false);
   setFriendSuggestions([]);
-};
 
+  if (
+    answerStatus === null &&
+    currentQuestion &&
+    !processingRef.current
+  ) {
+    startTimer();
+  }
+};
 // Fechar a janela dos amigos
 const closeFriendModal = () => {
   setFriendModalVisible(false);
