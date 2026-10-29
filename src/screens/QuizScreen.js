@@ -699,7 +699,7 @@ const closeFriendModal = () => {
     startTimer();
   }
 };
-};
+
 
 if (!currentQuestion) {
     return (
