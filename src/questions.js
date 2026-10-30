@@ -201,7 +201,7 @@ export const QUESTIONS = {
       correctAnswer: "Portugal",
       correct: "Portugal",
     },
-    
+  { 
   id: "hist_04",
   difficulty: 2,
   type: "classic",
@@ -211,15 +211,16 @@ export const QUESTIONS = {
   correct: "MPLA",
   explanation: "O MPLA proclamou a independência em Luanda. A FNLA e a UNITA também fizeram proclamações em outros locais.",
 },
-      id: "hist_05",
-      difficulty: 2,
-      type: "classic",
-      question: "Em que cidade foi proclamada a independência?",
-      options: ["Luanda", "Huambo", "Benguela", "Cabinda"],
-      correctAnswer: "Luanda",
+  {
+   id: "hist_05",
+   difficulty: 2,
+   type: "classic",
+   question: "Em que cidade foi proclamada a independência?",
+   options: ["Luanda", "Huambo", "Benguela", "Cabinda"],
+   correctAnswer: "Luanda",
       correct: "Luanda",
     },
-    
+    {  
   id: "geo_06",
   difficulty: 3,
   type: "classic",
@@ -234,6 +235,7 @@ export const QUESTIONS = {
   correct: "República Democrática do Congo",
   explanation: "A parte principal de Angola faz fronteira com a República Democrática do Congo a norte. O enclave de Cabinda faz fronteira com a República do Congo.",
 },
+    {
       id: "hist_07",
       difficulty: 3,
       type: "classic",
