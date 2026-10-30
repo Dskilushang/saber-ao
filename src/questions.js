@@ -204,7 +204,7 @@ export const QUESTIONS = {
       correct: "Portugal",
     },
     },
-  { 
+   
   id: "hist_04",
   difficulty: 2,
   type: "classic",
