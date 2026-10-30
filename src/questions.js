@@ -179,6 +179,7 @@ export const QUESTIONS = {
       correct: "1975",
     },
     
+          {
       id: "hist_02",
       difficulty: 1,
       type: "classic",
@@ -193,6 +194,7 @@ export const QUESTIONS = {
       correct: "Agostinho Neto",
     },
     
+          {
       id: "hist_03",
       difficulty: 2,
       type: "classic",
@@ -200,6 +202,7 @@ export const QUESTIONS = {
       options: ["Portugal", "França", "Espanha", "Reino Unido"],
       correctAnswer: "Portugal",
       correct: "Portugal",
+    },
     },
   { 
   id: "hist_04",
