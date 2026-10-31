@@ -179,7 +179,7 @@ export const QUESTIONS = {
       correct: "1975",
     },
     
-          {
+      {
       id: "hist_02",
       difficulty: 1,
       type: "classic",
@@ -194,7 +194,7 @@ export const QUESTIONS = {
       correct: "Agostinho Neto",
     },
     
-          {
+      {
       id: "hist_03",
       difficulty: 2,
       type: "classic",
@@ -223,7 +223,7 @@ export const QUESTIONS = {
    correctAnswer: "Luanda",
       correct: "Luanda",
     },
-    {  
+  {  
   id: "geo_06",
   difficulty: 3,
   type: "classic",
@@ -302,16 +302,17 @@ export const QUESTIONS = {
       correct: "Luanda",
     },
     {
-    
-      id: "geo_02",
+    id: "geo_02",
       difficulty: 1,
       type: "classic",
       question: "Quantas províncias tem Angola atualmente?",
       options: ["21", "18", "20", "16"],
       correctAnswer: "21",
       correct: "21",
-      explanation: "Angola tem atualmente 21 províncias.",
-    },
+      explanation: "Angola 
+      tem atualmente 21 províncias.",
+      },
+      {
       id: "geo_03",
       difficulty: 2,
       type: "classic",
@@ -496,7 +497,7 @@ export const QUESTIONS = {
       correctAnswer: "Uma entidade espiritual ligada às águas",
       correct: "Uma entidade espiritual ligada às águas",
     },
-
+    
     {
       id: "rel_04",
       difficulty: 1,
@@ -921,7 +922,7 @@ export const QUESTIONS = {
       correctAnswer: "Aline Frazão",
       correct: "Aline Frazão",
     },
-{
+    {
       id: "cin_29",
       difficulty: 3,
       type: "classic",
