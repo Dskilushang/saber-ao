@@ -309,9 +309,7 @@ export const QUESTIONS = {
       options: ["21", "18", "20", "16"],
       correctAnswer: "21",
       correct: "21",
-      explanation: "Angola 
-      tem atualmente 21 províncias.",
-      },
+      explanation: "Angola\ntem atualmente 21 províncias.",
       {
       id: "geo_03",
       difficulty: 2,
