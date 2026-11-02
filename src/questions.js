@@ -168,169 +168,7 @@ export const QUESTION_TYPES = [
 
 export const QUESTIONS = {
 
-  historia: [
-    {
-      id: "hist_01",
-      difficulty: 1,
-      type: "classic",
-      question: "Em que ano Angola conquistou a sua independência?",
-      options: ["1975", "1961", "1980", "1970"],
-      correctAnswer: "1975",
-      correct: "1975",
-    },
-    
-      {
-      id: "hist_02",
-      difficulty: 1,
-      type: "classic",
-      question: "Qual foi o primeiro presidente de Angola?",
-      options: [
-        "Agostinho Neto",
-        "Jonas Savimbi",
-        "Holden Roberto",
-        "José Eduardo dos Santos"
-      ],
-      correctAnswer: "Agostinho Neto",
-      correct: "Agostinho Neto",
-    },
-    
-      {
-      id: "hist_03",
-      difficulty: 2,
-      type: "classic",
-      question: "De que país Angola se tornou independente?",
-      options: ["Portugal", "França", "Espanha", "Reino Unido"],
-            correctAnswer: "Portugal",
-      correct: "Portugal",
-    },
-
-    {
-      id: "hist_04",
-      difficulty: 2,
-      type: "classic",
-      question: "Qual movimento proclamou a independência de Angola em Luanda, a 11 de novembro de 1975?",
-      options: ["MPLA", "UNITA", "FNLA", "FLEC"],
-      correctAnswer: "MPLA",
-      correct: "MPLA",
-      explanation: "O MPLA proclamou a independência em Luanda.",
-    },
-  {
-   id: "hist_05",
-   difficulty: 2,
-   type: "classic",
-   question: "Em que cidade foi proclamada a independência?",
-   options: ["Luanda", "Huambo", "Benguela", "Cabinda"],
-   correctAnswer: "Luanda",
-      correct: "Luanda",
-    },
-  {  
-  id: "geo_06",
-  difficulty: 3,
-  type: "classic",
-  question: "Qual país faz fronteira com a parte principal de Angola a norte?",
-  options: [
-    "República Democrática do Congo",
-    "Namíbia",
-    "Zâmbia",
-    "Botswana"
-  ],
-  correctAnswer: "República Democrática do Congo",
-  correct: "República Democrática do Congo",
-  explanation: "A parte principal de Angola faz fronteira com a República Democrática do Congo a norte. O enclave de Cabinda faz fronteira com a República do Congo.",
-},
-    {
-      id: "hist_07",
-      difficulty: 3,
-      type: "classic",
-      question: "Qual herói nacional foi poeta e presidente?",
-      options: [
-        "Agostinho Neto",
-        "Lúcio Lara",
-        "Iko Carreira",
-        "Saydi Mingas"
-      ],
-      correctAnswer: "Agostinho Neto",
-      correct: "Agostinho Neto",
-    },
-    {
-      id: "hist_08",
-      difficulty: 3,
-      type: "classic",
-      question: "Qual língua foi imposta durante a colonização?",
-      options: ["Português", "Francês", "Inglês", "Espanhol"],
-      correctAnswer: "Português",
-      correct: "Português",
-    },
-      {
-      id: "hist_09",
-      difficulty: 4,
-      type: "classic",
-      question: "O que significa MPLA?",
-      options: [
-        "Movimento Popular de Libertação de Angola",
-        "Movimento Para a Liberdade de Angola",
-        "Movimento Político de Luanda Angola",
-        "Movimento Pela Libertação de África"
-      ],
-      correctAnswer: "Movimento Popular de Libertação de Angola",
-      correct: "Movimento Popular de Libertação de Angola",
-    },
-    {
-      id: "hist_10",
-      difficulty: 4,
-      type: "classic",
-      question: "Qual é o dia da independência de Angola?",
-      options: [
-        "11 de Novembro",
-        "4 de Fevereiro",
-        "1 de Agosto",
-        "25 de Abril"
-      ],
-      correctAnswer: "11 de Novembro",
-      correct: "11 de Novembro",
-    },
-  ],
-
-  geografia: [
-    {
-      id: "geo_01",
-      difficulty: 1,
-      type: "classic",
-      question: "Qual é a capital de Angola?",
-      options: ["Luanda", "Huambo", "Benguela", "Malanje"],
-      correctAnswer: "Luanda",
-      correct: "Luanda",
-    },
-    {
-    id: "geo_02",
-      difficulty: 1,
-      type: "classic",
-      question: "Quantas províncias tem Angola atualmente?",
-      options: ["21", "18", "20", "16"],
-      correctAnswer: "21",
-      correct: "21",
-      explanation: "Angola\ntem atualmente 21 províncias.",
-    },
-      {
-      id: "geo_03",
-      difficulty: 2,
-      type: "classic",
-      question: "Qual rio dá nome a duas províncias angolanas?",
-      options: ["Kwanza", "Congo", "Zambeze", "Cunene"],
-      correctAnswer: "Kwanza",
-      correct: "Kwanza",
-    },
-    {
-      id: "geo_04",
-      difficulty: 2,
-      type: "classic",
-      question: "Qual é a segunda maior cidade de Angola?",
-      options: ["Huambo", "Benguela", "Lubango", "Malanje"],
-      correctAnswer: "Huambo",
-      correct: "Huambo",
-    },
-    {
-  historia: [
+  historia: [,
     {
       id: "hist_01",
       difficulty: 1,
@@ -443,6 +281,61 @@ export const QUESTIONS = {
       correct: "11 de Novembro",
     },
   ],
+  geografia: [
+    {
+      id: "geo_01",
+      difficulty: 1,
+      type: "classic",
+      question: "Qual é a capital de Angola?",
+      options: ["Luanda", "Huambo", "Benguela", "Malanje"],
+      correctAnswer: "Luanda",
+      correct: "Luanda",
+    },
+    {
+    id: "geo_02",
+      difficulty: 1,
+      type: "classic",
+      question: "Quantas províncias tem Angola atualmente?",
+      options: ["21", "18", "20", "16"],
+      correctAnswer: "21",
+      correct: "21",
+      explanation: "Angola\ntem atualmente 21 províncias.",
+    },
+      {
+      id: "geo_03",
+      difficulty: 2,
+      type: "classic",
+      question: "Qual rio dá nome a duas províncias angolanas?",
+      options: ["Kwanza", "Congo", "Zambeze", "Cunene"],
+      correctAnswer: "Kwanza",
+      correct: "Kwanza",
+    },
+    {
+      id: "geo_04",
+      difficulty: 2,
+      type: "classic",
+      question: "Qual é a segunda maior cidade de Angola?",
+      options: ["Huambo", "Benguela", "Lubango", "Malanje"],
+      correctAnswer: "Huambo",
+      correct: "Huambo",
+    },
+  {  
+  id: "geo_06",
+  difficulty: 3,
+  type: "classic",
+  question: "Qual país faz fronteira com a parte principal de Angola a norte?",
+  options: [
+    "República Democrática do Congo",
+    "Namíbia",
+    "Zâmbia",
+    "Botswana"
+  ],
+  correctAnswer: "República Democrática do Congo",
+  correct: "República Democrática do Congo",
+  explanation: "A parte principal de Angola faz fronteira com a República Democrática do Congo a norte. O enclave de Cabinda faz fronteira com a República do Congo.",
+},
+  historia: [
+
   religiao: [
     {
       id: "rel_01",
@@ -802,7 +695,7 @@ export const QUESTIONS = {
       correctAnswer: "Água",
       correct: "Água",
     },
-
+cinema: [
     {
       id: "cin_22",
       difficulty: 2,
