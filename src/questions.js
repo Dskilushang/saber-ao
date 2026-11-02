@@ -332,7 +332,8 @@ export const QUESTIONS = {
   ],
   correctAnswer: "República Democrática do Congo",
   correct: "República Democrática do Congo",
-  explanation: "A parte principal de Angola faz fronteira com a República Democrática do Congo a norte. O enclave de Cabinda faz fronteira com a República do Congo.",
+    explanation: "A parte principal de Angola faz fronteira com a República Democrática do Congo a norte. O enclave de Cabinda faz fronteira com a República do Congo.",
+    },
   ],
   religiao: [
     {
