@@ -280,6 +280,34 @@ export const QUESTIONS = {
       correctAnswer: "11 de Novembro",
       correct: "11 de Novembro",
     },
+          {
+      id: "hist_11",
+      difficulty: 4,
+      type: "classic",
+      question: "Em que ano a rainha Njinga a Mbande foi batizada em Luanda, recebendo o nome de Dona Ana de Sousa?",
+      options: [
+        "1622",
+        "1624",
+        "1631",
+        "1641"
+      ],
+      correctAnswer: "1622",
+      correct: "1622",
+    },
+    {
+      id: "hist_12",
+      difficulty: 4,
+      type: "classic",
+      question: "Qual governador português recebeu a embaixada diplomática de Njinga a Mbande em Luanda, em 1622?",
+      options: [
+        "João Correia de Sousa",
+        "Fernão de Sousa",
+        "Paulo Dias de Novais",
+        "Salvador Correia de Sá"
+      ],
+      correctAnswer: "João Correia de Sousa",
+      correct: "João Correia de Sousa",
+    },
   ],
   geografia: [
     {
