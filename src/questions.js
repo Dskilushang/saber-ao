@@ -692,9 +692,10 @@ export const QUESTIONS = {
         "Deserto"
       ],
       correctAnswer: "Água",
-      correct: "Água",
+            correct: "Água",
     },
-cinema: [
+  ],
+  cinema: [
     {
       id: "cin_22",
       difficulty: 2,
