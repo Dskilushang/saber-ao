@@ -293,8 +293,7 @@ export const QUESTIONS = {
       ],
       correctAnswer: "1622",
       correct: "1622",
-    },
-    {
+    },    {
       id: "hist_12",
       difficulty: 4,
       type: "classic",
@@ -308,7 +307,148 @@ export const QUESTIONS = {
       correctAnswer: "João Correia de Sousa",
       correct: "João Correia de Sousa",
     },
+    {
+      id: "hist_13",
+      difficulty: 1,
+      type: "classic",
+      question: "Qual era a capital política e espiritual do antigo Reino do Kongo?",
+      options: [
+        "Mbanza Kongo",
+        "Luanda",
+        "Benguela",
+        "Matamba"
+      ],
+      correctAnswer: "Mbanza Kongo",
+      correct: "Mbanza Kongo",
+    },
+    {
+      id: "hist_14",
+      difficulty: 1,
+      type: "classic",
+      question: "Em que atual província angolana se encontra Mbanza Kongo?",
+      options: [
+        "Zaire",
+        "Uíge",
+        "Cabinda",
+        "Malanje"
+      ],
+      correctAnswer: "Zaire",
+      correct: "Zaire",
+    },
+    {
+      id: "hist_15",
+      difficulty: 2,
+      type: "classic",
+      question: "Em que ano os navegadores portugueses chegaram à região do Reino do Kongo?",
+      options: [
+        "1483",
+        "1491",
+        "1505",
+        "1575"
+      ],
+      correctAnswer: "1483",
+      correct: "1483",
+    },
+    {
+      id: "hist_16",
+      difficulty: 2,
+      type: "classic",
+      question: "Segundo as tradições orais, em que período surgiu o Reino do Kongo?",
+      options: [
+        "No final do século XIV",
+        "No início do século XII",
+        "No século XVI",
+        "No século XVIII"
+      ],
+      correctAnswer: "No final do século XIV",
+      correct: "No final do século XIV",
+    },
+    {
+      id: "hist_17",
+      difficulty: 2,
+      type: "classic",
+      question: "Qual rei do Kongo adotou o nome cristão de João I após a sua conversão em 1491?",
+      options: [
+        "Nzinga a Nkuwu",
+        "Afonso I",
+        "Álvaro I",
+        "Garcia II"
+      ],
+      correctAnswer: "Nzinga a Nkuwu",
+      correct: "Nzinga a Nkuwu",
+    },
+    {
+      id: "hist_18",
+      difficulty: 3,
+      type: "classic",
+      question: "Qual foi o nome pelo qual ficou conhecido o rei Mvemba a Nzinga?",
+      options: [
+        "Afonso I",
+        "João I",
+        "Álvaro I",
+        "Garcia I"
+      ],
+      correctAnswer: "Afonso I",
+      correct: "Afonso I",
+    },
+    {
+      id: "hist_19",
+      difficulty: 3,
+      type: "classic",
+      question: "Como era administrado o território do Reino do Kongo sob a autoridade do rei?",
+      options: [
+        "Por uma nobreza que governava províncias e controlava impostos",
+        "Por governadores eleitos diretamente por Portugal",
+        "Por um conselho formado exclusivamente por comerciantes europeus",
+        "Por chefes militares sem ligação com a autoridade real"
+      ],
+      correctAnswer: "Por uma nobreza que governava províncias e controlava impostos",
+      correct: "Por uma nobreza que governava províncias e controlava impostos",
+    },
+    {
+      id: "hist_20",
+      difficulty: 3,
+      type: "classic",
+      question: "Quem foi Henrique, filho do rei Afonso I, nomeado bispo em 1518?",
+      options: [
+        "Um príncipe do Kongo que se tornou bispo",
+        "Um navegador português",
+        "Um governador de Luanda",
+        "Um rei do Ndongo"
+      ],
+      correctAnswer: "Um príncipe do Kongo que se tornou bispo",
+      correct: "Um príncipe do Kongo que se tornou bispo",
+    },
+    {
+      id: "hist_21",
+      difficulty: 4,
+      type: "classic",
+      question: "Em que ano foi escrito o primeiro catecismo em língua Kikongo para a difusão do cristianismo no Reino do Kongo?",
+      options: [
+        "1624",
+        "1491",
+        "1518",
+        "1608"
+      ],
+      correctAnswer: "1624",
+      correct: "1624",
+    },
+    {
+      id: "hist_22",
+      difficulty: 4,
+      type: "classic",
+      question: "Em que ano Mbanza Kongo foi inscrita na Lista do Património Mundial da UNESCO?",
+      options: [
+        "2017",
+        "2002",
+        "2010",
+        "2020"
+      ],
+      correctAnswer: "2017",
+      correct: "2017",
+    },
   ],
+  
   geografia: [
     {
       id: "geo_01",
