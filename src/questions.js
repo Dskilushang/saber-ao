@@ -168,7 +168,7 @@ export const QUESTION_TYPES = [
 
 export const QUESTIONS = {
 
-  historia: [,
+    historia: [
     {
       id: "hist_01",
       difficulty: 1,
