@@ -955,6 +955,7 @@ selected.push({
   points: DIFFICULTY_CONFIG[actualDifficulty].points,
   timeLimit: DIFFICULTY_CONFIG[actualDifficulty].timeLimit,
 });
+  }
 
   return selected;
-}       
+ }
