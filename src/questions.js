@@ -946,14 +946,15 @@ export function getRandomQuizQuestions(count = 10) {
     const shuffledOptions = [...chosen.options]
   .sort(() => Math.random() - 0.5);
 
+const actualDifficulty = Number(chosen.difficulty);
+
 selected.push({
   ...chosen,
   options: shuffledOptions,
-  difficulty: targetDifficulty,
-  points: DIFFICULTY_CONFIG[targetDifficulty].points,
-  timeLimit: DIFFICULTY_CONFIG[targetDifficulty].timeLimit,
+  difficulty: actualDifficulty,
+  points: DIFFICULTY_CONFIG[actualDifficulty].points,
+  timeLimit: DIFFICULTY_CONFIG[actualDifficulty].timeLimit,
 });
-  }
 
   return selected;
 }       
