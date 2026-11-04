@@ -307,11 +307,10 @@ historia: [
       "17 de Setembro",
       "25 de Dezembro"
     ],
-    correctAnswer: "11 de Novembro",
+        correctAnswer: "11 de Novembro",
     correct: "11 de Novembro"
-  }
-],
-          {
+  },
+  {
       id: "hist_11",
       difficulty: 4,
       type: "classic",
