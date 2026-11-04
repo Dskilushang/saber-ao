@@ -546,7 +546,7 @@ export const QUESTIONS = {
   id: "hist_31",
   type: "classic",
   difficulty: 2,
-  question: "Qual é a língua tradicionalmente associada ao povo Bakongo?",
+  question: "A que grupo linguístico pertencem as variedades tradicionalmente faladas por comunidades Bakongo?",
   options: ["Kikongo", "Kimbundu", "Umbundu", "Cokwe"],
   correctAnswer: "Kikongo",
   correct: "Kikongo",
