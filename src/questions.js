@@ -447,15 +447,20 @@ export const QUESTIONS = {
       correctAnswer: "2017",
       correct: "2017",
     },
-  {
+     {
   id: "hist_23",
   type: "classic",
-  difficulty: 1,
-  question: "Qual era a designação histórica frequentemente utilizada para os povos San da África Austral?",
-  options: ["Bosquímanos", "Ovimbundu", "Bakongo", "Ambundu"],
-  correctAnswer: "Bosquímanos",
-  correct: "Bosquímanos",
-  hint: "Eram povos caçadores-recoletores da África Austral."
+  difficulty: 3,
+  question: "Que aconteceu ao Reino do Kongo após a Batalha de Ambuíla, em 1665?",
+  options: [
+    "Entrou num período de fragmentação política e enfraquecimento do poder central",
+    "Conquistou o território de Angola",
+    "Tornou-se uma colónia holandesa",
+    "Transferiu a sua capital para Luanda"
+  ],
+  correctAnswer: "Entrou num período de fragmentação política e enfraquecimento do poder central",
+  correct: "Entrou num período de fragmentação política e enfraquecimento do poder central",
+  hint: "A batalha terminou com a derrota e morte do rei António I."
 },
 {
   id: "hist_24",
