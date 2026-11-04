@@ -561,8 +561,9 @@ export const QUESTIONS = {
   options: ["Oshikwanyama", "Kikongo", "Kimbundu", "Umbundu"],
   correctAnswer: "Oshikwanyama",
   correct: "Oshikwanyama",
-  hint: "É uma língua bantu falada no sul de Angola e no norte da Namíbia."
-        }
+    hint: "É uma língua bantu falada no sul de Angola e no norte da Namíbia."
+    }
+  ],
   geografia: [
     {
       id: "geo_01",
