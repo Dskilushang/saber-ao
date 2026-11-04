@@ -188,95 +188,149 @@ export const QUESTIONS = {
         "Jonas Savimbi",
         "Holden Roberto",
         "José Eduardo dos Santos"
-      ],
-      correctAnswer: "Agostinho Neto",
-      correct: "Agostinho Neto",
-    },
-    {
-      id: "hist_03",
-      difficulty: 2,
-      type: "classic",
-      question: "De que país Angola se tornou independente?",
-      options: ["Portugal", "França", "Espanha", "Reino Unido"],
-      correctAnswer: "Portugal",
-      correct: "Portugal",
-    },
-    {
-      id: "hist_04",
-      difficulty: 2,
-      type: "classic",
-      question: "Qual movimento proclamou a independência de Angola em Luanda, a 11 de novembro de 1975?",
-      options: ["MPLA", "UNITA", "FNLA", "FLEC"],
-      correctAnswer: "MPLA",
-      correct: "MPLA",
-      explanation: "O MPLA proclamou a independência em Luanda. A FNLA e a UNITA também fizeram proclamações em outros locais.",
-    },
-    {
-      id: "hist_05",
-      difficulty: 2,
-      type: "classic",
-      question: "Em que cidade foi proclamada a independência de Angola pelo MPLA?",
-      options: ["Luanda", "Huambo", "Benguela", "Cabinda"],
-      correctAnswer: "Luanda",
-      correct: "Luanda",
-    },
-    {
-      id: "hist_06",
-      difficulty: 2,
-      type: "classic",
-      question: "Em que ano terminou a guerra civil em Angola?",
-      options: ["2002", "1991", "1975", "2010"],
-      correctAnswer: "2002",
-      correct: "2002",
-    },
-    {
-      id: "hist_07",
-      difficulty: 3,
-      type: "classic",
-      question: "Qual herói nacional angolano foi também poeta e presidente?",
-      options: [
-        "Agostinho Neto",
-        "Lúcio Lara",
-        "Iko Carreira",
-        "Saydi Mingas"
-      ],
-      correctAnswer: "Agostinho Neto",
-      correct: "Agostinho Neto",
-    },
-    {
-      id: "hist_08",
-      difficulty: 3,
-      type: "classic",
-      question: "Qual língua europeia foi imposta como língua de administração colonial em Angola?",
-      options: ["Português", "Francês", "Inglês", "Espanhol"],
-      correctAnswer: "Português",
-      correct: "Português",
-    },
-    {
-      id: "hist_09",
-      difficulty: 2,
-      type: "classic",
-      question: "O que significa a sigla MPLA?",
-      options: [
-        "Movimento Popular de Libertação de Angola",
-        "Movimento Para a Liberdade de Angola",
-        "Movimento Político de Luanda Angola",
-        "Movimento Pela Libertação de África"
-      ],
-      correctAnswer: "Movimento Popular de Libertação de Angola",
-      correct: "Movimento Popular de Libertação de Angola",
-    },
-    {
-      id: "hist_10",
-      difficulty: 1,
-      type: "classic",
-      question: "Em que dia se celebra a independência de Angola?",
-      options: [
-        "11 de Novembro",
-        "4 de Fevereiro",
-        "1 de Agosto",
-        "25 de Abril"
-      ],
+historia: [
+  {
+    id: "hist_01",
+    difficulty: 2,
+    type: "classic",
+    question: "Que acontecimento marcou o início da luta armada de libertação nacional em Angola, em 4 de fevereiro de 1961?",
+    options: [
+      "Ataques de nacionalistas a prisões e instalações coloniais em Luanda",
+      "Assinatura dos Acordos de Alvor",
+      "Proclamação da independência em Luanda",
+      "Início da guerra civil angolana"
+    ],
+    correctAnswer: "Ataques de nacionalistas a prisões e instalações coloniais em Luanda",
+    correct: "Ataques de nacionalistas a prisões e instalações coloniais em Luanda",
+    hint: "Os ataques de 4 de fevereiro de 1961 tiveram como alvo instalações coloniais em Luanda."
+  },
+  {
+    id: "hist_02",
+    difficulty: 1,
+    type: "classic",
+    question: "Quem foi o primeiro Presidente da República de Angola após a independência?",
+    options: [
+      "Agostinho Neto",
+      "José Eduardo dos Santos",
+      "Holden Roberto",
+      "Jonas Savimbi"
+    ],
+    correctAnswer: "Agostinho Neto",
+    correct: "Agostinho Neto"
+  },
+  {
+    id: "hist_03",
+    difficulty: 1,
+    type: "classic",
+    question: "De que país Angola conquistou a sua independência em 1975?",
+    options: [
+      "Portugal",
+      "França",
+      "Reino Unido",
+      "Espanha"
+    ],
+    correctAnswer: "Portugal",
+    correct: "Portugal"
+  },
+  {
+    id: "hist_04",
+    difficulty: 2,
+    type: "classic",
+    question: "Que movimento proclamou a independência de Angola em Luanda, a 11 de novembro de 1975?",
+    options: [
+      "MPLA",
+      "FNLA",
+      "UNITA",
+      "FLEC"
+    ],
+    correctAnswer: "MPLA",
+    correct: "MPLA"
+  },
+  {
+    id: "hist_05",
+    difficulty: 1,
+    type: "classic",
+    question: "Em que cidade foi proclamada a independência de Angola, a 11 de novembro de 1975, pelo MPLA?",
+    options: [
+      "Luanda",
+      "Huambo",
+      "Benguela",
+      "Lubango"
+    ],
+    correctAnswer: "Luanda",
+    correct: "Luanda"
+  },
+  {
+    id: "hist_06",
+    difficulty: 2,
+    type: "classic",
+    question: "Em que ano terminou oficialmente a guerra civil angolana?",
+    options: [
+      "2002",
+      "1991",
+      "1975",
+      "2010"
+    ],
+    correctAnswer: "2002",
+    correct: "2002"
+  },
+  {
+    id: "hist_07",
+    difficulty: 3,
+    type: "classic",
+    question: "Que escritor angolano se tornou o primeiro Presidente da República após a independência?",
+    options: [
+      "Agostinho Neto",
+      "Lúcio Lara",
+      "Holden Roberto",
+      "Jonas Savimbi"
+    ],
+    correctAnswer: "Agostinho Neto",
+    correct: "Agostinho Neto"
+  },
+  {
+    id: "hist_08",
+    difficulty: 3,
+    type: "classic",
+    question: "Durante o período colonial português, que língua era utilizada como principal língua da administração em Angola?",
+    options: [
+      "Português",
+      "Francês",
+      "Inglês",
+      "Espanhol"
+    ],
+    correctAnswer: "Português",
+    correct: "Português"
+  },
+  {
+    id: "hist_09",
+    difficulty: 2,
+    type: "classic",
+    question: "O que significa a sigla MPLA?",
+    options: [
+      "Movimento Popular de Libertação de Angola",
+      "Movimento Patriótico de Luta Africana",
+      "Movimento Popular de Luta Angolana",
+      "Movimento Político de Libertação Africana"
+    ],
+    correctAnswer: "Movimento Popular de Libertação de Angola",
+    correct: "Movimento Popular de Libertação de Angola"
+  },
+  {
+    id: "hist_10",
+    difficulty: 1,
+    type: "classic",
+    question: "Em que dia se celebra a independência de Angola?",
+    options: [
+      "11 de Novembro",
+      "4 de Fevereiro",
+      "17 de Setembro",
+      "25 de Dezembro"
+    ],
+    correctAnswer: "11 de Novembro",
+    correct: "11 de Novembro"
+  }
+],
       correctAnswer: "11 de Novembro",
       correct: "11 de Novembro",
     },
