@@ -465,7 +465,7 @@ export const QUESTIONS = {
   options: ["Kwadi", "Kikongo", "Kimbundu", "Umbundu"],
   correctAnswer: "Kwadi",
   correct: "Kwadi",
-  hint: "Era uma língua do grupo khoisan, hoje considerada extinta."
+  hint: "Era uma língua da família Khoe-Kwadi, hoje considerada extinta."
 },
 {
   id: "hist_25",
