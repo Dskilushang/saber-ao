@@ -311,158 +311,162 @@ historia: [
     correct: "11 de Novembro"
   },
   {
-      id: "hist_11",
-      difficulty: 4,
-      type: "classic",
-      question: "Em que ano a rainha Njinga a Mbande foi batizada em Luanda, recebendo o nome de Dona Ana de Sousa?",
-      options: [
-        "1622",
-        "1624",
-        "1631",
-        "1641"
-      ],
-      correctAnswer: "1622",
-      correct: "1622",
-    },    {
-      id: "hist_12",
-      difficulty: 4,
-      type: "classic",
-      question: "Qual governador português recebeu a embaixada diplomática de Njinga a Mbande em Luanda, em 1622?",
-      options: [
-        "João Correia de Sousa",
-        "Fernão de Sousa",
-        "Paulo Dias de Novais",
-        "Salvador Correia de Sá"
-      ],
-      correctAnswer: "João Correia de Sousa",
-      correct: "João Correia de Sousa",
-    },
-    {
-      id: "hist_13",
-      difficulty: 1,
-      type: "classic",
-      question: "Qual era a capital política e espiritual do antigo Reino do Kongo?",
-      options: [
-        "Mbanza Kongo",
-        "Luanda",
-        "Benguela",
-        "Matamba"
-      ],
-      correctAnswer: "Mbanza Kongo",
-      correct: "Mbanza Kongo",
-    },
-    {
-      id: "hist_14",
-      difficulty: 1,
-      type: "classic",
-      question: "Em que atual província angolana se encontra Mbanza Kongo?",
-      options: [
-        "Zaire",
-        "Uíge",
-        "Cabinda",
-        "Malanje"
-      ],
-      correctAnswer: "Zaire",
-      correct: "Zaire",
-    },
-    {
-      id: "hist_15",
-      difficulty: 2,
-      type: "classic",
-      question: "Em que ano os navegadores portugueses chegaram à região do Reino do Kongo?",
-      options: [
-        "1483",
-        "1491",
-        "1505",
-        "1575"
-      ],
-      correctAnswer: "1483",
-      correct: "1483",
-    },
-    {
-      id: "hist_16",
-      difficulty: 2,
-      type: "classic",
-      question: "Segundo as tradições orais, em que período surgiu o Reino do Kongo?",
-      options: [
-        "No final do século XIV",
-        "No início do século XII",
-        "No século XVI",
-        "No século XVIII"
-      ],
-      correctAnswer: "No final do século XIV",
-      correct: "No final do século XIV",
-    },
-    {
-      id: "hist_17",
-      difficulty: 2,
-      type: "classic",
-      question: "Qual rei do Kongo adotou o nome cristão de João I após a sua conversão em 1491?",
-      options: [
-        "Nzinga a Nkuwu",
-        "Afonso I",
-        "Álvaro I",
-        "Garcia II"
-      ],
-      correctAnswer: "Nzinga a Nkuwu",
-      correct: "Nzinga a Nkuwu",
-    },
-    {
-      id: "hist_18",
-      difficulty: 3,
-      type: "classic",
-      question: "Qual foi o nome pelo qual ficou conhecido o rei Mvemba a Nzinga?",
-      options: [
-        "Afonso I",
-        "João I",
-        "Álvaro I",
-        "Garcia I"
-      ],
-      correctAnswer: "Afonso I",
-      correct: "Afonso I",
-    },
-    {
-      id: "hist_19",
-      difficulty: 3,
-      type: "classic",
-      question: "Como era administrado o território do Reino do Kongo sob a autoridade do rei?",
-      options: [
-        "Por uma nobreza que governava províncias e controlava impostos",
-        "Por governadores eleitos diretamente por Portugal",
-        "Por um conselho formado exclusivamente por comerciantes europeus",
-        "Por chefes militares sem ligação com a autoridade real"
-      ],
-      correctAnswer: "Por uma nobreza que governava províncias e controlava impostos",
-      correct: "Por uma nobreza que governava províncias e controlava impostos",
-    },
-    {
-      id: "hist_20",
-      difficulty: 3,
-      type: "classic",
-      question: "Quem foi Henrique, filho do rei Afonso I, nomeado bispo em 1518?",
-      options: [
-        "Um príncipe do Kongo que se tornou bispo",
-        "Um navegador português",
-        "Um governador de Luanda",
-        "Um rei do Ndongo"
-      ],
-      correctAnswer: "Um príncipe do Kongo que se tornou bispo",
-      correct: "Um príncipe do Kongo que se tornou bispo",
-    },
-    {
-      id: "hist_21",
-      difficulty: 4,
-      type: "classic",
-      question: "Em que ano foi escrito o primeiro catecismo em língua Kikongo para a difusão do cristianismo no Reino do Kongo?",
-      options: [
-        "1624",
-        "1491",
-        "1518",
-        "1608"
-      ],
-      correctAnswer: "1624",
-      correct: "1624",
-    },
+    id: "hist_11",
+    difficulty: 4,
+    type: "classic",
+    question: "Em que ano a rainha Njinga a Mbande foi batizada em Luanda, recebendo o nome de Ana de Sousa?",
+    options: [
+      "1622",
+      "1624",
+      "1631",
+      "1641"
+    ],
+    correctAnswer: "1622",
+    correct: "1622",
+    hint: "O batismo ocorreu durante a missão diplomática de Njinga a Luanda."
+  },
+  {
+    id: "hist_12",
+    difficulty: 4,
+    type: "classic",
+    question: "Qual governador português recebeu a embaixada diplomática de Njinga a Mbande em Luanda, em 1622?",
+    options: [
+      "João Correia de Sousa",
+      "Fernão de Sousa",
+      "Paulo Dias de Novais",
+      "Salvador Correia de Sá"
+    ],
+    correctAnswer: "João Correia de Sousa",
+    correct: "João Correia de Sousa"
+  },
+  {
+    id: "hist_13",
+    difficulty: 1,
+    type: "classic",
+    question: "Qual era a capital política e espiritual do antigo Reino do Kongo?",
+    options: [
+      "Mbanza Kongo",
+      "Luanda",
+      "Benguela",
+      "Matamba"
+    ],
+    correctAnswer: "Mbanza Kongo",
+    correct: "Mbanza Kongo"
+  },
+  {
+    id: "hist_14",
+    difficulty: 1,
+    type: "classic",
+    question: "Em que atual província angolana se encontra Mbanza Kongo?",
+    options: [
+      "Zaire",
+      "Uíge",
+      "Cabinda",
+      "Malanje"
+    ],
+    correctAnswer: "Zaire",
+    correct: "Zaire"
+  },
+  {
+    id: "hist_15",
+    difficulty: 2,
+    type: "classic",
+    question: "Em que ano os navegadores portugueses chegaram à região do Reino do Kongo?",
+    options: [
+      "1483",
+      "1491",
+      "1505",
+      "1575"
+    ],
+    correctAnswer: "1483",
+    correct: "1483"
+  },
+  {
+    id: "hist_16",
+    difficulty: 2,
+    type: "classic",
+    question: "Segundo as tradições históricas do Kongo, em que período foi fundado o reino?",
+    options: [
+      "No final do século XIV",
+      "No início do século XII",
+      "No século XVI",
+      "No século XVIII"
+    ],
+    correctAnswer: "No final do século XIV",
+    correct: "No final do século XIV"
+  },
+  {
+    id: "hist_17",
+    difficulty: 2,
+    type: "classic",
+    question: "Qual rei do Kongo adotou o nome cristão de João I após a sua conversão em 1491?",
+    options: [
+      "Nzinga a Nkuwu",
+      "Afonso I",
+      "Álvaro I",
+      "Garcia II"
+    ],
+    correctAnswer: "Nzinga a Nkuwu",
+    correct: "Nzinga a Nkuwu"
+  },
+  {
+    id: "hist_18",
+    difficulty: 3,
+    type: "classic",
+    question: "Qual foi o nome pelo qual ficou conhecido o rei Mvemba a Nzinga?",
+    options: [
+      "Afonso I",
+      "João I",
+      "Álvaro I",
+      "Garcia I"
+    ],
+    correctAnswer: "Afonso I",
+    correct: "Afonso I"
+  },
+  {
+    id: "hist_19",
+    difficulty: 3,
+    type: "classic",
+    question: "No século XVI, como o rei do Kongo exercia autoridade sobre os principais cargos administrativos?",
+    options: [
+      "Nomeava e podia destituir funcionários, atribuindo rendas ligadas aos cargos",
+      "Permitía que todos os cargos fossem escolhidos por eleições populares",
+      "Entregava toda a administração aos governadores portugueses",
+      "Confiava todos os cargos exclusivamente aos chefes militares"
+    ],
+    correctAnswer: "Nomeava e podia destituir funcionários, atribuindo rendas ligadas aos cargos",
+    correct: "Nomeava e podia destituir funcionários, atribuindo rendas ligadas aos cargos",
+    hint: "O poder real incluía o controlo das nomeações e das rendas associadas aos cargos."
+  },
+  {
+    id: "hist_20",
+    difficulty: 3,
+    type: "classic",
+    question: "Quem foi Henrique, filho do rei Afonso I, nomeado bispo em 1518?",
+    options: [
+      "Um príncipe do Kongo que se tornou bispo",
+      "Um navegador português",
+      "Um governador de Luanda",
+      "Um rei do Ndongo"
+    ],
+    correctAnswer: "Um príncipe do Kongo que se tornou bispo",
+    correct: "Um príncipe do Kongo que se tornou bispo"
+  },
+  {
+    id: "hist_21",
+    difficulty: 4,
+    type: "classic",
+    question: "Quem traduziu para a língua Kikongo a obra Doutrina Cristã, publicada em 1624?",
+    options: [
+      "Mateus Cardoso",
+      "Marcos Jorge",
+      "Ignacio Martinez",
+      "António Manuel Nsaku ne Vunda"
+    ],
+    correctAnswer: "Mateus Cardoso",
+    correct: "Mateus Cardoso",
+    hint: "O jesuíta traduziu a obra com a colaboração de conhecedores da língua Kikongo."
+  },
     {
       id: "hist_22",
       difficulty: 4,
