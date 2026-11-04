@@ -671,10 +671,11 @@ export const QUESTIONS = {
         "Garcia II",
         "Nzinga a Nkuwu"
       ],
-      correctAnswer: "Lukeni lua Nimi",
+            correctAnswer: "Lukeni lua Nimi",
       correct: "Lukeni lua Nimi",
     },
-    
+  ],
+
   geografia: [
     {
       id: "geo_01",
