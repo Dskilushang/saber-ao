@@ -622,7 +622,7 @@ export const QUESTIONS = {
       id: "hist_37",
       difficulty: 4,
       type: "classic",
-      question: "Em que ano o papa acreditou em Roma o primeiro embaixador de um Estado da África subsaariana?",
+      question: "Em que ano chegou a Roma António Manuel Nsaku ne Vunda, enviado pelo rei Álvaro II do Reino do Kongo como embaixador junto da Santa Sé?",
       options: [
         "1608",
         "1483",
