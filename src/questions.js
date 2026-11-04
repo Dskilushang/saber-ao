@@ -564,6 +564,120 @@ export const QUESTIONS = {
     hint: "É uma língua bantu falada no sul de Angola e no norte da Namíbia."
     }
   ],
+
+    {
+      id: "hist_33",
+      difficulty: 2,
+      type: "classic",
+      question: "Em que atuais países se situavam territórios do Reino do Kongo no seu apogeu?",
+      options: [
+        "Angola, República Democrática do Congo e República do Congo",
+        "Angola, Namíbia e África do Sul",
+        "Angola, Zâmbia e Moçambique",
+        "República do Congo, Gabão e Camarões"
+      ],
+      correctAnswer: "Angola, República Democrática do Congo e República do Congo",
+      correct: "Angola, República Democrática do Congo e República do Congo",
+    },
+    {
+      id: "hist_34",
+      difficulty: 2,
+      type: "classic",
+      question: "Entre que séculos esteve ativo o antigo Reino do Kongo?",
+      options: [
+        "Do século XIV ao século XIX",
+        "Do século X ao século XIII",
+        "Do século XVI ao século XVIII",
+        "Do século XIX ao século XX"
+      ],
+      correctAnswer: "Do século XIV ao século XIX",
+      correct: "Do século XIV ao século XIX",
+    },
+    {
+      id: "hist_35",
+      difficulty: 3,
+      type: "classic",
+      question: "Que elementos estavam entre os principais espaços do centro histórico de Mbanza Kongo?",
+      options: [
+        "A residência real, o tribunal consuetudinário, a árvore sagrada e os locais funerários reais",
+        "Uma fortaleza romana, um porto grego e um teatro",
+        "Uma fábrica colonial, uma estação ferroviária e um aeroporto",
+        "Um palácio francês, uma universidade inglesa e um mercado árabe"
+      ],
+      correctAnswer: "A residência real, o tribunal consuetudinário, a árvore sagrada e os locais funerários reais",
+      correct: "A residência real, o tribunal consuetudinário, a árvore sagrada e os locais funerários reais",
+    },
+    {
+      id: "hist_36",
+      difficulty: 2,
+      type: "classic",
+      question: "Que tipo de construções os portugueses acrescentaram à cidade de Mbanza Kongo após a sua chegada?",
+      options: [
+        "Edifícios de pedra, incluindo igrejas",
+        "Pirâmides de pedra",
+        "Templos gregos",
+        "Arranha-céus modernos"
+      ],
+      correctAnswer: "Edifícios de pedra, incluindo igrejas",
+      correct: "Edifícios de pedra, incluindo igrejas",
+    },
+    {
+      id: "hist_37",
+      difficulty: 4,
+      type: "classic",
+      question: "Em que ano o papa acreditou em Roma o primeiro embaixador de um Estado da África subsaariana?",
+      options: [
+        "1608",
+        "1483",
+        "1491",
+        "1624"
+      ],
+      correctAnswer: "1608",
+      correct: "1608",
+    },
+    {
+      id: "hist_38",
+      difficulty: 3,
+      type: "classic",
+      question: "A que grande sistema de tráfico transatlântico esteve ligado o Reino do Kongo?",
+      options: [
+        "Ao tráfico de pessoas escravizadas para as Américas e as Caraíbas",
+        "Ao comércio de seda com a Ásia",
+        "Ao tráfico de especiarias para a Índia",
+        "Ao comércio de chá com a Europa"
+      ],
+      correctAnswer: "Ao tráfico de pessoas escravizadas para as Américas e as Caraíbas",
+      correct: "Ao tráfico de pessoas escravizadas para as Américas e as Caraíbas",
+    },
+    {
+      id: "hist_39",
+      difficulty: 4,
+      type: "classic",
+      question: "Segundo as tradições orais, quais figuras estão associadas à fundação do Reino do Kongo?",
+      options: [
+        "Nimi a Nzima e Nsaku Lau",
+        "Nzinga a Mbande e Afonso I",
+        "Ngola Kiluanji e Ekuikui II",
+        "Lukeni lua Nimi e Garcia II"
+      ],
+      correctAnswer: "Nimi a Nzima e Nsaku Lau",
+      correct: "Nimi a Nzima e Nsaku Lau",
+    },
+    {
+      id: "hist_40",
+      difficulty: 4,
+      type: "classic",
+      question: "Segundo a tradição histórica apresentada pelo Museu Real da África Central, quem se tornou o primeiro rei do Kongo?",
+      options: [
+        "Lukeni lua Nimi",
+        "Afonso I",
+        "Garcia II",
+        "Nzinga a Nkuwu"
+      ],
+      correctAnswer: "Lukeni lua Nimi",
+      correct: "Lukeni lua Nimi",
+    },
+    
   geografia: [
     {
       id: "geo_01",
