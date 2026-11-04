@@ -636,8 +636,8 @@ export const QUESTIONS = {
       id: "hist_38",
       difficulty: 3,
       type: "classic",
-      question: "A que circuito do comércio atlântico esteve ligado o Reino do Kongo, sobretudo a partir do século XVI?",: [
-        "Ao tráfico de pessoas escravizadas para as Américas e as Caraíbas",
+      question: "A que circuito do comércio atlântico esteve ligado o Reino do Kongo, sobretudo a partir do século XVI?",
+options: [   "Ao tráfico de pessoas escravizadas para as Américas e as Caraíbas",
         "Ao comércio de seda com a Ásia",
         "Ao tráfico de especiarias para a Índia",
         "Ao comércio de chá com a Europa"
