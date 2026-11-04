@@ -448,7 +448,121 @@ export const QUESTIONS = {
       correct: "2017",
     },
   ],
-  
+  {
+  id: "hist_23",
+  type: "classic",
+  difficulty: 1,
+  question: "Qual era a designação histórica frequentemente utilizada para os povos San da África Austral?",
+  options: ["Bosquímanos", "Ovimbundu", "Bakongo", "Ambundu"],
+  correctAnswer: "Bosquímanos",
+  correct: "Bosquímanos",
+  hint: "Eram povos caçadores-recoletores da África Austral."
+},
+{
+  id: "hist_24",
+  type: "classic",
+  difficulty: 3,
+  question: "Que língua era historicamente falada pelo povo Kwepe, no sudoeste de Angola, antes da sua substituição progressiva pelo Kuvale?",
+  options: ["Kwadi", "Kikongo", "Kimbundu", "Umbundu"],
+  correctAnswer: "Kwadi",
+  correct: "Kwadi",
+  hint: "Era uma língua do grupo khoisan, hoje considerada extinta."
+},
+{
+  id: "hist_25",
+  type: "classic",
+  difficulty: 3,
+  question: "A que grupo linguístico é historicamente associada a língua do povo Kwisi, no sudoeste de Angola?",
+  options: ["Khoisan", "Bantu", "Niger-Congo atlântico", "Afro-asiático"],
+  correctAnswer: "Khoisan",
+  correct: "Khoisan",
+  hint: "Está associada às antigas línguas não bantu do sudoeste africano."
+},
+{
+  id: "hist_26",
+  type: "classic",
+  difficulty: 2,
+  question: "Que região é geralmente apontada como uma das principais áreas de origem da expansão dos povos de língua bantu?",
+  options: [
+    "Região entre os atuais Nigéria e Camarões",
+    "Sul da África do Sul",
+    "Deserto do Saara",
+    "Vale do rio Nilo"
+  ],
+  correctAnswer: "Região entre os atuais Nigéria e Camarões",
+  correct: "Região entre os atuais Nigéria e Camarões",
+  hint: "A expansão bantu começou na África ocidental e central."
+},
+{
+  id: "hist_27",
+  type: "classic",
+  difficulty: 3,
+  question: "Há aproximadamente quantos anos começou a grande expansão dos povos de língua bantu?",
+  options: [
+    "Há cerca de 5.000 anos",
+    "Há cerca de 500 anos",
+    "Há cerca de 1.000 anos",
+    "Há cerca de 10.000 anos"
+  ],
+  correctAnswer: "Há cerca de 5.000 anos",
+  correct: "Há cerca de 5.000 anos",
+  hint: "O processo começou há vários milénios, muito antes da colonização europeia."
+},
+{
+  id: "hist_28",
+  type: "classic",
+  difficulty: 3,
+  question: "Durante a expansão bantu, que tipo de contacto ocorreu entre os novos grupos e as populações que já habitavam diferentes regiões africanas?",
+  options: [
+    "Interações, trocas e mistura com populações locais",
+    "Ausência total de contacto",
+    "Apenas conflitos militares",
+    "Substituição imediata de todas as populações"
+  ],
+  correctAnswer: "Interações, trocas e mistura com populações locais",
+  correct: "Interações, trocas e mistura com populações locais",
+  hint: "A expansão envolveu migrações e contactos culturais e linguísticos."
+},
+{
+  id: "hist_29",
+  type: "classic",
+  difficulty: 1,
+  question: "Qual é a língua tradicionalmente falada pelos Ovimbundu?",
+  options: ["Umbundu", "Kikongo", "Kimbundu", "Cokwe"],
+  correctAnswer: "Umbundu",
+  correct: "Umbundu",
+  hint: "É uma das principais línguas nacionais de Angola."
+},
+{
+  id: "hist_30",
+  type: "classic",
+  difficulty: 2,
+  question: "Qual é a língua tradicionalmente associada ao povo Ambundu?",
+  options: ["Kimbundu", "Umbundu", "Kikongo", "Oshikwanyama"],
+  correctAnswer: "Kimbundu",
+  correct: "Kimbundu",
+  hint: "Era a língua de muitos habitantes do antigo reino do Ndongo."
+},
+{
+  id: "hist_31",
+  type: "classic",
+  difficulty: 2,
+  question: "Qual é a língua tradicionalmente associada ao povo Bakongo?",
+  options: ["Kikongo", "Kimbundu", "Umbundu", "Cokwe"],
+  correctAnswer: "Kikongo",
+  correct: "Kikongo",
+  hint: "É a língua histórica dos povos ligados ao reino do Kongo."
+},
+{
+  id: "hist_32",
+  type: "classic",
+  difficulty: 2,
+  question: "Qual é a língua tradicionalmente falada por comunidades Ovambo, incluindo os Kwanyama?",
+  options: ["Oshikwanyama", "Kikongo", "Kimbundu", "Umbundu"],
+  correctAnswer: "Oshikwanyama",
+  correct: "Oshikwanyama",
+  hint: "É uma língua bantu falada no sul de Angola e no norte da Namíbia."
+        }
   geografia: [
     {
       id: "geo_01",
