@@ -511,8 +511,7 @@ export const QUESTIONS = {
   id: "hist_28",
   type: "classic",
   difficulty: 3,
-  question: "Durante a expansão bantu, que tipo de contacto ocorreu entre os novos grupos e as populações que já habitavam diferentes regiões africanas?",
-  options: [
+  question: "Que mostram os estudos históricos e genéticos sobre os contactos entre os grupos de língua bantu e as populações locais durante a sua expansão?",  options: [
     "Interações, trocas e mistura com populações locais",
     "Ausência total de contacto",
     "Apenas conflitos militares",
