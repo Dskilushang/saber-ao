@@ -470,13 +470,19 @@ export const QUESTIONS = {
 {
   id: "hist_25",
   type: "classic",
-  difficulty: 3,
-  question: "A que grupo linguístico é historicamente associada a língua do povo Kwisi, no sudoeste de Angola?",
-  options: ["Khoisan", "Bantu", "Niger-Congo atlântico", "Afro-asiático"],
-  correctAnswer: "Khoisan",
-  correct: "Khoisan",
-  hint: "Está associada às antigas línguas não bantu do sudoeste africano."
+  difficulty: 2,
+  question: "Qual rainha governou o Reino de Matamba e também esteve ligada ao Reino do Ndongo?",
+  options: [
+    "Njinga a Mbande",
+    "Ana de Sousa",
+    "Nzinga a Nkuwu",
+    "Kandengue"
+  ],
+  correctAnswer: "Njinga a Mbande",
+  correct: "Njinga a Mbande",
+  hint: "Foi uma das mais importantes soberanas da história de Angola."
 },
+
 {
   id: "hist_26",
   type: "classic",
