@@ -481,16 +481,16 @@ export const QUESTIONS = {
   id: "hist_26",
   type: "classic",
   difficulty: 2,
-  question: "Que região é geralmente apontada como uma das principais áreas de origem da expansão dos povos de língua bantu?",
+  question: "De que título dos soberanos do Reino do Ndongo deriva o nome Angola?",
   options: [
-    "Região entre os atuais Nigéria e Camarões",
-    "Sul da África do Sul",
-    "Deserto do Saara",
-    "Vale do rio Nilo"
+    "Ngola",
+    "Manikongo",
+    "Mwene",
+    "Soba"
   ],
-  correctAnswer: "Região entre os atuais Nigéria e Camarões",
-  correct: "Região entre os atuais Nigéria e Camarões",
-  hint: "A expansão bantu começou na África ocidental e central."
+  correctAnswer: "Ngola",
+  correct: "Ngola",
+  hint: "Era o título utilizado pelos soberanos do antigo Reino do Ndongo."
 },
 {
   id: "hist_27",
