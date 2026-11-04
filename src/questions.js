@@ -447,7 +447,6 @@ export const QUESTIONS = {
       correctAnswer: "2017",
       correct: "2017",
     },
-  ],
   {
   id: "hist_23",
   type: "classic",
