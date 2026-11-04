@@ -556,7 +556,7 @@ export const QUESTIONS = {
   id: "hist_32",
   type: "classic",
   difficulty: 2,
-  question: "Qual é a língua tradicionalmente falada por comunidades Ovambo, incluindo os Kwanyama?",
+  question: "Qual é a língua tradicionalmente falada pelo povo Kwanyama (Ovakwanyama)?",
   options: ["Oshikwanyama", "Kikongo", "Kimbundu", "Umbundu"],
   correctAnswer: "Oshikwanyama",
   correct: "Oshikwanyama",
