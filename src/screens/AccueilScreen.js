@@ -14,6 +14,7 @@ import Mascotte, {
 } from '../components/Mascotte';
 
 import SoundManager from '../utils/soundManager';
+import { COLORS } from '../theme';
 
 export default function AccueilScreen({ route, navigation }) {
   const { lang = 'pt' } = route.params || {};
@@ -106,7 +107,7 @@ export default function AccueilScreen({ route, navigation }) {
     <SafeAreaView style={styles.container}>
       <StatusBar
         barStyle="light-content"
-        backgroundColor="#080B18"
+        backgroundColor={COLORS.background}
       />
 
       {/* LUMIÈRES DÉCORATIVES */}
@@ -233,7 +234,7 @@ export default function AccueilScreen({ route, navigation }) {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#080B18',
+    backgroundColor: COLORS.background,
     overflow: 'hidden',
   },
 
@@ -242,7 +243,7 @@ const styles = StyleSheet.create({
     width: 180,
     height: 180,
     borderRadius: 90,
-    backgroundColor: '#8B0000',
+    backgroundColor: COLORS.red,
     left: -100,
     top: 120,
   },
@@ -252,7 +253,7 @@ const styles = StyleSheet.create({
     width: 180,
     height: 180,
     borderRadius: 90,
-    backgroundColor: '#FFD700',
+    backgroundColor: COLORS.gold,
     right: -100,
     top: 260,
   },
@@ -279,7 +280,7 @@ const styles = StyleSheet.create({
     left: 0,
     right: 0,
     height: 13,
-    backgroundColor: '#C8102E',
+    backgroundColor: COLORS.red,
   },
 
   flagBlack: {
@@ -295,12 +296,12 @@ const styles = StyleSheet.create({
     position: 'absolute',
     alignSelf: 'center',
     top: 2,
-    color: '#FFD700',
+    color: COLORS.gold,
     fontSize: 16,
   },
 
   topTitle: {
-    color: '#FFD700',
+    color: COLORS.gold,
     fontSize: 17,
     fontWeight: '900',
     letterSpacing: 3,
@@ -311,14 +312,14 @@ const styles = StyleSheet.create({
     height: 34,
     borderRadius: 17,
     borderWidth: 1,
-    borderColor: 'rgba(255,215,0,0.5)',
+    borderColor: COLORS.border,
     alignItems: 'center',
     justifyContent: 'center',
-    backgroundColor: 'rgba(255,215,0,0.08)',
+    backgroundColor: 'rgba(255,211,106,0.08)',
   },
 
   languageText: {
-    color: '#FFD700',
+    color: COLORS.gold,
     fontSize: 12,
     fontWeight: '900',
   },
@@ -329,14 +330,14 @@ const styles = StyleSheet.create({
   },
 
   logoText: {
-    color: '#FFFFFF',
+    color: COLORS.text,
     fontSize: 44,
     fontWeight: '900',
     letterSpacing: 5,
   },
 
   logoAO: {
-    color: '#FFD700',
+    color: COLORS.gold,
     fontSize: 46,
     fontWeight: '900',
     letterSpacing: 7,
@@ -346,13 +347,13 @@ const styles = StyleSheet.create({
   logoLine: {
     width: 90,
     height: 3,
-    backgroundColor: '#FFD700',
+    backgroundColor: COLORS.gold,
     borderRadius: 2,
     marginTop: 5,
   },
 
   subtitle: {
-    color: '#AAB4D4',
+    color: COLORS.textMuted,
     fontSize: 13,
     marginTop: 9,
     textAlign: 'center',
@@ -377,7 +378,7 @@ const styles = StyleSheet.create({
     maxWidth: 340,
     minHeight: 76,
     borderRadius: 18,
-    backgroundColor: '#FFD700',
+    backgroundColor: COLORS.gold,
     alignItems: 'center',
     justifyContent: 'center',
     elevation: 8,
@@ -390,7 +391,7 @@ const styles = StyleSheet.create({
   },
 
   playText: {
-    color: '#080B18',
+    color: COLORS.background,
     fontSize: 27,
     fontWeight: '900',
     letterSpacing: 3,
@@ -411,7 +412,7 @@ const styles = StyleSheet.create({
   },
 
   rulesText: {
-    color: '#AAB4D4',
+    color: COLORS.textMuted,
     fontSize: 12,
     fontWeight: '600',
   },
@@ -424,17 +425,17 @@ const styles = StyleSheet.create({
   footerLine: {
     width: 45,
     height: 2,
-    backgroundColor: 'rgba(255,215,0,0.35)',
+    backgroundColor: 'rgba(255,211,106,0.42)',
     marginBottom: 6,
   },
 
   footerText: {
-    color: '#66708F',
+    color: COLORS.textMuted,
     fontSize: 10,
   },
 
   version: {
-    color: '#454D68',
+    color: '#75664B',
     fontSize: 9,
     marginTop: 3,
   },
