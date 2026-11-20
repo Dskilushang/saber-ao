@@ -11,6 +11,7 @@ import {
 
 import Mascotte, { MASCOTTE_STATES } from '../components/Mascotte';
 import SoundManager from '../utils/soundManager';
+import { COLORS } from '../theme';
 
 const getMascotState = (pct) => {
   if (pct >= 0.8) return MASCOTTE_STATES.CELEBRATION;
@@ -99,7 +100,7 @@ export default function ResultatScreen({ route, navigation }) {
 
   const scoreColor =
     pct >= 0.8
-      ? '#FFD700'
+      ? COLORS.gold
       : pct >= 0.5
         ? '#6CF'
         : '#F96';
@@ -153,7 +154,7 @@ export default function ResultatScreen({ route, navigation }) {
     <SafeAreaView style={styles.container}>
       <StatusBar
         barStyle="light-content"
-        backgroundColor="#0A0F24"
+        backgroundColor={COLORS.background}
       />
 
       <Animated.View
@@ -255,7 +256,7 @@ export default function ResultatScreen({ route, navigation }) {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#0A0F24',
+    backgroundColor: COLORS.background,
     justifyContent: 'center',
   },
 
@@ -272,7 +273,7 @@ const styles = StyleSheet.create({
   title: {
     fontSize: 26,
     fontWeight: '900',
-    color: '#FFF',
+    color: COLORS.text,
     letterSpacing: 3,
     marginBottom: 8,
     textAlign: 'center',
@@ -283,13 +284,13 @@ const styles = StyleSheet.create({
   },
 
   card: {
-    backgroundColor: 'rgba(20,30,65,0.8)',
+    backgroundColor: COLORS.surface,
     width: '100%',
     borderRadius: 20,
     padding: 24,
     alignItems: 'center',
     borderWidth: 1,
-    borderColor: 'rgba(255,215,0,0.2)',
+    borderColor: COLORS.border,
     marginBottom: 24,
   },
 
@@ -323,13 +324,13 @@ const styles = StyleSheet.create({
 
   pctText: {
     fontSize: 13,
-    color: '#AAB4D4',
+    color: COLORS.textMuted,
     marginBottom: 10,
   },
 
   message: {
     fontSize: 15,
-    color: '#FFF',
+    color: COLORS.text,
     fontWeight: '600',
     textAlign: 'center',
     lineHeight: 22,
@@ -349,11 +350,11 @@ const styles = StyleSheet.create({
   },
 
   btnPrimary: {
-    backgroundColor: '#FFD700',
+    backgroundColor: COLORS.gold,
   },
 
   btnPrimaryText: {
-    color: '#0A0F24',
+    color: COLORS.background,
     fontWeight: '900',
     fontSize: 14,
     letterSpacing: 1,
@@ -367,7 +368,7 @@ const styles = StyleSheet.create({
   },
 
   btnSecondaryText: {
-    color: '#FFF',
+    color: COLORS.text,
     fontWeight: '700',
     fontSize: 14,
     textAlign: 'center',
