@@ -14,6 +14,7 @@ import {
 import { getRandomQuizQuestions } from '../questions';
 import Mascotte, { MASCOTTE_STATES } from '../components/Mascotte';
 import SoundManager from '../utils/soundManager';
+import { COLORS } from '../theme';
 import dskilushangImage from '../../assets/mascottes-optimized/dskilushang_ref.webp';
 import kiesseloveImage from '../../assets/mascottes-optimized/kiesselove_ref.webp';
 import kimiaImage from '../../assets/mascottes-optimized/kimia_ref.webp';
@@ -54,14 +55,14 @@ const friendStyles = StyleSheet.create({
     padding: 20,
   },
   card: {
-    backgroundColor: '#182642',
+    backgroundColor: COLORS.surfaceRaised,
     borderRadius: 16,
     padding: 18,
     borderWidth: 1,
-    borderColor: '#2a3f66',
+    borderColor: COLORS.border,
   },
   title: {
-    color: '#f5c451',
+    color: COLORS.gold,
     fontSize: 16,
     fontWeight: '800',
     textAlign: 'center',
@@ -79,9 +80,9 @@ const friendStyles = StyleSheet.create({
   width: 64,
   height: 64,
   borderRadius: 32,
-  backgroundColor: '#1f355e',
+  backgroundColor: COLORS.surfaceMuted,
   borderWidth: 2,
-  borderColor: '#78a6ff',
+  borderColor: COLORS.gold,
   alignItems: 'center',
   justifyContent: 'center',
   marginBottom: 6,
@@ -92,7 +93,7 @@ const friendStyles = StyleSheet.create({
   resizeMode: 'contain',
 },
   friendName: {
-    color: '#fff',
+    color: COLORS.text,
     fontSize: 11,
     fontWeight: '700',
     textAlign: 'center',
@@ -102,14 +103,14 @@ const friendStyles = StyleSheet.create({
     paddingVertical: 8,
   },
   answerText: {
-    color: '#fff',
+    color: COLORS.text,
     fontSize: 17,
     fontWeight: '700',
     textAlign: 'center',
     marginTop: 8,
   },
   suggestionText: {
-  color: '#fff',
+  color: COLORS.text,
   fontSize: 11,
   fontWeight: '600',
   textAlign: 'center',
@@ -118,12 +119,12 @@ const friendStyles = StyleSheet.create({
 },
   closeButton: {
     marginTop: 18,
-    backgroundColor: '#f5a623',
+    backgroundColor: COLORS.gold,
     borderRadius: 12,
     paddingVertical: 12,
   },
   closeText: {
-    color: '#10182a',
+    color: COLORS.background,
     fontWeight: '800',
     textAlign: 'center',
   },
@@ -951,7 +952,7 @@ if (!currentQuestion) {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#10182a',
+    backgroundColor: COLORS.background,
     padding: 16,
   },
 
@@ -963,7 +964,7 @@ const styles = StyleSheet.create({
   },
 
   headerText: {
-    color: '#fff',
+    color: COLORS.text,
     fontSize: 13,
     fontWeight: '700',
   },
@@ -971,14 +972,14 @@ const styles = StyleSheet.create({
   timerTrack: {
     height: 6,
     borderRadius: 4,
-    backgroundColor: '#293650',
+    backgroundColor: COLORS.surfaceMuted,
     overflow: 'hidden',
     marginBottom: 14,
   },
 
   timerFill: {
     height: '100%',
-    backgroundColor: '#f5a623',
+    backgroundColor: COLORS.gold,
   },
 
   mascotWrapper: {
@@ -987,7 +988,7 @@ const styles = StyleSheet.create({
   },
 
   difficultyText: {
-    color: '#f5c451',
+    color: COLORS.gold,
     fontSize: 13,
     fontWeight: '800',
     textAlign: 'center',
@@ -995,7 +996,7 @@ const styles = StyleSheet.create({
   },
 
   questionText: {
-    color: '#fff',
+    color: COLORS.text,
     fontSize: 22,
     fontWeight: '700',
     marginBottom: 18,
@@ -1007,17 +1008,17 @@ const styles = StyleSheet.create({
   },
 
   optionButton: {
-    backgroundColor: '#182642',
+    backgroundColor: COLORS.surfaceRaised,
     borderRadius: 12,
     paddingVertical: 13,
     paddingHorizontal: 14,
     borderWidth: 1,
-    borderColor: '#2a3f66',
+    borderColor: COLORS.border,
   },
 
   optionSelected: {
-    borderColor: '#78a6ff',
-    backgroundColor: '#1f355e',
+    borderColor: COLORS.gold,
+    backgroundColor: COLORS.surfaceMuted,
   },
 
   optionCorrect: {
@@ -1026,12 +1027,12 @@ const styles = StyleSheet.create({
   },
 
   optionWrong: {
-    borderColor: '#ff5d5d',
-    backgroundColor: '#4b2028',
+    borderColor: COLORS.red,
+    backgroundColor: '#4A1715',
   },
 
   optionText: {
-    color: '#fff',
+    color: COLORS.text,
     fontSize: 15,
     fontWeight: '600',
   },
@@ -1045,7 +1046,7 @@ const styles = StyleSheet.create({
   },
 
   jokerButton: {
-    backgroundColor: '#f5a623',
+    backgroundColor: COLORS.gold,
     borderRadius: 10,
     paddingVertical: 10,
     paddingHorizontal: 12,
@@ -1056,28 +1057,28 @@ const styles = StyleSheet.create({
   },
 
   jokerText: {
-    color: '#111',
+    color: COLORS.background,
     fontWeight: '800',
     fontSize: 11,
   },
 
   feedbackText: {
-    color: '#f5c451',
+    color: COLORS.gold,
     textAlign: 'center',
     marginTop: 10,
     fontWeight: '700',
   },
   audienceCard: {
-    backgroundColor: '#182642',
+    backgroundColor: COLORS.surfaceRaised,
     borderRadius: 12,
     borderWidth: 1,
-    borderColor: '#f5a623',
+    borderColor: COLORS.gold,
     padding: 12,
     marginTop: 10,
   },
 
   audienceTitle: {
-    color: '#f5c451',
+    color: COLORS.gold,
     fontSize: 13,
     fontWeight: '800',
     textAlign: 'center',
@@ -1096,7 +1097,7 @@ const styles = StyleSheet.create({
   },
 
   audiencePercent: {
-    color: '#ffffff',
+    color: COLORS.text,
     fontSize: 12,
     fontWeight: '800',
     marginBottom: 6,
@@ -1105,7 +1106,7 @@ const styles = StyleSheet.create({
   audienceBarTrack: {
     height: 100,
     width: 28,
-    backgroundColor: '#293650',
+    backgroundColor: COLORS.surfaceMuted,
     borderRadius: 5,
     justifyContent: 'flex-end',
     overflow: 'hidden',
@@ -1113,19 +1114,19 @@ const styles = StyleSheet.create({
 
   audienceBar: {
     width: '100%',
-    backgroundColor: '#f5a623',
+    backgroundColor: COLORS.gold,
     borderTopLeftRadius: 5,
     borderTopRightRadius: 5,
   },
 
   audienceLetter: {
-    color: '#f5c451',
+    color: COLORS.gold,
     fontSize: 13,
     fontWeight: '800',
     marginTop: 6,
   },
   loadingText: {
-    color: '#fff',
+    color: COLORS.text,
     textAlign: 'center',
     marginTop: 40,
     fontSize: 18,
