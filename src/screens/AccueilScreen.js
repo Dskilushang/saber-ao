@@ -378,7 +378,9 @@ const styles = StyleSheet.create({
     maxWidth: 340,
     minHeight: 76,
     borderRadius: 18,
-    backgroundColor: COLORS.gold,
+    backgroundColor: '#168A4A',
+    borderWidth: 1,
+    borderColor: '#6BE09A',
     alignItems: 'center',
     justifyContent: 'center',
     elevation: 8,
@@ -391,14 +393,14 @@ const styles = StyleSheet.create({
   },
 
   playText: {
-    color: COLORS.background,
+    color: '#FFFFFF',
     fontSize: 27,
     fontWeight: '900',
     letterSpacing: 3,
   },
 
   playSubText: {
-    color: '#3B3000',
+    color: '#E9FFE9',
     fontSize: 10,
     fontWeight: '800',
     letterSpacing: 1.5,
@@ -412,9 +414,9 @@ const styles = StyleSheet.create({
   },
 
   rulesText: {
-    color: COLORS.textMuted,
+    color: COLORS.gold,
     fontSize: 12,
-    fontWeight: '600',
+    fontWeight: '700',
   },
 
   footer: {
