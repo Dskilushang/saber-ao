@@ -59,12 +59,15 @@ const getMessage = (pct, lang) => {
 
 export default function ResultatScreen({ route, navigation }) {
   const {
-    finalScore = 0,
-    totalQ = 10,
+    score = 0,
+    correctAnswers = 0,
+    totalQuestions = 10,
     lang = 'pt',
   } = route.params || {};
 
-  const pct = totalQ > 0 ? finalScore / totalQ : 0;
+  const pct = totalQuestions > 0
+    ? correctAnswers / totalQuestions
+    : 0;
 
   const mascotState = getMascotState(pct);
 
@@ -102,8 +105,8 @@ export default function ResultatScreen({ route, navigation }) {
     pct >= 0.8
       ? COLORS.gold
       : pct >= 0.5
-        ? '#6CF'
-        : '#F96';
+        ? COLORS.goldMetal
+        : COLORS.danger;
 
   const trophy =
     pct >= 0.8
@@ -116,17 +119,17 @@ export default function ResultatScreen({ route, navigation }) {
     pt: {
       title: 'FIM DO COMBATE',
       score: 'PONTUAÇÃO',
+      correct: 'respostas certas',
       retry: 'JOGAR OUTRA VEZ',
       home: 'INÍCIO',
-      of: 'de',
     },
 
     fr: {
       title: 'FIN DU COMBAT',
       score: 'SCORE',
+      correct: 'bonnes réponses',
       retry: 'REJOUER',
       home: 'ACCUEIL',
-      of: 'sur',
     },
   };
 
@@ -197,7 +200,7 @@ export default function ResultatScreen({ route, navigation }) {
               },
             ]}
           >
-            {finalScore} {L.of} {totalQ}
+            {score} PTS
           </Text>
 
           <View style={styles.progressBar}>
@@ -213,7 +216,7 @@ export default function ResultatScreen({ route, navigation }) {
           </View>
 
           <Text style={styles.pctText}>
-            {percentage}%
+            {correctAnswers}/{totalQuestions} {L.correct} · {percentage}%
           </Text>
 
           <Text style={styles.message}>
