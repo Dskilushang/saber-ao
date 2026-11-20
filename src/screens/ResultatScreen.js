@@ -299,7 +299,7 @@ const styles = StyleSheet.create({
 
   scoreLabel: {
     fontSize: 11,
-    color: '#6F80A5',
+    color: COLORS.gold,
     fontWeight: '700',
     letterSpacing: 2,
     marginBottom: 8,
@@ -333,8 +333,8 @@ const styles = StyleSheet.create({
 
   message: {
     fontSize: 15,
-    color: COLORS.text,
-    fontWeight: '600',
+    color: '#FFD84D',
+    fontWeight: '700',
     textAlign: 'center',
     lineHeight: 22,
   },
@@ -353,11 +353,13 @@ const styles = StyleSheet.create({
   },
 
   btnPrimary: {
-    backgroundColor: COLORS.gold,
+    backgroundColor: '#168A4A',
+    borderWidth: 1,
+    borderColor: '#6BE09A',
   },
 
   btnPrimaryText: {
-    color: COLORS.background,
+    color: '#FFFFFF',
     fontWeight: '900',
     fontSize: 14,
     letterSpacing: 1,
