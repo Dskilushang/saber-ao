@@ -6,6 +6,7 @@ import {
 import { CATEGORIES } from '../questions';
 import Mascotte, { MASCOTTE_STATES } from '../components/Mascotte';
 import SoundManager from '../utils/soundManager';
+import { COLORS } from '../theme';
 
 const LANG_OPTIONS = [
   { code: 'pt', label: 'PT 🇦🇴' },
@@ -75,7 +76,7 @@ const selectCategory = () => {
 
   return (
     <SafeAreaView style={styles.container}>
-      <StatusBar barStyle="light-content" backgroundColor="#0A0F24" />
+      <StatusBar barStyle="light-content" backgroundColor={COLORS.background} />
 
       <Animated.View style={[styles.header, { opacity: titleAnim }]}>
         <Mascotte state={MASCOTTE_STATES.BIENVENUE} size={80} />
@@ -110,8 +111,8 @@ const selectCategory = () => {
         <Switch
           value={musicOn}
           onValueChange={toggleMusic}
-          trackColor={{ false: '#444', true: '#4CAF50' }}
-          thumbColor={musicOn ? '#8BC34A' : '#888'}
+          trackColor={{ false: '#444', true: COLORS.goldDeep }}
+          thumbColor={musicOn ? COLORS.gold : '#888'}
         />
       </View>
     </SafeAreaView>
@@ -119,20 +120,20 @@ const selectCategory = () => {
 }
 
 const styles = StyleSheet.create({
-  container: { flex: 1, backgroundColor: '#0A0F24' },
+  container: { flex: 1, backgroundColor: COLORS.background },
   header: { alignItems: 'center', marginVertical: 20 },
-  title: { fontSize: 32, fontWeight: 'bold', color: '#FFF', marginTop: 10 },
-  subtitle: { fontSize: 16, color: '#AAA', marginTop: 8 },
+  title: { fontSize: 32, fontWeight: 'bold', color: COLORS.text, marginTop: 10 },
+  subtitle: { fontSize: 16, color: COLORS.textMuted, marginTop: 8 },
   langRow: { flexDirection: 'row', justifyContent: 'center', gap: 10, marginVertical: 15 },
-  langBtn: { paddingHorizontal: 15, paddingVertical: 8, borderRadius: 20, backgroundColor: '#1A2340' },
-  langBtnActive: { backgroundColor: '#4CAF50' },
-  langBtnText: { color: '#AAA', fontWeight: '600' },
-  langBtnTextActive: { color: '#FFF' },
+  langBtn: { paddingHorizontal: 15, paddingVertical: 8, borderRadius: 20, backgroundColor: COLORS.surface },
+  langBtnActive: { backgroundColor: COLORS.goldDeep },
+  langBtnText: { color: COLORS.textMuted, fontWeight: '600' },
+  langBtnTextActive: { color: COLORS.text },
   listContent: { paddingHorizontal: 10, paddingBottom: 80 },
-  card: { marginVertical: 8, padding: 15, backgroundColor: '#1A2340', borderRadius: 10, flexDirection: 'row', alignItems: 'center' },
+  card: { marginVertical: 8, padding: 15, backgroundColor: COLORS.surface, borderRadius: 10, flexDirection: 'row', alignItems: 'center' },
   cardIcon: { fontSize: 28, marginRight: 10 },
   cardLabel: { flex: 1, fontSize: 18, fontWeight: '600' },
-  cardArrow: { fontSize: 24, color: '#888' },
-  musicRow: { flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between', paddingHorizontal: 20, paddingVertical: 15, borderTopColor: '#333', borderTopWidth: 1, backgroundColor: '#0A0F24' },
-  musicLabel: { fontSize: 16, color: '#FFF', fontWeight: '600' },
+  cardArrow: { fontSize: 24, color: COLORS.textMuted },
+  musicRow: { flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between', paddingHorizontal: 20, paddingVertical: 15, borderTopColor: COLORS.border, borderTopWidth: 1, backgroundColor: COLORS.background },
+  musicLabel: { fontSize: 16, color: COLORS.text, fontWeight: '600' },
 });
