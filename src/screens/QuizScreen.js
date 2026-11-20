@@ -1022,8 +1022,8 @@ const styles = StyleSheet.create({
   },
 
   optionCorrect: {
-    borderColor: '#2ecc71',
-    backgroundColor: '#173c2d',
+    borderColor: '#8AF0B0',
+    backgroundColor: '#123D29',
   },
 
   optionWrong: {
@@ -1063,10 +1063,10 @@ const styles = StyleSheet.create({
   },
 
   feedbackText: {
-    color: COLORS.gold,
+    color: '#FFD84D',
     textAlign: 'center',
     marginTop: 10,
-    fontWeight: '700',
+    fontWeight: '800',
   },
   audienceCard: {
     backgroundColor: COLORS.surfaceRaised,
